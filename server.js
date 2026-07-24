@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcryptjs'); // Naya add hua password hashing ke liye
 const cors = require('cors');
 const mysql = require('mysql2');
 require('dotenv').config();
@@ -30,7 +31,9 @@ db.connect((err) => {
     console.log('Connected to MySQL Database successfully!');
 });
 
+// ==========================================
 // 1. GENRO ka Main Data API (Jo pehle se tha)
+// ==========================================
 app.post('/api/genro/data', (req, res) => {
     const incomingData = req.body;
     console.log("GENRO App se naya data mila:", incomingData);
@@ -41,7 +44,9 @@ app.post('/api/genro/data', (req, res) => {
     });
 });
 
-// 2. NAYI API: Syllabus Fetch karne ke liye (UI ke liye sabse important)
+// ==========================================
+// 2. Syllabus API (Tumhara original chaptersMap wala logic)
+// ==========================================
 app.get('/api/syllabus/:class_level/:subject_name', (req, res) => {
     const { class_level, subject_name } = req.params;
     
@@ -89,7 +94,49 @@ app.get('/api/syllabus/:class_level/:subject_name', (req, res) => {
     });
 });
 
-// Server start
+// ==========================================
+// 3. NAYA: USER SIGNUP API (POST)
+// ==========================================
+app.post('/api/signup', async (req, res) => {
+    const { full_name, mobile_no, email, password, class_level, board } = req.body;
+
+    if (!full_name || !mobile_no || !email || !password) {
+        return res.status(400).json({ success: false, message: "Saari details bharna zaroori hai!" });
+    }
+
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const insertQuery = `
+            INSERT INTO users (full_name, mobile_no, email, password_hash, class_level, board) 
+            VALUES (?, ?, ?, ?, ?, ?)
+        `;
+
+        db.query(insertQuery, [full_name, mobile_no, email, hashedPassword, class_level, board], (err, result) => {
+            if (err) {
+                if (err.code === 'ER_DUP_ENTRY') {
+                    return res.status(400).json({ success: false, message: "Yeh Email ya Mobile pehle se registered hai!" });
+                }
+                console.error("Database error: ", err);
+                return res.status(500).json({ success: false, message: "Database error aaya hai." });
+            }
+
+            res.status(201).json({
+                success: true,
+                message: "User account successfully ban gaya!",
+                user_id: result.insertId
+            });
+        });
+    } catch (error) {
+        console.error("Server error: ", error);
+        res.status(500).json({ success: false, message: "Server error." });
+    }
+});
+
+// ==========================================
+// SERVER START
+// ==========================================
 app.listen(PORT, () => {
     console.log(`GENRO Server is running on port ${PORT}`);
 });
