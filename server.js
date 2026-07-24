@@ -20,7 +20,8 @@ const db = mysql.createConnection({
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASSWORD || '',
     database: process.env.DB_NAME || 'genro_db',
-    port: process.env.DB_PORT || 3306
+    port: process.env.DB_PORT || 3306,
+    timezone: '+05:30' // <--- Yahan timezone add kar diya hai taaki time hamesha IST (+05:30) aaye
 });
 
 db.connect((err) => {
