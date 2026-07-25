@@ -21,7 +21,7 @@ const db = mysql.createConnection({
     password: process.env.DB_PASSWORD || '',
     database: process.env.DB_NAME || 'genro_db',
     port: process.env.DB_PORT || 3306,
-    timezone: '+05:30' // <--- Yahan timezone add kar diya hai taaki time hamesha IST (+05:30) aaye
+    timezone: '+05:30'
 });
 
 db.connect((err) => {
@@ -96,7 +96,7 @@ app.get('/api/syllabus/:class_level/:subject_name', (req, res) => {
 });
 
 // ==========================================
-// 3. NAYA: USER SIGNUP API (POST)
+// 3. NAYA: USER SIGNUP API (POST) [Updated with IST Time]
 // ==========================================
 app.post('/api/signup', async (req, res) => {
     const { full_name, mobile_no, email, password, class_level, board } = req.body;
@@ -109,12 +109,21 @@ app.post('/api/signup', async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
+        // Code ke andar India (Kolkata) ka exact current time nikal rahe hain
+        const indianTimeOptions = { timeZone: "Asia/Kolkata", year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+        const formatter = new Intl.DateTimeFormat([], indianTimeOptions);
+        
+        const dParts = formatter.formatToParts(new Date());
+        const dateObj = {};
+        dParts.forEach(p => dateObj[p.type] = p.value);
+        const formattedISTTime = `${dateObj.year}-${dateObj.month}-${dateObj.day} ${dateObj.hour}:${dateObj.minute}:${dateObj.second}`;
+
         const insertQuery = `
-            INSERT INTO users (full_name, mobile_no, email, password_hash, class_level, board) 
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO users (full_name, mobile_no, email, password_hash, class_level, board, created_at) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)
         `;
 
-        db.query(insertQuery, [full_name, mobile_no, email, hashedPassword, class_level, board], (err, result) => {
+        db.query(insertQuery, [full_name, mobile_no, email, hashedPassword, class_level, board, formattedISTTime], (err, result) => {
             if (err) {
                 if (err.code === 'ER_DUP_ENTRY') {
                     return res.status(400).json({ success: false, message: "Yeh Email ya Mobile pehle se registered hai!" });
