@@ -221,12 +221,13 @@ app.get('/api/test/:topic_id', (req, res) => {
 });
 
 // ==========================================
-// 6. USER DASHBOARD API (GET)
+// 6. USER DASHBOARD API (GET) [UPDATED: Added email & mobile_no]
 // ==========================================
 app.get('/api/user/:user_id/dashboard', (req, res) => {
     const { user_id } = req.params;
 
-    const query = `SELECT full_name, class_level, board, total_xp, day_streak, enrolled_subjects 
+    // Yahan email aur mobile_no ko explicitly select kar liya hai taaki profile mein show ho sake
+    const query = `SELECT full_name, email, mobile_no, class_level, board, total_xp, day_streak, enrolled_subjects 
                    FROM users WHERE user_id = ?`;
 
     db.query(query, [user_id], (err, results) => {
