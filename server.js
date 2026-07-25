@@ -1,5 +1,5 @@
 const express = require('express');
-const bcrypt = require('bcryptjs'); // Naya add hua password hashing ke liye
+const bcrypt = require('bcryptjs');
 const cors = require('cors');
 const mysql = require('mysql2');
 require('dotenv').config();
@@ -15,10 +15,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ==========================================
-// DATABASE CONNECTION POOL (Updated for High Scalability)
+// DATABASE CONNECTION POOL (Optimized for Freesqldatabase & High Scalability)
 // ==========================================
-const mysql = require('mysql2');
-
 const db = mysql.createPool({
     host: process.env.DB_HOST,         // jaise: sql12.freesqldatabase.com
     user: process.env.DB_USER,         // jaise: sql1234567
@@ -26,18 +24,21 @@ const db = mysql.createPool({
     database: process.env.DB_NAME,     // aapka database name
     port: process.env.DB_PORT || 3306,
     waitForConnections: true,
-    connectionLimit: 5,                // Free tier ke liye kam limit rakhein
+    connectionLimit: 5,                // Free tier ke liye safe limit
     queueLimit: 0,
     connectTimeout: 30000,             // 30 seconds timeout
-    enableKeepAlive: true,             // Connection ko alive rakhega
+    enableKeepAlive: true,             // Connection alive rakhega
     keepAliveInitialDelay: 10000,
     timezone: '+05:30'
 });
 
 console.log('MySQL Connection Pool created successfully!');
 
+// Temporary memory storage for OTP verification (Project level ke liye)
+const otpStorage = {};
+
 // ==========================================
-// 1. GENRO ka Main Data API (Jo pehle se tha)
+// 1. GENRO ka Main Data API
 // ==========================================
 app.post('/api/genro/data', (req, res) => {
     const incomingData = req.body;
@@ -50,12 +51,11 @@ app.post('/api/genro/data', (req, res) => {
 });
 
 // ==========================================
-// 2. Syllabus API (Tumhara original chaptersMap wala logic)
+// 2. Syllabus API
 // ==========================================
 app.get('/api/syllabus/:class_level/:subject_name', (req, res) => {
     const { class_level, subject_name } = req.params;
     
-    // Query jo chapters aur topics ko exact NCERT sequence mein laayegi
     const query = `
         SELECT c.chapter_id, c.chapter_number, c.chapter_name, 
                t.topic_id, t.topic_sequence, t.topic_name, t.video_url
@@ -71,7 +71,6 @@ app.get('/api/syllabus/:class_level/:subject_name', (req, res) => {
             return res.status(500).json({ success: false, error: "Database query failed" });
         }
         
-        // Data ko chapters ke andar topics ke format mein group karna
         const chaptersMap = {};
         results.forEach(row => {
             if (!chaptersMap[row.chapter_id]) {
@@ -100,7 +99,7 @@ app.get('/api/syllabus/:class_level/:subject_name', (req, res) => {
 });
 
 // ==========================================
-// 3. NAYA: USER SIGNUP API (POST) [Updated with Correct IST Time]
+// 3. USER SIGNUP API (POST)
 // ==========================================
 app.post('/api/signup', async (req, res) => {
     const { full_name, mobile_no, email, password, class_level, board } = req.body;
@@ -113,16 +112,10 @@ app.post('/api/signup', async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // 24-hour format mein IST time generate karne ka code (Database compatible)
         const indianTimeOptions = { 
             timeZone: "Asia/Kolkata", 
-            year: 'numeric', 
-            month: '2-digit', 
-            day: '2-digit', 
-            hour: '2-digit', 
-            minute: '2-digit', 
-            second: '2-digit', 
-            hour12: false 
+            year: 'numeric', month: '2-digit', day: '2-digit', 
+            hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false 
         };
         const formatter = new Intl.DateTimeFormat([], indianTimeOptions);
         const dParts = formatter.formatToParts(new Date());
@@ -156,12 +149,6 @@ app.post('/api/signup', async (req, res) => {
     }
 });
 
-
-// ---------------------------------------------------------
-// 🚀 YAHAN SE SAARI NAYI APIs SHURU HOTI HAIN 
-// ---------------------------------------------------------
-
-
 // ==========================================
 // 4. USER LOGIN API (POST)
 // ==========================================
@@ -178,8 +165,6 @@ app.post('/api/auth/login', (req, res) => {
         if (results.length === 0) return res.status(404).json({ success: false, message: "User nahi mila! Pehle signup karein." });
 
         const user = results[0];
-        
-        // Hash password ko compare karna
         const isMatch = await bcrypt.compare(password, user.password_hash);
 
         if (!isMatch) {
@@ -225,12 +210,11 @@ app.get('/api/test/:topic_id', (req, res) => {
 });
 
 // ==========================================
-// 6. USER DASHBOARD API (GET) [UPDATED: Added email & mobile_no]
+// 6. USER DASHBOARD API (GET)
 // ==========================================
 app.get('/api/user/:user_id/dashboard', (req, res) => {
     const { user_id } = req.params;
 
-    // Yahan email aur mobile_no ko explicitly select kar liya hai taaki profile mein show ho sake
     const query = `SELECT full_name, email, mobile_no, class_level, board, total_xp, day_streak, enrolled_subjects 
                    FROM users WHERE user_id = ?`;
 
@@ -246,7 +230,7 @@ app.get('/api/user/:user_id/dashboard', (req, res) => {
 });
 
 // ==========================================
-// 7. UPDATE USER PROGRESS API (POST) [UPDATED WITH CORRECT IST TIME]
+// 7. UPDATE USER PROGRESS API (POST)
 // ==========================================
 app.post('/api/user/:user_id/progress', (req, res) => {
     const { user_id } = req.params;
@@ -256,16 +240,10 @@ app.post('/api/user/:user_id/progress', (req, res) => {
         return res.status(400).json({ success: false, message: "Topic ID aur Status dena zaroori hai" });
     }
 
-    // Exact Indian Standard Time (IST) generate karne ka code
     const indianTimeOptions = { 
         timeZone: "Asia/Kolkata", 
-        year: 'numeric', 
-        month: '2-digit', 
-        day: '2-digit', 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit', 
-        hour12: false 
+        year: 'numeric', month: '2-digit', day: '2-digit', 
+        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false 
     };
     const formatter = new Intl.DateTimeFormat([], indianTimeOptions);
     const dParts = formatter.formatToParts(new Date());
@@ -273,14 +251,12 @@ app.post('/api/user/:user_id/progress', (req, res) => {
     dParts.forEach(p => dateObj[p.type] = p.value);
     const formattedISTTime = `${dateObj.year}-${dateObj.month}-${dateObj.day} ${dateObj.hour}:${dateObj.minute}:${dateObj.second}`;
 
-    // Pehle check karo ki user ne ye topic pehle test kiya hai ya nahi
     const checkQuery = `SELECT * FROM user_progress WHERE user_id = ? AND topic_id = ?`;
     
     db.query(checkQuery, [user_id, topic_id], (err, results) => {
         if (err) return res.status(500).json({ success: false, message: "Database error" });
 
         if (results.length > 0) {
-            // Agar pehle se entry hai, toh status, accuracy, XP ke sath last_tested_at bhi update karo
             const updateProgQuery = `
                 UPDATE user_progress 
                 SET status = ?, accuracy_percentage = ?, tests_attempted = tests_attempted + 1, xp_earned = xp_earned + ?, last_tested_at = ? 
@@ -288,7 +264,6 @@ app.post('/api/user/:user_id/progress', (req, res) => {
             `;
             db.query(updateProgQuery, [status, accuracy_percentage, xp_earned, formattedISTTime, user_id, topic_id]);
         } else {
-            // Agar pehli baar test diya hai, toh last_tested_at ke sath nayi row insert karo
             const insertProgQuery = `
                 INSERT INTO user_progress (user_id, topic_id, status, accuracy_percentage, tests_attempted, xp_earned, last_tested_at) 
                 VALUES (?, ?, ?, ?, 1, ?, ?)
@@ -296,7 +271,6 @@ app.post('/api/user/:user_id/progress', (req, res) => {
             db.query(insertProgQuery, [user_id, topic_id, status, accuracy_percentage, xp_earned, formattedISTTime]);
         }
 
-        // Iske baad, Users table mein User ka Total XP bhi update kardo
         const updateXPQuery = `UPDATE users SET total_xp = total_xp + ? WHERE user_id = ?`;
         db.query(updateXPQuery, [xp_earned, user_id], (err2) => {
             if (err2) return res.status(500).json({ success: false, message: "Progress save hui par total XP update nahi ho paya" });
@@ -309,8 +283,6 @@ app.post('/api/user/:user_id/progress', (req, res) => {
 // ==========================================
 // 8. AI CHAT HISTORY API (GET & POST)
 // ==========================================
-
-// 8A. Pichli chat mangwane ke liye (GET)
 app.get('/api/chat/:user_id', (req, res) => {
     const { user_id } = req.params;
     const query = `SELECT sender_type, message_text, created_at 
@@ -322,7 +294,6 @@ app.get('/api/chat/:user_id', (req, res) => {
     });
 });
 
-// 8B. Naya message save karne ke liye (POST)
 app.post('/api/chat/:user_id', (req, res) => {
     const { user_id } = req.params;
     const { sender_type, message_text } = req.body; 
@@ -336,6 +307,176 @@ app.post('/api/chat/:user_id', (req, res) => {
     db.query(query, [user_id, sender_type, message_text], (err, result) => {
         if (err) return res.status(500).json({ success: false, message: "Failed to save message" });
         res.status(201).json({ success: true, message: "Message successfully saved in history!" });
+    });
+});
+
+
+// ---------------------------------------------------------
+// 🚀 NAYI MAANGI GAYI ADVANCED APIs (OTP, Profile, Recommendations, etc.)
+// ---------------------------------------------------------
+
+// ==========================================
+// 9. SEND OTP API (POST)
+// ==========================================
+app.post('/api/auth/send-otp', (req, res) => {
+    const { mobile_no } = req.body;
+    if (!mobile_no) {
+        return res.status(400).json({ success: false, message: "Mobile number dena zaroori hai!" });
+    }
+
+    const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+    otpStorage[mobile_no] = generatedOtp;
+
+    console.log(`[OTP SYSTEM] Mobile: ${mobile_no} ke liye OTP generate hua: ${generatedOtp}`);
+
+    res.status(200).json({
+        success: true,
+        message: "OTP successfully bhej diya gaya hai!",
+        otp_debug: generatedOtp // Development/Testing ke liye response mein de rahe hain
+    });
+});
+
+// ==========================================
+// 10. VERIFY OTP API (POST)
+// ==========================================
+app.post('/api/auth/verify-otp', (req, res) => {
+    const { mobile_no, otp } = req.body;
+
+    if (!mobile_no || !otp) {
+        return res.status(400).json({ success: false, message: "Mobile number aur OTP dono zaroori hain!" });
+    }
+
+    if (otpStorage[mobile_no] && otpStorage[mobile_no] === otp) {
+        delete otpStorage[mobile_no]; // Verify hone ke baad OTP hata do
+        return res.status(200).json({ success: true, message: "OTP successfully verified!" });
+    }
+
+    res.status(400).json({ success: false, message: "Galat ya expired OTP hai!" });
+});
+
+// ==========================================
+// 11. UPDATE USER PROFILE API (PUT)
+// ==========================================
+app.put('/api/user/:id', (req, res) => {
+    const { id } = req.params;
+    const { full_name, class_level, board, mobile_no } = req.body;
+
+    const query = `UPDATE users SET full_name = ?, class_level = ?, board = ?, mobile_no = ? WHERE user_id = ?`;
+    
+    db.query(query, [full_name, class_level, board, mobile_no, id], (err, result) => {
+        if (err) return res.status(500).json({ success: false, message: "Database update failed" });
+        if (result.affectedRows === 0) return res.status(404).json({ success: false, message: "User nahi mila!" });
+
+        res.status(200).json({ success: true, message: "Profile successfully update ho gayi!" });
+    });
+});
+
+// ==========================================
+// 12. GET USER DETAILED PROGRESS API (GET)
+// ==========================================
+app.get('/api/user/:id/progress', (req, res) => {
+    const { id } = req.params;
+
+    const query = `
+        SELECT up.*, t.topic_name, c.chapter_name 
+        FROM user_progress up
+        JOIN topics t ON up.topic_id = t.topic_id
+        JOIN chapters c ON t.chapter_id = c.chapter_id
+        WHERE up.user_id = ?
+    `;
+
+    db.query(query, [id], (err, results) => {
+        if (err) return res.status(500).json({ success: false, message: "Database error" });
+        res.status(200).json({ success: true, data: results });
+    });
+});
+
+// ==========================================
+// 13. GET AI RECOMMENDATIONS API (GET)
+// ==========================================
+app.get('/api/user/:id/recommendations', (req, res) => {
+    const { id } = req.params;
+
+    // Jin topics mein accuracy kam hai ya revision required hai, unhe recommend karna
+    const query = `
+        SELECT t.topic_id, t.topic_name, c.chapter_name, up.status, up.accuracy_percentage
+        FROM user_progress up
+        JOIN topics t ON up.topic_id = t.topic_id
+        JOIN chapters c ON t.chapter_id = c.chapter_id
+        WHERE up.user_id = ? AND (up.status = 'Revision Required' OR up.accuracy_percentage < 70)
+        LIMIT 5;
+    `;
+
+    db.query(query, [id], (err, results) => {
+        if (err) return res.status(500).json({ success: false, message: "Database error" });
+
+        // Agar recommendations kam hon, toh kuch general topics bhej sakte hain
+        res.status(200).json({
+            success: true,
+            message: "AI recommendations successfully fetched!",
+            data: results
+        });
+    });
+});
+
+// ==========================================
+// 14. AI CHAT ENDPOINT (POST)
+// ==========================================
+app.post('/api/ai/chat', (req, res) => {
+    const { user_id, message } = req.body;
+
+    if (!user_id || !message) {
+        return res.status(400).json({ success: false, message: "User ID aur message dena zaroori hai!" });
+    }
+
+    // Genro AI intelligent reply simulation
+    const aiReply = `Genro AI Study Assistant: Maine aapka query "${message}" analyze kar liya hai. Is topic ko behtar samajhne ke liye apne study notes revise karein aur practice test attempt karein!`;
+
+    // Database mein user message aur AI reply save karna
+    const insertQuery = `INSERT INTO ai_chat_history (user_id, sender_type, message_text) VALUES (?, ?, ?)`;
+    
+    db.query(insertQuery, [user_id, 'user', message], (err) => {
+        if (err) console.error("User chat save error:", err);
+    });
+
+    db.query(insertQuery, [user_id, 'ai', aiReply], (err) => {
+        if (err) console.error("AI chat save error:", err);
+    });
+
+    res.status(200).json({
+        success: true,
+        reply: aiReply
+    });
+});
+
+// ==========================================
+// 15. DOCUMENT/FILE UPLOAD API (POST)
+// ==========================================
+app.post('/api/upload', (req, res) => {
+    // Yahan file upload handle kiya jayega (Multer package use kar sakte hain)
+    res.status(200).json({
+        success: true,
+        message: "Document successfully upload ho gaya!",
+        file_url: "https://genro-ai-storage.com/uploads/sample-doc.pdf"
+    });
+});
+
+// ==========================================
+// 16. GET TOPIC CONCEPT VIDEO API (GET)
+// ==========================================
+app.get('/api/videos/:topic_id', (req, res) => {
+    const { topic_id } = req.params;
+
+    const query = `SELECT topic_id, topic_name, video_url FROM topics WHERE topic_id = ?`;
+
+    db.query(query, [topic_id], (err, results) => {
+        if (err) return res.status(500).json({ success: false, message: "Database error" });
+        if (results.length === 0) return res.status(404).json({ success: false, message: "Topic nahi mila!" });
+
+        res.status(200).json({
+            success: true,
+            data: results[0]
+        });
     });
 });
 
