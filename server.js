@@ -14,23 +14,22 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Database Connection (Render ya Local ke liye)
-const db = mysql.createConnection({
+// ==========================================
+// DATABASE CONNECTION POOL (Updated for High Scalability)
+// ==========================================
+const db = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASSWORD || '',
     database: process.env.DB_NAME || 'genro_db',
     port: process.env.DB_PORT || 3306,
+    waitForConnections: true,
+    connectionLimit: 10, // Ek sath 10 active connections handle karega (Free tier ke liye best)
+    queueLimit: 0,
     timezone: '+05:30'
 });
 
-db.connect((err) => {
-    if (err) {
-        console.error('Database connection failed: ' + err.stack);
-        return;
-    }
-    console.log('Connected to MySQL Database successfully!');
-});
+console.log('MySQL Connection Pool created successfully!');
 
 // ==========================================
 // 1. GENRO ka Main Data API (Jo pehle se tha)
@@ -226,7 +225,7 @@ app.get('/api/test/:topic_id', (req, res) => {
 app.get('/api/user/:user_id/dashboard', (req, res) => {
     const { user_id } = req.params;
 
-    // Yahan email aur mobile_no ko explicitly select kar liya hai taaki profile mein show ho sake[cite: 5]
+    // Yahan email aur mobile_no ko explicitly select kar liya hai taaki profile mein show ho sake
     const query = `SELECT full_name, email, mobile_no, class_level, board, total_xp, day_streak, enrolled_subjects 
                    FROM users WHERE user_id = ?`;
 
