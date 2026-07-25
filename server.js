@@ -17,15 +17,20 @@ app.use(express.urlencoded({ extended: true }));
 // ==========================================
 // DATABASE CONNECTION POOL (Updated for High Scalability)
 // ==========================================
+const mysql = require('mysql2');
+
 const db = mysql.createPool({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'genro_db',
+    host: process.env.DB_HOST,         // jaise: sql12.freesqldatabase.com
+    user: process.env.DB_USER,         // jaise: sql1234567
+    password: process.env.DB_PASSWORD, // aapka password
+    database: process.env.DB_NAME,     // aapka database name
     port: process.env.DB_PORT || 3306,
     waitForConnections: true,
-    connectionLimit: 10, // Ek sath 10 active connections handle karega (Free tier ke liye best)
+    connectionLimit: 5,                // Free tier ke liye kam limit rakhein
     queueLimit: 0,
+    connectTimeout: 30000,             // 30 seconds timeout
+    enableKeepAlive: true,             // Connection ko alive rakhega
+    keepAliveInitialDelay: 10000,
     timezone: '+05:30'
 });
 
