@@ -226,7 +226,7 @@ app.get('/api/test/:topic_id', (req, res) => {
 app.get('/api/user/:user_id/dashboard', (req, res) => {
     const { user_id } = req.params;
 
-    // Yahan email aur mobile_no ko explicitly select kar liya hai taaki profile mein show ho sake
+    // Yahan email aur mobile_no ko explicitly select kar liya hai taaki profile mein show ho sake[cite: 5]
     const query = `SELECT full_name, email, mobile_no, class_level, board, total_xp, day_streak, enrolled_subjects 
                    FROM users WHERE user_id = ?`;
 
@@ -242,7 +242,7 @@ app.get('/api/user/:user_id/dashboard', (req, res) => {
 });
 
 // ==========================================
-// 7. UPDATE USER PROGRESS API (POST)
+// 7. UPDATE USER PROGRESS API (POST) [UPDATED WITH CORRECT IST TIME]
 // ==========================================
 app.post('/api/user/:user_id/progress', (req, res) => {
     const { user_id } = req.params;
@@ -252,6 +252,23 @@ app.post('/api/user/:user_id/progress', (req, res) => {
         return res.status(400).json({ success: false, message: "Topic ID aur Status dena zaroori hai" });
     }
 
+    // Exact Indian Standard Time (IST) generate karne ka code
+    const indianTimeOptions = { 
+        timeZone: "Asia/Kolkata", 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit', 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit', 
+        hour12: false 
+    };
+    const formatter = new Intl.DateTimeFormat([], indianTimeOptions);
+    const dParts = formatter.formatToParts(new Date());
+    const dateObj = {};
+    dParts.forEach(p => dateObj[p.type] = p.value);
+    const formattedISTTime = `${dateObj.year}-${dateObj.month}-${dateObj.day} ${dateObj.hour}:${dateObj.minute}:${dateObj.second}`;
+
     // Pehle check karo ki user ne ye topic pehle test kiya hai ya nahi
     const checkQuery = `SELECT * FROM user_progress WHERE user_id = ? AND topic_id = ?`;
     
@@ -259,20 +276,20 @@ app.post('/api/user/:user_id/progress', (req, res) => {
         if (err) return res.status(500).json({ success: false, message: "Database error" });
 
         if (results.length > 0) {
-            // Agar pehle se entry hai, toh update karo
+            // Agar pehle se entry hai, toh status, accuracy, XP ke sath last_tested_at bhi update karo
             const updateProgQuery = `
                 UPDATE user_progress 
-                SET status = ?, accuracy_percentage = ?, tests_attempted = tests_attempted + 1, xp_earned = xp_earned + ? 
+                SET status = ?, accuracy_percentage = ?, tests_attempted = tests_attempted + 1, xp_earned = xp_earned + ?, last_tested_at = ? 
                 WHERE user_id = ? AND topic_id = ?
             `;
-            db.query(updateProgQuery, [status, accuracy_percentage, xp_earned, user_id, topic_id]);
+            db.query(updateProgQuery, [status, accuracy_percentage, xp_earned, formattedISTTime, user_id, topic_id]);
         } else {
-            // Agar pehli baar test diya hai, toh nayi row insert karo
+            // Agar pehli baar test diya hai, toh last_tested_at ke sath nayi row insert karo
             const insertProgQuery = `
-                INSERT INTO user_progress (user_id, topic_id, status, accuracy_percentage, tests_attempted, xp_earned) 
-                VALUES (?, ?, ?, ?, 1, ?)
+                INSERT INTO user_progress (user_id, topic_id, status, accuracy_percentage, tests_attempted, xp_earned, last_tested_at) 
+                VALUES (?, ?, ?, ?, 1, ?, ?)
             `;
-            db.query(insertProgQuery, [user_id, topic_id, status, accuracy_percentage, xp_earned]);
+            db.query(insertProgQuery, [user_id, topic_id, status, accuracy_percentage, xp_earned, formattedISTTime]);
         }
 
         // Iske baad, Users table mein User ka Total XP bhi update kardo
