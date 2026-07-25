@@ -96,7 +96,7 @@ app.get('/api/syllabus/:class_level/:subject_name', (req, res) => {
 });
 
 // ==========================================
-// 3. NAYA: USER SIGNUP API (POST) [Updated with IST Time]
+// 3. NAYA: USER SIGNUP API (POST) [Updated with AM/PM Time]
 // ==========================================
 app.post('/api/signup', async (req, res) => {
     const { full_name, mobile_no, email, password, class_level, board } = req.body;
@@ -109,14 +109,19 @@ app.post('/api/signup', async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Code ke andar India (Kolkata) ka exact current time nikal rahe hain
-        const indianTimeOptions = { timeZone: "Asia/Kolkata", year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-        const formatter = new Intl.DateTimeFormat([], indianTimeOptions);
-        
-        const dParts = formatter.formatToParts(new Date());
-        const dateObj = {};
-        dParts.forEach(p => dateObj[p.type] = p.value);
-        const formattedISTTime = `${dateObj.year}-${dateObj.month}-${dateObj.day} ${dateObj.hour}:${dateObj.minute}:${dateObj.second}`;
+        // 12-hour format aur AM/PM ke sath IST time generate karne ka code
+        const indianTimeOptions = { 
+            timeZone: "Asia/Kolkata", 
+            year: 'numeric', 
+            month: '2-digit', 
+            day: '2-digit', 
+            hour: '2-digit', 
+            minute: '2-digit', 
+            second: '2-digit', 
+            hour12: true // AM/PM enable kiya gaya hai
+        };
+        const formatter = new Intl.DateTimeFormat('en-US', indianTimeOptions);
+        const formattedISTTime = formatter.format(new Date());
 
         const insertQuery = `
             INSERT INTO users (full_name, mobile_no, email, password_hash, class_level, board, created_at) 
