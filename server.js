@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs'); // Password hashing ke liye
 const cors = require('cors');
 const mysql = require('mysql2');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -18,6 +19,13 @@ app.use(cors({
 
 app.use(express.json({ limit: '8mb' }));
 app.use(express.urlencoded({ extended: true }));
+
+// Static hosting for chapter-level test question banks (e.g. files friends/
+// content-writers hand over, like chemical_kinetics.json or gravitation.json).
+// Drop any such JSON file into the test-content/ folder and it becomes
+// reachable at https://<this-backend>/test-content/<filename>.json — that
+// URL is exactly what goes into a chapter's or topic's test_json_url column.
+app.use('/test-content', express.static(path.join(__dirname, 'test-content')));
 
 // ==========================================
 // DATABASE CONNECTION (POOL)
