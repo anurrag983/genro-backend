@@ -91,6 +91,19 @@ async function ensureDatabaseSchema() {
     await addColumnIfMissing('users', 'study_track', "study_track ENUM('Medical', 'Non-Medical') NOT NULL DEFAULT 'Medical' AFTER board");
     await addColumnIfMissing('ai_chat_history', 'attachment_data', 'attachment_data MEDIUMTEXT NULL AFTER message_text');
     await addColumnIfMissing('ai_chat_history', 'attachment_mime', 'attachment_mime VARCHAR(100) NULL AFTER attachment_data');
+
+    // CUSTOM PRACTICE (difficulty): topics/chapters ke pehle se maujood
+    // test_json_url ko "default" ki tarah rakha gaya hai. Agar in teen naye
+    // columns mein se koi bhara hua hai, to us difficulty ke liye wahi URL
+    // use hoga; khaali hone par default test_json_url par fallback hota hai
+    // (isliye purana data turant break nahi hota).
+    await addColumnIfMissing('topics', 'test_json_url_easy', 'test_json_url_easy VARCHAR(500) NULL AFTER test_json_url');
+    await addColumnIfMissing('topics', 'test_json_url_medium', 'test_json_url_medium VARCHAR(500) NULL AFTER test_json_url_easy');
+    await addColumnIfMissing('topics', 'test_json_url_hard', 'test_json_url_hard VARCHAR(500) NULL AFTER test_json_url_medium');
+    await addColumnIfMissing('chapters', 'test_json_url_easy', 'test_json_url_easy VARCHAR(500) NULL AFTER test_json_url');
+    await addColumnIfMissing('chapters', 'test_json_url_medium', 'test_json_url_medium VARCHAR(500) NULL AFTER test_json_url_easy');
+    await addColumnIfMissing('chapters', 'test_json_url_hard', 'test_json_url_hard VARCHAR(500) NULL AFTER test_json_url_medium');
+
     await db.query(`CREATE TABLE IF NOT EXISTS test_attempts (
         attempt_id BIGINT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
@@ -102,6 +115,23 @@ async function ensureDatabaseSchema() {
         INDEX idx_test_attempts_user_time (user_id, attempted_at),
         FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
         FOREIGN KEY (topic_id) REFERENCES topics(topic_id) ON DELETE CASCADE
+    )`);
+    await addColumnIfMissing('test_attempts', 'difficulty', "difficulty ENUM('Easy','Medium','Hard') NOT NULL DEFAULT 'Medium' AFTER topic_id");
+
+    // TEST REPORT: har question ka detail (kya poocha gaya, student ne kya
+    // select kiya, sahi jawab kya tha) yahan save hota hai taaki baad mein
+    // Progress page se poora review dobara dekha ja sake.
+    await db.query(`CREATE TABLE IF NOT EXISTS test_attempt_answers (
+        answer_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+        attempt_id BIGINT NOT NULL,
+        question_number INT NOT NULL,
+        question_text TEXT NOT NULL,
+        options_json JSON NULL,
+        selected_key VARCHAR(4) NULL,
+        correct_key VARCHAR(4) NULL,
+        is_correct TINYINT(1) NOT NULL DEFAULT 0,
+        INDEX idx_test_attempt_answers_attempt (attempt_id),
+        FOREIGN KEY (attempt_id) REFERENCES test_attempts(attempt_id) ON DELETE CASCADE
     )`);
 }
 
@@ -132,14 +162,31 @@ app.get('/api/syllabus/:class_level/:subject_name', ah(async (req, res) => {
     const { class_level, subject_name } = req.params;
 
     const [results] = await db.query(
-        `SELECT c.chapter_id, c.chapter_number, c.chapter_name, c.test_json_url AS chapter_test_json_url,
-                t.topic_id, t.topic_sequence, t.topic_name, t.video_url, t.test_json_url AS topic_test_json_url
+        `SELECT c.chapter_id, c.chapter_number, c.chapter_name,
+                c.test_json_url AS chapter_test_json_url,
+                c.test_json_url_easy AS chapter_test_json_url_easy,
+                c.test_json_url_medium AS chapter_test_json_url_medium,
+                c.test_json_url_hard AS chapter_test_json_url_hard,
+                t.topic_id, t.topic_sequence, t.topic_name, t.video_url,
+                t.test_json_url AS topic_test_json_url,
+                t.test_json_url_easy AS topic_test_json_url_easy,
+                t.test_json_url_medium AS topic_test_json_url_medium,
+                t.test_json_url_hard AS topic_test_json_url_hard
          FROM chapters c
          LEFT JOIN topics t ON c.chapter_id = t.chapter_id
          WHERE c.class_level = ? AND c.subject_name = ?
          ORDER BY c.chapter_number ASC, t.topic_sequence ASC`,
         [class_level, subject_name]
     );
+
+    // Difficulty ke liye ek specific URL na ho to default test_json_url par
+    // fallback — isse purana content bhi teeno difficulty buttons ke saath
+    // turant kaam karta hai, naya content dheere-dheere specific bana sakte ho.
+    const difficultyAvailability = (defaultUrl, easyUrl, mediumUrl, hardUrl) => ({
+        easy: !!(easyUrl || defaultUrl),
+        medium: !!(mediumUrl || defaultUrl),
+        hard: !!(hardUrl || defaultUrl),
+    });
 
     const chaptersMap = {};
     results.forEach(row => {
@@ -149,6 +196,10 @@ app.get('/api/syllabus/:class_level/:subject_name', ah(async (req, res) => {
                 chapter_number: row.chapter_number,
                 chapter_name: row.chapter_name,
                 has_chapter_test: !!row.chapter_test_json_url,
+                chapter_difficulty_available: difficultyAvailability(
+                    row.chapter_test_json_url, row.chapter_test_json_url_easy,
+                    row.chapter_test_json_url_medium, row.chapter_test_json_url_hard
+                ),
                 topics: []
             };
         }
@@ -158,7 +209,11 @@ app.get('/api/syllabus/:class_level/:subject_name', ah(async (req, res) => {
                 topic_sequence: row.topic_sequence,
                 topic_name: row.topic_name,
                 video_url: row.video_url || '',
-                has_test: !!row.topic_test_json_url
+                has_test: !!row.topic_test_json_url,
+                difficulty_available: difficultyAvailability(
+                    row.topic_test_json_url, row.topic_test_json_url_easy,
+                    row.topic_test_json_url_medium, row.topic_test_json_url_hard
+                ),
             });
         }
     });
@@ -321,34 +376,57 @@ app.post('/api/auth/login', ah(async (req, res) => {
 // ==========================================
 // NOTE: iska specific route generic "/:topic_id" route se PEHLE define hona
 // zaroori hai, warna Express "chapter" ko hi ek topic_id samajh lega.
+// ?difficulty=easy|medium|hard (optional, defaults to "medium"). Agar us
+// difficulty ke liye alag JSON set nahi hai, to default test_json_url use
+// hota hai — isliye purana content bhi bina kisi change ke chalta rehta hai.
+function normalizeDifficulty(value) {
+    const normalized = String(value || '').trim().toLowerCase();
+    return ['easy', 'medium', 'hard'].includes(normalized) ? normalized : 'medium';
+}
+
+function pickTestUrl(row, difficulty) {
+    const columnMap = { easy: 'test_json_url_easy', medium: 'test_json_url_medium', hard: 'test_json_url_hard' };
+    return row[columnMap[difficulty]] || row.test_json_url || null;
+}
+
 app.get('/api/test/chapter/:chapter_id', ah(async (req, res) => {
     const { chapter_id } = req.params;
+    const difficulty = normalizeDifficulty(req.query.difficulty);
     const [results] = await db.query(
-        'SELECT chapter_id, chapter_name, test_json_url FROM chapters WHERE chapter_id = ?',
+        'SELECT chapter_id, chapter_name, test_json_url, test_json_url_easy, test_json_url_medium, test_json_url_hard FROM chapters WHERE chapter_id = ?',
         [chapter_id]
     );
     if (results.length === 0) {
         return res.status(404).json({ success: false, message: 'Chapter nahi mila!' });
     }
-    if (!results[0].test_json_url) {
+    const testJsonUrl = pickTestUrl(results[0], difficulty);
+    if (!testJsonUrl) {
         return res.status(404).json({ success: false, message: 'Is chapter ke liye full test abhi available nahi hai.' });
     }
-    res.status(200).json({ success: true, data: results[0] });
+    res.status(200).json({
+        success: true,
+        data: { chapter_id: results[0].chapter_id, chapter_name: results[0].chapter_name, test_json_url: testJsonUrl, difficulty },
+    });
 }));
 
 app.get('/api/test/:topic_id', ah(async (req, res) => {
     const { topic_id } = req.params;
+    const difficulty = normalizeDifficulty(req.query.difficulty);
     const [results] = await db.query(
-        'SELECT topic_id, topic_name, test_json_url FROM topics WHERE topic_id = ?',
+        'SELECT topic_id, topic_name, test_json_url, test_json_url_easy, test_json_url_medium, test_json_url_hard FROM topics WHERE topic_id = ?',
         [topic_id]
     );
     if (results.length === 0) {
         return res.status(404).json({ success: false, message: 'Topic nahi mila!' });
     }
-    if (!results[0].test_json_url) {
+    const testJsonUrl = pickTestUrl(results[0], difficulty);
+    if (!testJsonUrl) {
         return res.status(404).json({ success: false, message: 'Is topic ke liye test abhi available nahi hai.' });
     }
-    res.status(200).json({ success: true, data: results[0] });
+    res.status(200).json({
+        success: true,
+        data: { topic_id: results[0].topic_id, topic_name: results[0].topic_name, test_json_url: testJsonUrl, difficulty },
+    });
 }));
 
 // ==========================================
@@ -419,9 +497,13 @@ app.put('/api/user/:user_id/profile', ah(async (req, res) => {
 // ==========================================
 app.post('/api/user/:user_id/progress', ah(async (req, res) => {
     const { user_id } = req.params;
-    const { topic_id, accuracy_percentage, xp_earned } = req.body;
+    const { topic_id, accuracy_percentage, xp_earned, difficulty, answers } = req.body;
     const accuracy = Number(accuracy_percentage);
     const xp = Number(xp_earned);
+    const normalizedDifficulty = ['Easy', 'Medium', 'Hard'].includes(difficulty) ? difficulty : 'Medium';
+    // Report ke liye per-question answers (optional — purane frontend clients
+    // jo ye array na bhejein unke liye bhi ye route bina toote kaam karta hai).
+    const answerList = Array.isArray(answers) ? answers : [];
 
     if (!topic_id || !Number.isFinite(accuracy) || accuracy < 0 || accuracy > 100 || !Number.isFinite(xp) || xp < 0) {
         return res.status(400).json({ success: false, message: 'Valid topic, accuracy aur XP dena zaroori hai.' });
@@ -460,10 +542,30 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
         }
 
         const [attempt] = await connection.query(
-            `INSERT INTO test_attempts (user_id, topic_id, status, accuracy_percentage, xp_earned)
-             VALUES (?, ?, ?, ?, ?)`,
-            [user_id, topic_id, status, normalizedAccuracy, normalizedXp]
+            `INSERT INTO test_attempts (user_id, topic_id, difficulty, status, accuracy_percentage, xp_earned)
+             VALUES (?, ?, ?, ?, ?, ?)`,
+            [user_id, topic_id, normalizedDifficulty, status, normalizedAccuracy, normalizedXp]
         );
+
+        // Report ke liye har question ki detail alag row mein save karo.
+        if (answerList.length) {
+            const answerRows = answerList.slice(0, 200).map((item, index) => [
+                attempt.insertId,
+                index + 1,
+                String(item.question_text || item.text || '').slice(0, 2000),
+                item.options ? JSON.stringify(item.options).slice(0, 4000) : null,
+                item.selected_key ? String(item.selected_key).slice(0, 4) : null,
+                item.correct_key ? String(item.correct_key).slice(0, 4) : null,
+                item.is_correct ? 1 : 0,
+            ]);
+            await connection.query(
+                `INSERT INTO test_attempt_answers
+                 (attempt_id, question_number, question_text, options_json, selected_key, correct_key, is_correct)
+                 VALUES ?`,
+                [answerRows]
+            );
+        }
+
         const [userUpdate] = await connection.query('UPDATE users SET total_xp = total_xp + ? WHERE user_id = ?', [normalizedXp, user_id]);
         if (!userUpdate.affectedRows) {
             await connection.rollback();
@@ -486,6 +588,47 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
 }));
 
 // ==========================================
+// 9B. DETAILED TEST REPORT (GET) — ek attempt ke saare questions, student ka
+//     jawab, aur sahi jawab wapas deta hai taaki Progress page se dobara
+//     review kiya ja sake.
+// ==========================================
+app.get('/api/user/:user_id/attempts/:attempt_id/report', ah(async (req, res) => {
+    const { user_id, attempt_id } = req.params;
+
+    const [[attempt]] = await db.query(
+        `SELECT ta.attempt_id, ta.topic_id, ta.difficulty, ta.status, ta.accuracy_percentage,
+                ta.xp_earned, ta.attempted_at, t.topic_name, c.chapter_name, c.subject_name
+         FROM test_attempts ta
+         JOIN topics t ON ta.topic_id = t.topic_id
+         JOIN chapters c ON t.chapter_id = c.chapter_id
+         WHERE ta.attempt_id = ? AND ta.user_id = ?`,
+        [attempt_id, user_id]
+    );
+    if (!attempt) {
+        return res.status(404).json({ success: false, message: 'Ye test report nahi mili!' });
+    }
+
+    const [answers] = await db.query(
+        `SELECT question_number, question_text, options_json, selected_key, correct_key, is_correct
+         FROM test_attempt_answers WHERE attempt_id = ? ORDER BY question_number ASC`,
+        [attempt_id]
+    );
+
+    res.status(200).json({
+        success: true,
+        data: {
+            ...attempt,
+            answers: answers.map(row => ({
+                ...row,
+                options: row.options_json ? JSON.parse(row.options_json) : null,
+                is_correct: !!row.is_correct,
+            })),
+            has_detailed_answers: answers.length > 0,
+        },
+    });
+}));
+
+// ==========================================
 // 10. GET FULL PROGRESS LIST (GET) — "Your Progress" screen ke liye zaroori,
 //     pehle sirf POST tha, list wapas karne ka koi endpoint nahi tha.
 // ==========================================
@@ -504,7 +647,7 @@ app.get('/api/user/:user_id/progress', ah(async (req, res) => {
         [user_id]
     );
     const [testHistory] = await db.query(
-        `SELECT ta.attempt_id, ta.topic_id, ta.status, ta.accuracy_percentage, ta.xp_earned, ta.attempted_at,
+        `SELECT ta.attempt_id, ta.topic_id, ta.difficulty, ta.status, ta.accuracy_percentage, ta.xp_earned, ta.attempted_at,
                 t.topic_name, c.chapter_id, c.chapter_name, c.subject_name
          FROM test_attempts ta
          JOIN topics t ON ta.topic_id = t.topic_id
