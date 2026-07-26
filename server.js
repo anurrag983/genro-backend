@@ -16,7 +16,7 @@ app.use(cors({
     origin: process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',').map(s => s.trim()) : '*'
 }));
 
-app.use(express.json({ limit: '2mb' }));
+app.use(express.json({ limit: '8mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // ==========================================
@@ -66,11 +66,50 @@ function getIstTimestamp() {
     return `${d.year}-${d.month}-${d.day} ${d.hour}:${d.minute}:${d.second}`;
 }
 
+const STUDY_TRACKS = ['Medical', 'Non-Medical'];
+
+function normalizeStudyTrack(track) {
+    const value = String(track || '').trim().toLowerCase().replace(/[\s_-]/g, '');
+    return value === 'nonmedical' ? 'Non-Medical' : value === 'medical' ? 'Medical' : null;
+}
+
+function enrolledSubjectsForTrack(track) {
+    return track === 'Non-Medical'
+        ? JSON.stringify(['Physics', 'Chemistry', 'Maths'])
+        : JSON.stringify(['Physics', 'Chemistry', 'Biology']);
+}
+
+async function addColumnIfMissing(tableName, columnName, definition) {
+    const [columns] = await db.query(`SHOW COLUMNS FROM \`${tableName}\` LIKE ?`, [columnName]);
+    if (!columns.length) await db.query(`ALTER TABLE \`${tableName}\` ADD COLUMN ${definition}`);
+}
+
+// Existing deployments already have the original tables, so apply only additive
+// changes at boot. A failed migration is logged but never hides the root cause
+// by preventing the server from starting.
+async function ensureDatabaseSchema() {
+    await addColumnIfMissing('users', 'study_track', "study_track ENUM('Medical', 'Non-Medical') NOT NULL DEFAULT 'Medical' AFTER board");
+    await addColumnIfMissing('ai_chat_history', 'attachment_data', 'attachment_data MEDIUMTEXT NULL AFTER message_text');
+    await addColumnIfMissing('ai_chat_history', 'attachment_mime', 'attachment_mime VARCHAR(100) NULL AFTER attachment_data');
+    await db.query(`CREATE TABLE IF NOT EXISTS test_attempts (
+        attempt_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        topic_id INT NOT NULL,
+        status ENUM('Mastered', 'Revision Required') NOT NULL,
+        accuracy_percentage DECIMAL(5,2) NOT NULL,
+        xp_earned INT NOT NULL DEFAULT 0,
+        attempted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_test_attempts_user_time (user_id, attempted_at),
+        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+        FOREIGN KEY (topic_id) REFERENCES topics(topic_id) ON DELETE CASCADE
+    )`);
+}
+
 // ==========================================
 // 0. HEALTH CHECK (Render pings "/" — avoid a bare "Cannot GET /")
 // ==========================================
 app.get('/', (req, res) => {
-    res.json({ success: true, message: 'GENRO Server is alive' });
+    res.json({ success: true, message: 'GENRO Server is alive', build: 'study-track-debug-v1' });
 });
 
 // ==========================================
@@ -196,9 +235,10 @@ app.post('/api/otp/verify', ah(async (req, res) => {
 // 4. USER SIGNUP API (POST)
 // ==========================================
 app.post('/api/signup', ah(async (req, res) => {
-    const { full_name, mobile_no, email, password, class_level, board } = req.body;
+    const { full_name, mobile_no, email, password, class_level, board, study_track } = req.body;
+    const normalizedTrack = normalizeStudyTrack(study_track);
 
-    if (!full_name || !mobile_no || !email || !password || !class_level || !board) {
+    if (!full_name || !mobile_no || !email || !password || !class_level || !board || !normalizedTrack) {
         return res.status(400).json({ success: false, message: 'Saari details bharna zaroori hai!' });
     }
     if (password.length < 6) {
@@ -214,13 +254,13 @@ app.post('/api/signup', ah(async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const formattedISTTime = getIstTimestamp();
-    const enrolledSubjects = JSON.stringify(['Physics', 'Chemistry', 'Maths', 'Biology']);
+    const enrolledSubjects = enrolledSubjectsForTrack(normalizedTrack);
 
     try {
         const [result] = await db.query(
-            `INSERT INTO users (full_name, mobile_no, email, password_hash, class_level, board, enrolled_subjects, created_at)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-            [full_name, mobile_no, email, hashedPassword, class_level, board, enrolledSubjects, formattedISTTime]
+            `INSERT INTO users (full_name, mobile_no, email, password_hash, class_level, board, study_track, enrolled_subjects, created_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [full_name, mobile_no, email, hashedPassword, class_level, board, normalizedTrack, enrolledSubjects, formattedISTTime]
         );
 
         otpStore.delete(mobile_no); // cleanup, isko dobara verify karne ki zaroorat nahi
@@ -269,6 +309,7 @@ app.post('/api/auth/login', ah(async (req, res) => {
             mobile_no: user.mobile_no,
             class_level: user.class_level,
             board: user.board,
+            study_track: user.study_track || 'Medical',
             total_xp: user.total_xp,
             day_streak: user.day_streak
         }
@@ -316,7 +357,7 @@ app.get('/api/test/:topic_id', ah(async (req, res) => {
 app.get('/api/user/:user_id/dashboard', ah(async (req, res) => {
     const { user_id } = req.params;
     const [results] = await db.query(
-        `SELECT user_id, full_name, email, mobile_no, class_level, board, total_xp, day_streak, enrolled_subjects
+        `SELECT user_id, full_name, email, mobile_no, class_level, board, study_track, total_xp, day_streak, enrolled_subjects
          FROM users WHERE user_id = ?`,
         [user_id]
     );
@@ -327,32 +368,48 @@ app.get('/api/user/:user_id/dashboard', ah(async (req, res) => {
 }));
 
 // ==========================================
-// 8. UPDATE PROFILE API (PUT) — spec ke "Edit Profile" ke liye zaroori,
-//    pehle iske liye koi endpoint nahi tha.
+// 8. UPDATE PROFILE API (PUT). Email and mobile are verified identity keys and
+// deliberately never come from this route; changing either needs a dedicated
+// OTP-protected account-recovery flow.
 // ==========================================
 app.put('/api/user/:user_id/profile', ah(async (req, res) => {
     const { user_id } = req.params;
-    const { full_name, email, mobile_no, class_level, board } = req.body;
+    const { full_name, class_level, board, study_track } = req.body;
+    const normalizedTrack = normalizeStudyTrack(study_track);
 
-    if (!full_name || !email || !mobile_no) {
-        return res.status(400).json({ success: false, message: 'Naam, Email aur Mobile zaroori hain!' });
+    // DEBUG: Render ke "Logs" tab mein ye line dikhegi. Isse pata chalega ki
+    // frontend se kya value aa rahi hai aur normalize hone ke baad kya ban rahi hai.
+    // Agar "normalizedTrack" yahan null aa raha hai, to isi wajah se save fail ho raha hai.
+    console.log('[PROFILE UPDATE] incoming study_track:', JSON.stringify(study_track), '-> normalized:', normalizedTrack);
+
+    if (!full_name || !normalizedTrack) {
+        return res.status(400).json({
+            success: false,
+            message: 'Naam aur preparation track zaroori hain!',
+            debug_received_study_track: study_track ?? null,
+        });
     }
 
     try {
         const [result] = await db.query(
-            `UPDATE users SET full_name = ?, email = ?, mobile_no = ?,
-                class_level = COALESCE(?, class_level), board = COALESCE(?, board)
+            `UPDATE users SET full_name = ?, class_level = COALESCE(?, class_level),
+                board = COALESCE(?, board), study_track = ?, enrolled_subjects = ?
              WHERE user_id = ?`,
-            [full_name, email, mobile_no, class_level || null, board || null, user_id]
+            [full_name, class_level || null, board || null, normalizedTrack, enrolledSubjectsForTrack(normalizedTrack), user_id]
         );
         if (result.affectedRows === 0) {
             return res.status(404).json({ success: false, message: 'User nahi mila!' });
         }
-        res.status(200).json({ success: true, message: 'Profile update ho gayi!' });
+        const [[updatedUser]] = await db.query(
+            'SELECT user_id, full_name, email, mobile_no, class_level, board, study_track, total_xp, day_streak FROM users WHERE user_id = ?',
+            [user_id]
+        );
+
+        // DEBUG: DB se dobara padh kar confirm karta hai ki save actually ho gaya.
+        console.log('[PROFILE UPDATE] saved study_track in DB now:', updatedUser.study_track);
+
+        res.status(200).json({ success: true, message: 'Profile update ho gayi!', data: updatedUser });
     } catch (err) {
-        if (err.code === 'ER_DUP_ENTRY') {
-            return res.status(400).json({ success: false, message: 'Yeh Email ya Mobile pehle se kisi aur account mein hai!' });
-        }
         throw err;
     }
 }));
@@ -362,44 +419,70 @@ app.put('/api/user/:user_id/profile', ah(async (req, res) => {
 // ==========================================
 app.post('/api/user/:user_id/progress', ah(async (req, res) => {
     const { user_id } = req.params;
-    const { topic_id, status, accuracy_percentage, xp_earned } = req.body;
+    const { topic_id, accuracy_percentage, xp_earned } = req.body;
+    const accuracy = Number(accuracy_percentage);
+    const xp = Number(xp_earned);
 
-    if (!topic_id || !status) {
-        return res.status(400).json({ success: false, message: 'Topic ID aur Status dena zaroori hai' });
+    if (!topic_id || !Number.isFinite(accuracy) || accuracy < 0 || accuracy > 100 || !Number.isFinite(xp) || xp < 0) {
+        return res.status(400).json({ success: false, message: 'Valid topic, accuracy aur XP dena zaroori hai.' });
     }
+    const normalizedAccuracy = Math.round(accuracy * 100) / 100;
+    const normalizedXp = Math.round(xp);
+    const status = normalizedAccuracy >= 70 ? 'Mastered' : 'Revision Required';
+    const connection = await db.getConnection();
 
-    const [existing] = await db.query(
-        'SELECT progress_id FROM user_progress WHERE user_id = ? AND topic_id = ?',
-        [user_id, topic_id]
-    );
+    try {
+        await connection.beginTransaction();
+        const [[topic]] = await connection.query('SELECT topic_id FROM topics WHERE topic_id = ?', [topic_id]);
+        if (!topic) {
+            await connection.rollback();
+            return res.status(404).json({ success: false, message: 'Topic nahi mila!' });
+        }
+        const [[existing]] = await connection.query(
+            'SELECT progress_id FROM user_progress WHERE user_id = ? AND topic_id = ? FOR UPDATE',
+            [user_id, topic_id]
+        );
 
-    if (existing.length > 0) {
-        await db.query(
-            `UPDATE user_progress
-             SET status = ?, accuracy_percentage = ?, tests_attempted = tests_attempted + 1,
-                 xp_earned = xp_earned + ?, last_tested_at = CURRENT_TIMESTAMP
-             WHERE user_id = ? AND topic_id = ?`,
-            [status, accuracy_percentage, xp_earned, user_id, topic_id]
+        if (existing) {
+            await connection.query(
+                `UPDATE user_progress
+                 SET status = ?, accuracy_percentage = ?, tests_attempted = tests_attempted + 1,
+                     xp_earned = xp_earned + ?, last_tested_at = CURRENT_TIMESTAMP
+                 WHERE progress_id = ?`,
+                [status, normalizedAccuracy, normalizedXp, existing.progress_id]
+            );
+        } else {
+            await connection.query(
+                `INSERT INTO user_progress (user_id, topic_id, status, accuracy_percentage, tests_attempted, xp_earned)
+                 VALUES (?, ?, ?, ?, 1, ?)`,
+                [user_id, topic_id, status, normalizedAccuracy, normalizedXp]
+            );
+        }
+
+        const [attempt] = await connection.query(
+            `INSERT INTO test_attempts (user_id, topic_id, status, accuracy_percentage, xp_earned)
+             VALUES (?, ?, ?, ?, ?)`,
+            [user_id, topic_id, status, normalizedAccuracy, normalizedXp]
         );
-    } else {
-        await db.query(
-            `INSERT INTO user_progress (user_id, topic_id, status, accuracy_percentage, tests_attempted, xp_earned)
-             VALUES (?, ?, ?, ?, 1, ?)`,
-            [user_id, topic_id, status, accuracy_percentage, xp_earned]
-        );
+        const [userUpdate] = await connection.query('UPDATE users SET total_xp = total_xp + ? WHERE user_id = ?', [normalizedXp, user_id]);
+        if (!userUpdate.affectedRows) {
+            await connection.rollback();
+            return res.status(404).json({ success: false, message: 'User nahi mila!' });
+        }
+        const [[updatedUser]] = await connection.query('SELECT total_xp, day_streak FROM users WHERE user_id = ?', [user_id]);
+        await connection.commit();
+
+        res.status(200).json({
+            success: true,
+            message: 'Progress aur XP successfully update ho gaye!',
+            data: { attempt_id: attempt.insertId, status, total_xp: updatedUser.total_xp, day_streak: updatedUser.day_streak }
+        });
+    } catch (error) {
+        await connection.rollback();
+        throw error;
+    } finally {
+        connection.release();
     }
-
-    // Progress row confirm hone ke BAAD hi total XP badhate hain (properly chained,
-    // taaki pool ke alag-alag connections par ye do writes kabhi race na karein).
-    await db.query('UPDATE users SET total_xp = total_xp + ? WHERE user_id = ?', [xp_earned, user_id]);
-
-    const [[updatedUser]] = await db.query('SELECT total_xp, day_streak FROM users WHERE user_id = ?', [user_id]);
-
-    res.status(200).json({
-        success: true,
-        message: 'Progress aur XP successfully update ho gaye!',
-        data: { total_xp: updatedUser?.total_xp, day_streak: updatedUser?.day_streak }
-    });
 }));
 
 // ==========================================
@@ -420,11 +503,25 @@ app.get('/api/user/:user_id/progress', ah(async (req, res) => {
          ORDER BY up.last_tested_at DESC`,
         [user_id]
     );
+    const [testHistory] = await db.query(
+        `SELECT ta.attempt_id, ta.topic_id, ta.status, ta.accuracy_percentage, ta.xp_earned, ta.attempted_at,
+                t.topic_name, c.chapter_id, c.chapter_name, c.subject_name
+         FROM test_attempts ta
+         JOIN topics t ON ta.topic_id = t.topic_id
+         JOIN chapters c ON t.chapter_id = c.chapter_id
+         WHERE ta.user_id = ?
+         ORDER BY ta.attempted_at DESC, ta.attempt_id DESC`,
+        [user_id]
+    );
 
-    const totalTests = rows.reduce((sum, r) => sum + r.tests_attempted, 0);
-    const avgAccuracy = rows.length
-        ? rows.reduce((sum, r) => sum + Number(r.accuracy_percentage), 0) / rows.length
-        : 0;
+    const totalTests = testHistory.length || rows.reduce((sum, r) => sum + Number(r.tests_attempted || 0), 0);
+    const avgAccuracy = testHistory.length
+        ? testHistory.reduce((sum, r) => sum + Number(r.accuracy_percentage), 0) / testHistory.length
+        : totalTests
+            ? rows.reduce((sum, r) => sum + Number(r.accuracy_percentage) * Number(r.tests_attempted || 0), 0) / totalTests
+            : 0;
+    const revisionRequired = rows.filter(r => r.status === 'Revision Required' || Number(r.accuracy_percentage) < 70);
+    const strongTopics = rows.filter(r => r.status === 'Mastered' || Number(r.accuracy_percentage) >= 70);
 
     res.status(200).json({
         success: true,
@@ -434,9 +531,12 @@ app.get('/api/user/:user_id/progress', ah(async (req, res) => {
                 avg_accuracy: Math.round(avgAccuracy * 10) / 10,
                 topics_covered: rows.length
             },
-            strong_topics: rows.filter(r => Number(r.accuracy_percentage) >= 70),
-            weak_topics: rows.filter(r => Number(r.accuracy_percentage) < 50),
-            all_progress: rows
+            strong_topics: strongTopics,
+            revision_required: revisionRequired,
+            // Kept for older frontend clients while the clearer field above rolls out.
+            weak_topics: revisionRequired,
+            all_progress: rows,
+            test_history: testHistory
         }
     });
 }));
@@ -449,17 +549,51 @@ app.get('/api/user/:user_id/progress', ah(async (req, res) => {
 app.get('/api/chat/:user_id', ah(async (req, res) => {
     const { user_id } = req.params;
     const [results] = await db.query(
-        `SELECT message_id, sender_type, message_text, created_at
+        `SELECT message_id, sender_type, message_text, created_at,
+                CASE WHEN attachment_data IS NOT NULL
+                    THEN CONCAT('/api/chat/', user_id, '/', message_id, '/attachment')
+                    ELSE NULL END AS attachment_url
          FROM ai_chat_history WHERE user_id = ? ORDER BY created_at ASC, message_id ASC`,
         [user_id]
     );
     res.status(200).json({ success: true, data: results });
 }));
 
+app.get('/api/chat/:user_id/:message_id/attachment', ah(async (req, res) => {
+    const { user_id, message_id } = req.params;
+    const [[attachment]] = await db.query(
+        `SELECT attachment_data, attachment_mime FROM ai_chat_history
+         WHERE user_id = ? AND message_id = ? AND attachment_data IS NOT NULL`,
+        [user_id, message_id]
+    );
+    if (!attachment) return res.status(404).json({ success: false, message: 'Attachment nahi mila!' });
+    res.set('Content-Type', attachment.attachment_mime || 'image/jpeg');
+    res.set('Cache-Control', 'private, max-age=86400');
+    res.send(Buffer.from(attachment.attachment_data, 'base64'));
+}));
+
+function sanitizeChatAttachment(rawAttachment) {
+    if (!rawAttachment) return null;
+    const match = String(rawAttachment.data_url || '').match(/^data:(image\/(?:jpeg|png|webp));base64,([A-Za-z0-9+/=\s]+)$/i);
+    if (!match) {
+        const error = new Error('Photo must be a JPG, PNG, or WebP image.');
+        error.status = 400;
+        throw error;
+    }
+    const data = match[2].replace(/\s/g, '');
+    if (Buffer.byteLength(data, 'base64') > 5 * 1024 * 1024) {
+        const error = new Error('Photo must be smaller than 5 MB.');
+        error.status = 400;
+        throw error;
+    }
+    return { mime: match[1].toLowerCase(), data };
+}
+
 // Very small rule-based tutor used when ANTHROPIC_API_KEY isn't configured, so
 // the chat never breaks — it just isn't "smart" until you add a real key.
-function fallbackAiReply(userText) {
-    return `Aapne poocha: "${userText}". Abhi is server par koi live AI model connect nahi hai — ` +
+function fallbackAiReply(userText, hasAttachment = false) {
+    const imageNote = hasAttachment ? ' Aapki image conversation mein securely save ho gayi hai. ' : ' ';
+    return `Aapne poocha: "${userText}".${imageNote}Abhi is server par koi live AI model connect nahi hai — ` +
         `ANTHROPIC_API_KEY environment variable set karke real AI jawaab enable karein ` +
         `(dekhein server.js mein generateAiReply function). Tab tak, Study section mein jaakar ` +
         `related topic dhoondh kar concept video dekhein!`;
@@ -467,9 +601,9 @@ function fallbackAiReply(userText) {
 
 // Real AI reply via the Claude API — only runs if a key is configured. Swap
 // ANTHROPIC_MODEL for any current Claude model string.
-async function generateAiReply(userText) {
+async function generateAiReply(userText, attachment = null) {
     const apiKey = process.env.ANTHROPIC_API_KEY;
-    if (!apiKey) return fallbackAiReply(userText);
+    if (!apiKey) return fallbackAiReply(userText, Boolean(attachment));
 
     try {
         const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -486,17 +620,25 @@ async function generateAiReply(userText) {
                     'students preparing for NEET and board exams (Physics, Chemistry, Maths, Biology). ' +
                     'Explain concepts simply and concisely, in the same mix of Hindi and English (Hinglish) ' +
                     'the student writes in. Keep answers focused and exam-relevant.',
-                messages: [{ role: 'user', content: userText }]
+                messages: [{
+                    role: 'user',
+                    content: attachment
+                        ? [
+                            { type: 'image', source: { type: 'base64', media_type: attachment.mime, data: attachment.data } },
+                            { type: 'text', text: userText }
+                        ]
+                        : userText
+                }]
             })
         });
 
         if (!response.ok) throw new Error(`Anthropic API returned ${response.status}`);
         const data = await response.json();
         const text = data?.content?.find(block => block.type === 'text')?.text;
-        return text || fallbackAiReply(userText);
+        return text || fallbackAiReply(userText, Boolean(attachment));
     } catch (err) {
         console.error('AI reply failed, using fallback:', err.message);
-        return fallbackAiReply(userText);
+        return fallbackAiReply(userText, Boolean(attachment));
     }
 }
 
@@ -505,24 +647,28 @@ async function generateAiReply(userText) {
 // hai — isse frontend ko doosri round-trip nahi karni padti.
 app.post('/api/chat/:user_id', ah(async (req, res) => {
     const { user_id } = req.params;
-    const { sender_type, message_text } = req.body;
+    const { sender_type, message_text, attachment: rawAttachment } = req.body;
+    const messageText = String(message_text || '').trim();
 
-    if (!sender_type || !message_text) {
+    if (sender_type !== 'User' || !messageText) {
         return res.status(400).json({ success: false, message: 'Sender Type aur Message dono zaroori hain!' });
     }
+    const attachment = sanitizeChatAttachment(rawAttachment);
 
     const [userInsert] = await db.query(
-        'INSERT INTO ai_chat_history (user_id, sender_type, message_text) VALUES (?, ?, ?)',
-        [user_id, sender_type, message_text]
+        `INSERT INTO ai_chat_history (user_id, sender_type, message_text, attachment_data, attachment_mime)
+         VALUES (?, ?, ?, ?, ?)`,
+        [user_id, sender_type, messageText, attachment?.data || null, attachment?.mime || null]
     );
 
-    const savedUserMessage = { message_id: userInsert.insertId, sender_type, message_text };
+    const savedUserMessage = {
+        message_id: userInsert.insertId,
+        sender_type,
+        message_text: messageText,
+        attachment_url: attachment ? `/api/chat/${user_id}/${userInsert.insertId}/attachment` : null
+    };
 
-    if (sender_type !== 'User') {
-        return res.status(201).json({ success: true, message: 'Message successfully saved in history!', data: { user_message: savedUserMessage } });
-    }
-
-    const aiText = await generateAiReply(message_text);
+    const aiText = await generateAiReply(messageText, attachment);
     const [aiInsert] = await db.query(
         "INSERT INTO ai_chat_history (user_id, sender_type, message_text) VALUES (?, 'Genro_AI', ?)",
         [user_id, aiText]
@@ -546,8 +692,8 @@ app.put('/api/chat/:user_id/:message_id', ah(async (req, res) => {
     }
 
     const [result] = await db.query(
-        'UPDATE ai_chat_history SET message_text = ? WHERE message_id = ? AND user_id = ?',
-        [message_text, message_id, user_id]
+        "UPDATE ai_chat_history SET message_text = ? WHERE message_id = ? AND user_id = ? AND sender_type = 'User'",
+        [message_text.trim(), message_id, user_id]
     );
     if (result.affectedRows === 0) {
         return res.status(404).json({ success: false, message: 'Message nahi mila!' });
@@ -559,7 +705,7 @@ app.put('/api/chat/:user_id/:message_id', ah(async (req, res) => {
 app.delete('/api/chat/:user_id/:message_id', ah(async (req, res) => {
     const { user_id, message_id } = req.params;
     const [result] = await db.query(
-        'DELETE FROM ai_chat_history WHERE message_id = ? AND user_id = ?',
+        "DELETE FROM ai_chat_history WHERE message_id = ? AND user_id = ? AND sender_type = 'User'",
         [message_id, user_id]
     );
     if (result.affectedRows === 0) {
@@ -577,14 +723,16 @@ app.use((req, res) => {
 
 app.use((err, req, res, next) => {
     console.error('Unhandled error:', err);
-    res.status(500).json({ success: false, message: 'Server error aaya hai.' });
+    res.status(err.status || 500).json({ success: false, message: err.status ? err.message : 'Server error aaya hai.' });
 });
 
 // ==========================================
 // SERVER START
 // ==========================================
-app.listen(PORT, () => {
-    console.log(`GENRO Server is running on port ${PORT}`);
-});
+ensureDatabaseSchema()
+    .catch((error) => console.error('Database schema migration failed:', error.message))
+    .finally(() => app.listen(PORT, () => {
+        console.log(`GENRO Server is running on port ${PORT}`);
+    }));
 
 module.exports = app;
