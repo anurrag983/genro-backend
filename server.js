@@ -92,6 +92,17 @@ async function addColumnIfMissing(tableName, columnName, definition) {
     if (!columns.length) await db.query(`ALTER TABLE \`${tableName}\` ADD COLUMN ${definition}`);
 }
 
+// Some columns (e.g. test_attempts.topic_id) were originally NOT NULL. Chapter
+// and Custom practice attempts don't have a single topic, so this relaxes the
+// column to NULL the first time the server boots with this update — a no-op
+// on every boot after that.
+async function makeColumnNullable(tableName, columnName, definition) {
+    const [columns] = await db.query(`SHOW COLUMNS FROM \`${tableName}\` LIKE ?`, [columnName]);
+    if (columns.length && columns[0].Null === 'NO') {
+        await db.query(`ALTER TABLE \`${tableName}\` MODIFY COLUMN ${definition}`);
+    }
+}
+
 // Existing deployments already have the original tables, so apply only additive
 // changes at boot. A failed migration is logged but never hides the root cause
 // by preventing the server from starting.
@@ -125,6 +136,16 @@ async function ensureDatabaseSchema() {
         FOREIGN KEY (topic_id) REFERENCES topics(topic_id) ON DELETE CASCADE
     )`);
     await addColumnIfMissing('test_attempts', 'difficulty', "difficulty ENUM('Easy','Medium','Hard') NOT NULL DEFAULT 'Medium' AFTER topic_id");
+
+    // PROGRESS FIX: Full-chapter tests and Custom Practice (multiple topics)
+    // used to be silently skipped when saving progress, because this table
+    // only ever accepted a single required topic_id. These columns let one
+    // attempt row represent a topic test, a chapter test, or a custom mix.
+    await makeColumnNullable('test_attempts', 'topic_id', 'topic_id INT NULL');
+    await addColumnIfMissing('test_attempts', 'chapter_id', 'chapter_id INT NULL AFTER topic_id');
+    await addColumnIfMissing('test_attempts', 'attempt_kind', "attempt_kind ENUM('Topic','Chapter','Custom') NOT NULL DEFAULT 'Topic' AFTER chapter_id");
+    await addColumnIfMissing('test_attempts', 'label', 'label VARCHAR(255) NULL AFTER attempt_kind');
+    await addColumnIfMissing('test_attempts', 'topic_ids_json', 'topic_ids_json JSON NULL AFTER label');
 
     // TEST REPORT: har question ka detail (kya poocha gaya, student ne kya
     // select kiya, sahi jawab kya tha) yahan save hota hai taaki baad mein
@@ -505,7 +526,7 @@ app.put('/api/user/:user_id/profile', ah(async (req, res) => {
 // ==========================================
 app.post('/api/user/:user_id/progress', ah(async (req, res) => {
     const { user_id } = req.params;
-    const { topic_id, accuracy_percentage, xp_earned, difficulty, answers } = req.body;
+    const { topic_id, chapter_id, topic_ids, label, accuracy_percentage, xp_earned, difficulty, answers } = req.body;
     const accuracy = Number(accuracy_percentage);
     const xp = Number(xp_earned);
     const normalizedDifficulty = ['Easy', 'Medium', 'Hard'].includes(difficulty) ? difficulty : 'Medium';
@@ -513,8 +534,20 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
     // jo ye array na bhejein unke liye bhi ye route bina toote kaam karta hai).
     const answerList = Array.isArray(answers) ? answers : [];
 
-    if (!topic_id || !Number.isFinite(accuracy) || accuracy < 0 || accuracy > 100 || !Number.isFinite(xp) || xp < 0) {
-        return res.status(400).json({ success: false, message: 'Valid topic, accuracy aur XP dena zaroori hai.' });
+    // PROGRESS FIX: this route used to only accept a single topic_id, so any
+    // full-chapter test or Custom Practice attempt (multiple topics) had
+    // nowhere to be saved and silently vanished. It now accepts exactly one
+    // of: topic_id (topic test), chapter_id (full chapter test), or
+    // topic_ids (Custom Practice, an array of the topics that were mixed).
+    const isCustom = Array.isArray(topic_ids) && topic_ids.length > 0;
+    const isChapter = !isCustom && chapter_id;
+    const isTopic = !isCustom && !isChapter && topic_id;
+
+    if (!isTopic && !isChapter && !isCustom) {
+        return res.status(400).json({ success: false, message: 'Topic, chapter, ya custom topic list dena zaroori hai.' });
+    }
+    if (!Number.isFinite(accuracy) || accuracy < 0 || accuracy > 100 || !Number.isFinite(xp) || xp < 0) {
+        return res.status(400).json({ success: false, message: 'Valid accuracy aur XP dena zaroori hai.' });
     }
     const normalizedAccuracy = Math.round(accuracy * 100) / 100;
     const normalizedXp = Math.round(xp);
@@ -523,36 +556,59 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
 
     try {
         await connection.beginTransaction();
-        const [[topic]] = await connection.query('SELECT topic_id FROM topics WHERE topic_id = ?', [topic_id]);
-        if (!topic) {
-            await connection.rollback();
-            return res.status(404).json({ success: false, message: 'Topic nahi mila!' });
-        }
-        const [[existing]] = await connection.query(
-            'SELECT progress_id FROM user_progress WHERE user_id = ? AND topic_id = ? FOR UPDATE',
-            [user_id, topic_id]
-        );
+        let attemptKind = 'Topic';
+        let attemptLabel = null;
+        let savedTopicId = null;
+        let savedChapterId = null;
+        let topicIdsJson = null;
 
-        if (existing) {
-            await connection.query(
-                `UPDATE user_progress
-                 SET status = ?, accuracy_percentage = ?, tests_attempted = tests_attempted + 1,
-                     xp_earned = xp_earned + ?, last_tested_at = CURRENT_TIMESTAMP
-                 WHERE progress_id = ?`,
-                [status, normalizedAccuracy, normalizedXp, existing.progress_id]
+        if (isTopic) {
+            const [[topic]] = await connection.query('SELECT topic_id FROM topics WHERE topic_id = ?', [topic_id]);
+            if (!topic) {
+                await connection.rollback();
+                return res.status(404).json({ success: false, message: 'Topic nahi mila!' });
+            }
+            savedTopicId = topic_id;
+
+            const [[existing]] = await connection.query(
+                'SELECT progress_id FROM user_progress WHERE user_id = ? AND topic_id = ? FOR UPDATE',
+                [user_id, topic_id]
             );
+
+            if (existing) {
+                await connection.query(
+                    `UPDATE user_progress
+                     SET status = ?, accuracy_percentage = ?, tests_attempted = tests_attempted + 1,
+                         xp_earned = xp_earned + ?, last_tested_at = CURRENT_TIMESTAMP
+                     WHERE progress_id = ?`,
+                    [status, normalizedAccuracy, normalizedXp, existing.progress_id]
+                );
+            } else {
+                await connection.query(
+                    `INSERT INTO user_progress (user_id, topic_id, status, accuracy_percentage, tests_attempted, xp_earned)
+                     VALUES (?, ?, ?, ?, 1, ?)`,
+                    [user_id, topic_id, status, normalizedAccuracy, normalizedXp]
+                );
+            }
+        } else if (isChapter) {
+            const [[chapter]] = await connection.query('SELECT chapter_id, chapter_name FROM chapters WHERE chapter_id = ?', [chapter_id]);
+            if (!chapter) {
+                await connection.rollback();
+                return res.status(404).json({ success: false, message: 'Chapter nahi mila!' });
+            }
+            savedChapterId = chapter_id;
+            attemptKind = 'Chapter';
+            attemptLabel = String(label || chapter.chapter_name || 'Full chapter test').slice(0, 255);
         } else {
-            await connection.query(
-                `INSERT INTO user_progress (user_id, topic_id, status, accuracy_percentage, tests_attempted, xp_earned)
-                 VALUES (?, ?, ?, ?, 1, ?)`,
-                [user_id, topic_id, status, normalizedAccuracy, normalizedXp]
-            );
+            attemptKind = 'Custom';
+            attemptLabel = String(label || `Custom practice · ${topic_ids.length} topics`).slice(0, 255);
+            topicIdsJson = JSON.stringify(topic_ids.slice(0, 100));
         }
 
         const [attempt] = await connection.query(
-            `INSERT INTO test_attempts (user_id, topic_id, difficulty, status, accuracy_percentage, xp_earned)
-             VALUES (?, ?, ?, ?, ?, ?)`,
-            [user_id, topic_id, normalizedDifficulty, status, normalizedAccuracy, normalizedXp]
+            `INSERT INTO test_attempts (user_id, topic_id, chapter_id, attempt_kind, label, topic_ids_json, difficulty, status, accuracy_percentage, xp_earned)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [user_id, savedTopicId, savedChapterId, attemptKind, attemptLabel, topicIdsJson, normalizedDifficulty, status, normalizedAccuracy, normalizedXp]
         );
 
         // Report ke liye har question ki detail alag row mein save karo.
@@ -603,12 +659,19 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
 app.get('/api/user/:user_id/attempts/:attempt_id/report', ah(async (req, res) => {
     const { user_id, attempt_id } = req.params;
 
+    // LEFT JOINs (not JOIN) so Chapter and Custom attempts — which have no
+    // single topic_id — still resolve to a row instead of vanishing; their
+    // display name falls back to the saved label.
     const [[attempt]] = await db.query(
-        `SELECT ta.attempt_id, ta.topic_id, ta.difficulty, ta.status, ta.accuracy_percentage,
-                ta.xp_earned, ta.attempted_at, t.topic_name, c.chapter_name, c.subject_name
+        `SELECT ta.attempt_id, ta.topic_id, ta.chapter_id, ta.attempt_kind, ta.label, ta.difficulty, ta.status,
+                ta.accuracy_percentage, ta.xp_earned, ta.attempted_at,
+                COALESCE(t.topic_name, ta.label, 'Practice test') AS topic_name,
+                COALESCE(c.chapter_name, c2.chapter_name, '') AS chapter_name,
+                COALESCE(c.subject_name, c2.subject_name, '') AS subject_name
          FROM test_attempts ta
-         JOIN topics t ON ta.topic_id = t.topic_id
-         JOIN chapters c ON t.chapter_id = c.chapter_id
+         LEFT JOIN topics t ON ta.topic_id = t.topic_id
+         LEFT JOIN chapters c ON t.chapter_id = c.chapter_id
+         LEFT JOIN chapters c2 ON ta.chapter_id = c2.chapter_id
          WHERE ta.attempt_id = ? AND ta.user_id = ?`,
         [attempt_id, user_id]
     );
@@ -654,12 +717,20 @@ app.get('/api/user/:user_id/progress', ah(async (req, res) => {
          ORDER BY up.last_tested_at DESC`,
         [user_id]
     );
+    // PROGRESS FIX: LEFT JOINs so Chapter and Custom Practice attempts (no
+    // single topic_id) still show up in test history instead of being
+    // dropped by an inner JOIN that required one.
     const [testHistory] = await db.query(
-        `SELECT ta.attempt_id, ta.topic_id, ta.difficulty, ta.status, ta.accuracy_percentage, ta.xp_earned, ta.attempted_at,
-                t.topic_name, c.chapter_id, c.chapter_name, c.subject_name
+        `SELECT ta.attempt_id, ta.topic_id, ta.chapter_id, ta.attempt_kind, ta.label, ta.difficulty, ta.status,
+                ta.accuracy_percentage, ta.xp_earned, ta.attempted_at,
+                COALESCE(t.topic_name, ta.label, 'Practice test') AS topic_name,
+                COALESCE(c.chapter_id, c2.chapter_id) AS chapter_id_resolved,
+                COALESCE(c.chapter_name, c2.chapter_name, '') AS chapter_name,
+                COALESCE(c.subject_name, c2.subject_name, '') AS subject_name
          FROM test_attempts ta
-         JOIN topics t ON ta.topic_id = t.topic_id
-         JOIN chapters c ON t.chapter_id = c.chapter_id
+         LEFT JOIN topics t ON ta.topic_id = t.topic_id
+         LEFT JOIN chapters c ON t.chapter_id = c.chapter_id
+         LEFT JOIN chapters c2 ON ta.chapter_id = c2.chapter_id
          WHERE ta.user_id = ?
          ORDER BY ta.attempted_at DESC, ta.attempt_id DESC`,
         [user_id]
@@ -700,7 +771,7 @@ app.get('/api/user/:user_id/progress', ah(async (req, res) => {
 app.get('/api/chat/:user_id', ah(async (req, res) => {
     const { user_id } = req.params;
     const [results] = await db.query(
-        `SELECT message_id, sender_type, message_text, created_at,
+        `SELECT message_id, sender_type, message_text, created_at, attachment_mime,
                 CASE WHEN attachment_data IS NOT NULL
                     THEN CONCAT('/api/chat/', user_id, '/', message_id, '/attachment')
                     ELSE NULL END AS attachment_url
@@ -723,17 +794,20 @@ app.get('/api/chat/:user_id/:message_id/attachment', ah(async (req, res) => {
     res.send(Buffer.from(attachment.attachment_data, 'base64'));
 }));
 
+// Accepts either a photo (JPG/PNG/WebP, sent from the camera button) or a
+// document (PDF, sent from the document button) — both flow through the
+// same attachment column, just tagged with their real mime type.
 function sanitizeChatAttachment(rawAttachment) {
     if (!rawAttachment) return null;
-    const match = String(rawAttachment.data_url || '').match(/^data:(image\/(?:jpeg|png|webp));base64,([A-Za-z0-9+/=\s]+)$/i);
+    const match = String(rawAttachment.data_url || '').match(/^data:(image\/(?:jpeg|png|webp)|application\/pdf);base64,([A-Za-z0-9+/=\s]+)$/i);
     if (!match) {
-        const error = new Error('Photo must be a JPG, PNG, or WebP image.');
+        const error = new Error('Attach a JPG, PNG, WebP photo or a PDF document.');
         error.status = 400;
         throw error;
     }
     const data = match[2].replace(/\s/g, '');
     if (Buffer.byteLength(data, 'base64') > 5 * 1024 * 1024) {
-        const error = new Error('Photo must be smaller than 5 MB.');
+        const error = new Error('Attachment must be smaller than 5 MB.');
         error.status = 400;
         throw error;
     }
@@ -743,7 +817,7 @@ function sanitizeChatAttachment(rawAttachment) {
 // Very small rule-based tutor used when ANTHROPIC_API_KEY isn't configured, so
 // the chat never breaks — it just isn't "smart" until you add a real key.
 function fallbackAiReply(userText, hasAttachment = false) {
-    const imageNote = hasAttachment ? ' Aapki image conversation mein securely save ho gayi hai. ' : ' ';
+    const imageNote = hasAttachment ? ' Aapka attachment conversation mein securely save ho gaya hai. ' : ' ';
     return `Aapne poocha: "${userText}".${imageNote}Abhi is server par koi live AI model connect nahi hai — ` +
         `ANTHROPIC_API_KEY environment variable set karke real AI jawaab enable karein ` +
         `(dekhein server.js mein generateAiReply function). Tab tak, Study section mein jaakar ` +
@@ -775,7 +849,9 @@ async function generateAiReply(userText, attachment = null) {
                     role: 'user',
                     content: attachment
                         ? [
-                            { type: 'image', source: { type: 'base64', media_type: attachment.mime, data: attachment.data } },
+                            attachment.mime === 'application/pdf'
+                                ? { type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: attachment.data } }
+                                : { type: 'image', source: { type: 'base64', media_type: attachment.mime, data: attachment.data } },
                             { type: 'text', text: userText }
                         ]
                         : userText
@@ -816,7 +892,8 @@ app.post('/api/chat/:user_id', ah(async (req, res) => {
         message_id: userInsert.insertId,
         sender_type,
         message_text: messageText,
-        attachment_url: attachment ? `/api/chat/${user_id}/${userInsert.insertId}/attachment` : null
+        attachment_url: attachment ? `/api/chat/${user_id}/${userInsert.insertId}/attachment` : null,
+        attachment_mime: attachment?.mime || null,
     };
 
     const aiText = await generateAiReply(messageText, attachment);
