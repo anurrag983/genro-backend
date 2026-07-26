@@ -1,0 +1,3244 @@
+{
+  "chapter": "The Living World",
+  "sections": [
+    {
+      "section": "Characteristics of Living Organisms",
+      "difficulties": {
+        "Easy": [
+          {
+            "question": "Which of the following is a defining characteristic of living organisms?",
+            "options": [
+              "Increase in size only",
+              "Ability to reproduce only",
+              "Cellular organization",
+              "Presence of oxygen"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which characteristic is considered the most important for identifying a living organism?",
+            "options": [
+              "Movement",
+              "Growth",
+              "Consciousness (response to stimuli)",
+              "Respiration"
+            ],
+            "answer": "C",
+            "explanation": "Living organisms are characterized by their ability to sense and respond to their surroundings."
+          },
+          {
+            "question": "Growth in plants occurs due to:",
+            "options": [
+              "Increase in cell size only",
+              "Increase in number and size of cells",
+              "Absorption of water only",
+              "Deposition of minerals"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following is not considered a characteristic of living organisms?",
+            "options": [
+              "Metabolism",
+              "Cellular organization",
+              "Crystallization",
+              "Reproduction"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which one of the following organisms reproduces by binary fission?",
+            "options": [
+              "Hydra",
+              "Amoeba",
+              "Yeast",
+              "Fern"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which process is the sum total of all chemical reactions occurring in a living organism?",
+            "options": [
+              "Growth",
+              "Respiration",
+              "Metabolism",
+              "Adaptation"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following is an example of anabolism?",
+            "options": [
+              "Digestion of food",
+              "Breakdown of glucose",
+              "Protein synthesis",
+              "Cellular respiration"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following is an example of catabolism?",
+            "options": [
+              "DNA synthesis",
+              "Photosynthesis",
+              "Breakdown of glucose",
+              "Formation of proteins"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which characteristic distinguishes living organisms from non-living objects?",
+            "options": [
+              "Increase in mass",
+              "Ability to undergo metabolism",
+              "Presence of carbon",
+              "Definite shape"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following is not a metabolic process?",
+            "options": [
+              "Respiration",
+              "Photosynthesis",
+              "Protein synthesis",
+              "Crystallization of salt"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which of the following statements is correct?",
+            "options": [
+              "All living organisms reproduce.",
+              "All living organisms exhibit metabolism.",
+              "All non-living things grow internally.",
+              "Viruses perform metabolism independently."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Growth in non-living objects like mountains occurs by:",
+            "options": [
+              "Cell division",
+              "Internal growth",
+              "Accumulation of material from outside",
+              "Metabolism"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following is not a property of living organisms?",
+            "options": [
+              "Homeostasis",
+              "Consciousness",
+              "Metabolism",
+              "Radioactivity"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which of the following organisms is living but does not reproduce under normal conditions?",
+            "options": [
+              "Mule",
+              "Amoeba",
+              "Bacteria",
+              "Hydra"
+            ],
+            "answer": "A",
+            "explanation": "A mule is sterile but is still considered living because it exhibits all other life processes."
+          },
+          {
+            "question": "Which one of the following statements is true?",
+            "options": [
+              "Reproduction is the defining feature of life.",
+              "Metabolism occurs only in plants.",
+              "Consciousness and metabolism together are unique characteristics of living organisms.",
+              "Growth in living organisms occurs only by external addition."
+            ],
+            "answer": "C"
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Which one of the following is regarded as the defining property of living organisms according to NCERT?",
+            "options": [
+              "Growth",
+              "Reproduction",
+              "Consciousness",
+              "Metabolism"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which one of the following statements is incorrect?",
+            "options": [
+              "All living organisms exhibit metabolism.",
+              "All living organisms reproduce.",
+              "Growth in plants is generally indeterminate.",
+              "Non-living objects may increase in size by external addition."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following is not considered a living organism?",
+            "options": [
+              "Virus outside a host cell",
+              "Amoeba",
+              "Euglena",
+              "Bacteria"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which characteristic distinguishes living organisms from non-living objects even when reproduction is absent?",
+            "options": [
+              "Increase in mass",
+              "Presence of carbon",
+              "Metabolism",
+              "Definite shape"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following processes are examples of catabolism?",
+            "options": [
+              "Digestion",
+              "Respiration",
+              "Photosynthesis",
+              "Protein synthesis"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following pairs is correctly matched?",
+            "options": [
+              "A. Growth — Increase in sand dune size",
+              "B. Metabolism — Photosynthesis",
+              "C. Reproduction — Crystal formation",
+              "D. Consciousness — Salt crystallization"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Assertion (A): Growth cannot be considered the defining characteristic of living organisms.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, R is false.",
+              "A is false, R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following organisms is living but naturally sterile?",
+            "options": [
+              "Hydra",
+              "Mule",
+              "Amoeba",
+              "Yeast"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following statements regarding metabolism is correct?",
+            "options": [
+              "It occurs only in multicellular organisms.",
+              "It includes both anabolism and catabolism.",
+              "It is absent in microorganisms.",
+              "It occurs only during growth."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following is an example of anabolism?",
+            "options": [
+              "Breakdown of glucose",
+              "Digestion of proteins",
+              "Synthesis of glycogen",
+              "Cellular respiration"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which one of the following statements is correct?",
+            "options": [
+              "Viruses perform independent metabolism.",
+              "Metabolism can occur in isolated cell-free systems.",
+              "Growth is absent in plants.",
+              "Reproduction is the defining property of life."
+            ],
+            "answer": "B",
+            "explanation": "NCERT states that metabolic reactions can be demonstrated in vitro in cell-free systems."
+          },
+          {
+            "question": "Which of the following characteristics is common to both living and non-living objects?",
+            "options": [
+              "Internal growth",
+              "Metabolism",
+              "Increase in size",
+              "Consciousness"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which one of the following correctly explains why viruses are placed at the boundary of living and non-living?",
+            "options": [
+              "They possess cellular organization.",
+              "They perform independent metabolism.",
+              "They reproduce only inside living host cells.",
+              "They lack genetic material."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which one of the following combinations is found only in living organisms?",
+            "options": [
+              "Growth + Increase in mass",
+              "Consciousness + Metabolism",
+              "Growth + External addition",
+              "Reproduction + Crystallization"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Consider the following statements: I. Metabolism is the sum total of all chemical reactions in the body. II. Reproduction is a defining characteristic of life. III. Consciousness refers to the ability to sense and respond to environmental stimuli. Choose the correct option:",
+            "options": [
+              "I and II only",
+              "II and III only",
+              "I and III only",
+              "I, II and III"
+            ],
+            "answer": "C"
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Which one of the following characteristics is considered the defining property of living organisms according to NCERT?",
+            "options": [
+              "Growth",
+              "Reproduction",
+              "Consciousness",
+              "Metabolism"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which one of the following combinations is found exclusively in living organisms?",
+            "options": [
+              "Growth and reproduction",
+              "Metabolism and consciousness",
+              "Growth and movement",
+              "Reproduction and adaptation"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Assertion (A): Metabolism is a defining feature of living organisms. Reason (R): Metabolic reactions can be demonstrated outside the body in cell-free systems.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, but R is false.",
+              "A is false, but R is true."
+            ],
+            "answer": "B",
+            "explanation": "Metabolism is unique to living organisms. The reason is also true but does not explain why metabolism is a defining feature."
+          },
+          {
+            "question": "Which one of the following is incorrectly matched?",
+            "options": [
+              "A) Mule — Sterile but living",
+              "B) Virus — Obligate intracellular parasite",
+              "C) Crystal — Shows metabolism",
+              "D) Amoeba — Reproduces by binary fission"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following statements is correct? 1. Growth by cell division occurs only in living organisms. 2. Growth by external addition occurs in non-living objects. 3. Reproduction cannot be used as the defining property of life.",
+            "options": [
+              "1 and 2 only",
+              "2 and 3 only",
+              "1 and 3 only",
+              "1, 2 and 3"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which one of the following organisms lacks independent metabolism?",
+            "options": [
+              "Cyanobacteria",
+              "Virus",
+              "Amoeba",
+              "Yeast"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "The sum total of all anabolic and catabolic reactions occurring in an organism is called:",
+            "options": [
+              "Homeostasis",
+              "Metabolism",
+              "Evolution",
+              "Adaptation"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following is not a catabolic process?",
+            "options": [
+              "Glycolysis",
+              "Cellular respiration",
+              "Digestion",
+              "Protein synthesis"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which one of the following best explains why viruses occupy a position between living and non-living?",
+            "options": [
+              "They possess ribosomes.",
+              "They reproduce only inside host cells but remain inert outside.",
+              "They perform photosynthesis.",
+              "They have cellular organization."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following processes represents anabolism? 1. DNA replication 2. Protein synthesis 3. Photosynthesis",
+            "options": [
+              "1 and 2 only",
+              "2 and 3 only",
+              "1 and 3 only",
+              "1, 2 and 3"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Assertion (A): Growth alone cannot be considered a characteristic of living organisms. Reason (R): Mountains and sand dunes also increase in size.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, R is false.",
+              "A is false, R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which one of the following statements is incorrect?",
+            "options": [
+              "All living organisms exhibit metabolism.",
+              "Some living organisms may fail to reproduce.",
+              "Consciousness involves sensing and responding to stimuli.",
+              "Every living organism exhibits locomotion."
+            ],
+            "answer": "D",
+            "explanation": "Many living organisms (e.g., higher plants) do not exhibit locomotion."
+          },
+          {
+            "question": "Which one of the following is not considered a universal characteristic of living organisms?",
+            "options": [
+              "Cellular organization",
+              "Metabolism",
+              "Reproduction",
+              "Response to stimuli"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Consider the following statements: I. Growth in living organisms is intrinsic. II. Growth in non-living objects occurs by external deposition. III. Metabolism can occur in isolated cell-free systems. Which of the above statements are correct?",
+            "options": [
+              "I only",
+              "I and II only",
+              "II and III only",
+              "I, II and III"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which of the following statements is/are correct? 1. Consciousness is regarded as the defining property of living organisms. 2. Metabolism is absent in viruses outside a host. 3. Reproduction is the defining feature of life.",
+            "options": [
+              "1 only",
+              "1 and 2 only",
+              "2 and 3 only",
+              "1, 2 and 3"
+            ],
+            "answer": "B"
+          }
+        ]
+      }
+    },
+    {
+      "section": "Biodiversity",
+      "difficulties": {
+        "Easy": [
+          {
+            "question": "Biodiversity refers to:",
+            "options": [
+              "Variety of non-living resources",
+              "Variety and variability of living organisms",
+              "Number of human beings",
+              "Distribution of minerals"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which country is known for having the highest biodiversity in the world?",
+            "options": [
+              "India",
+              "Australia",
+              "Brazil",
+              "China"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "India is recognized as one of the ______ megadiversity countries.",
+            "options": [
+              "8",
+              "10",
+              "12",
+              "17"
+            ],
+            "answer": "D",
+            "explanation": "India is one of the 17 megadiverse countries recognized for their rich biological diversity."
+          },
+          {
+            "question": "The term \"biodiversity\" includes:",
+            "options": [
+              "Genetic diversity only",
+              "Species diversity only",
+              "Ecosystem diversity only",
+              "Genetic, species, and ecosystem diversity"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which of the following is an example of genetic diversity?",
+            "options": [
+              "Different species in a forest",
+              "Different varieties of rice",
+              "Forest and desert ecosystems",
+              "Different animal phyla"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following contributes most to biodiversity?",
+            "options": [
+              "Habitat destruction",
+              "Pollution",
+              "Variation among organisms",
+              "Deforestation"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following regions has the highest species richness?",
+            "options": [
+              "Polar regions",
+              "Temperate grasslands",
+              "Tropical rainforests",
+              "Deserts"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following is not a level of biodiversity?",
+            "options": [
+              "Genetic diversity",
+              "Species diversity",
+              "Ecosystem diversity",
+              "Cellular diversity"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "India possesses approximately what percentage of the world's recorded species?",
+            "options": [
+              "1%",
+              "2.4%",
+              "5%",
+              "10%"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following is a biodiversity hotspot in India?",
+            "options": [
+              "Thar Desert",
+              "Western Ghats",
+              "Indo-Gangetic Plain",
+              "Punjab Plains"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following statements is correct?",
+            "options": [
+              "Biodiversity is uniform throughout the Earth.",
+              "Tropical regions generally have higher biodiversity than polar regions.",
+              "Deserts have the highest biodiversity.",
+              "Biodiversity is unrelated to climate."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "The variety of ecosystems within a geographical region is called:",
+            "options": [
+              "Genetic diversity",
+              "Species diversity",
+              "Ecosystem diversity",
+              "Population diversity"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following factors is mainly responsible for the loss of biodiversity?",
+            "options": [
+              "Afforestation",
+              "Habitat destruction",
+              "Conservation programs",
+              "National parks"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which organization publishes the Red List of Threatened Species?",
+            "options": [
+              "WHO",
+              "UNESCO",
+              "IUCN",
+              "WWF"
+            ],
+            "answer": "C",
+            "explanation": "The International Union for Conservation of Nature (IUCN) maintains the Red List to assess the conservation status of species."
+          },
+          {
+            "question": "Which of the following statements is true?",
+            "options": [
+              "India has low biodiversity compared to most countries.",
+              "Biodiversity includes variation at genetic, species, and ecosystem levels.",
+              "Biodiversity refers only to plant species.",
+              "Biodiversity is not important for ecosystem stability."
+            ],
+            "answer": "B"
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Biodiversity refers to:",
+            "options": [
+              "Variety of plants only",
+              "Variety and variability of living organisms at genetic, species, and ecosystem levels",
+              "Number of organisms in a habitat",
+              "Variety of abiotic components"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "India is recognized as one of the ______ megadiversity countries.",
+            "options": [
+              "10",
+              "12",
+              "17",
+              "20"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following contributes the maximum to global biodiversity?",
+            "options": [
+              "Temperate forests",
+              "Tropical rainforests",
+              "Polar regions",
+              "Grasslands"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following represents genetic diversity?",
+            "options": [
+              "Different species in a forest",
+              "Different varieties of wheat",
+              "Forests, grasslands, and deserts",
+              "Different genera of flowering plants"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following statements is incorrect?",
+            "options": [
+              "India possesses about 2.4% of the world's land area.",
+              "India harbors about 8.1% of the world's recorded species.",
+              "India is one of the 17 megadiversity countries.",
+              "Tropical regions generally have greater biodiversity than temperate regions."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following is an example of ecosystem diversity?",
+            "options": [
+              "Different breeds of dogs",
+              "Different species of orchids",
+              "Forest, desert, and mangrove ecosystems",
+              "Different varieties of rice"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Assertion (A): Tropical regions possess greater biodiversity than polar regions. Reason (R): Tropical regions have a stable climate and longer evolutionary time.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, R is false.",
+              "A is false, R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following is not a biodiversity hotspot found partly in India?",
+            "options": [
+              "Western Ghats--Sri Lanka",
+              "Himalaya",
+              "Indo-Burma",
+              "Amazon Rainforest"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which organization maintains the Red List of Threatened Species?",
+            "options": [
+              "WHO",
+              "WWF",
+              "IUCN",
+              "UNEP"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Species diversity refers to:",
+            "options": [
+              "Variation within a species",
+              "Variety of ecosystems",
+              "Variety of species in a region",
+              "Variation in chromosomes"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which one of the following is not a major cause of biodiversity loss?",
+            "options": [
+              "Habitat destruction",
+              "Overexploitation",
+              "Afforestation",
+              "Invasion by alien species"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "India has approximately how many recorded plant species?",
+            "options": [
+              "About 15,000",
+              "About 47,000",
+              "About 87,000",
+              "About 1,50,000"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following statements is correct?",
+            "options": [
+              "Species richness is highest in deserts.",
+              "Biodiversity decreases from the equator toward the poles.",
+              "Biodiversity is independent of climate.",
+              "Polar regions have greater species richness than tropical regions."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following correctly matches the level of biodiversity with its example?",
+            "options": [
+              "A. Genetic diversity — Different varieties of mango",
+              "B. Species diversity — Tropical rainforest",
+              "C. Ecosystem diversity — Tiger and lion",
+              "D. Genetic diversity — Forest and grassland"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Consider the following statements: I. Biodiversity includes genetic, species, and ecosystem diversity. II. India is one of the 17 megadiversity countries. III. Tropical rainforests possess the highest species richness. Choose the correct answer:",
+            "options": [
+              "I only",
+              "I and II only",
+              "II and III only",
+              "I, II and III"
+            ],
+            "answer": "D"
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Which one of the following statements regarding biodiversity is incorrect?",
+            "options": [
+              "Biodiversity includes genetic, species, and ecosystem diversity.",
+              "India is one of the 17 megadiversity countries.",
+              "Tropical regions generally possess higher biodiversity than temperate regions.",
+              "Biodiversity refers only to the number of species present in an area."
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which of the following correctly represents the three levels of biodiversity?",
+            "options": [
+              "Genetic, Cellular, Organ diversity",
+              "Genetic, Species, Ecosystem diversity",
+              "Population, Community, Ecosystem diversity",
+              "Species, Habitat, Climatic diversity"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Assertion (A): Species richness decreases from the equator towards the poles. Reason (R): Tropical regions have experienced fewer glaciations and have remained relatively stable over evolutionary time.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, but R is false.",
+              "A is false, but R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "India occupies approximately:",
+            "options": [
+              "8.1% of Earth's land area and 2.4% of recorded species.",
+              "2.4% of Earth's land area and about 8.1% of recorded species.",
+              "17% of Earth's land area and 2.4% of species.",
+              "5% of Earth's land area and 10% of species."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following is an example of genetic diversity?",
+            "options": [
+              "Different ecosystems in the Western Ghats",
+              "Different breeds of cattle",
+              "Tiger, leopard, and lion living in the same forest",
+              "Forest and grassland ecosystems"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following is not one of the biodiversity hotspots found in or extending into India?",
+            "options": [
+              "Himalaya",
+              "Indo-Burma",
+              "Western Ghats--Sri Lanka",
+              "Amazon Basin"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which of the following statements is correct? 1. Tropical rainforests have the highest species richness. 2. Biodiversity is generally lower in polar regions. 3. Stable environments promote greater biodiversity.",
+            "options": [
+              "1 only",
+              "1 and 2 only",
+              "2 and 3 only",
+              "1, 2 and 3"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which of the following is mainly responsible for species richness in tropical regions?",
+            "options": [
+              "High seasonal variations",
+              "Frequent glaciation",
+              "Long evolutionary time with climatic stability",
+              "Low rainfall"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which organization publishes the Red List of Threatened Species?",
+            "options": [
+              "WHO",
+              "IUCN",
+              "WWF",
+              "UNEP"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following correctly matches the level of biodiversity with its example?",
+            "options": [
+              "A) Genetic diversity — Different varieties of rice",
+              "B) Species diversity — Desert and rainforest",
+              "C) Ecosystem diversity — Tiger and lion",
+              "D) Genetic diversity — Forest and grassland"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following statements regarding India is incorrect?",
+            "options": [
+              "India has about 47,000 plant species.",
+              "India has about 90,000 animal species.",
+              "India possesses approximately 8.1% of the world's recorded species.",
+              "India has the highest biodiversity in the world."
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Consider the following statements: I. Species diversity refers to the variety of species in a given region. II. Genetic diversity refers to variation among individuals of the same species. III. Ecosystem diversity refers to the variety of ecosystems in a geographical area. Choose the correct answer:",
+            "options": [
+              "I only",
+              "I and II only",
+              "II and III only",
+              "I, II and III"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Assertion (A): Biodiversity is important for ecosystem stability. Reason (R): Greater biodiversity generally improves ecosystem resilience against environmental disturbances.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, but R is false.",
+              "A is false, but R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which one of the following combinations represents the major threats to biodiversity? 1. Habitat destruction 2. Overexploitation 3. Invasion by alien species 4. Afforestation",
+            "options": [
+              "1 and 2 only",
+              "1, 2 and 3 only",
+              "2, 3 and 4 only",
+              "1, 2, 3 and 4"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Consider the following statements: I. India is one of the world's megadiversity countries. II. Tropical regions have greater biodiversity than temperate regions. III. Biodiversity includes genetic, species, and ecosystem diversity. IV. The IUCN maintains the Red List of Threatened Species. Which of the above statements are correct?",
+            "options": [
+              "I and II only",
+              "I, II and III only",
+              "II, III and IV only",
+              "I, II, III and IV"
+            ],
+            "answer": "D"
+          }
+        ]
+      }
+    },
+    {
+      "section": "Taxonomy",
+      "difficulties": {
+        "Easy": [
+          {
+            "question": "Taxonomy is the branch of biology that deals with:",
+            "options": [
+              "Study of cells",
+              "Classification, identification, and naming of organisms",
+              "Study of heredity",
+              "Study of fossils"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "The term \"Taxonomy\" was first introduced by:",
+            "options": [
+              "Charles Darwin",
+              "Carolus Linnaeus",
+              "A.P. de Candolle",
+              "Aristotle"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "The father of modern taxonomy is:",
+            "options": [
+              "Aristotle",
+              "Carolus Linnaeus",
+              "Charles Darwin",
+              "Robert Hooke"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following is not a component of taxonomy?",
+            "options": [
+              "Identification",
+              "Nomenclature",
+              "Classification",
+              "Photosynthesis"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "The correct sequence of taxonomic activities is:",
+            "options": [
+              "Classification → Identification → Nomenclature",
+              "Identification → Classification → Nomenclature",
+              "Nomenclature → Classification → Identification",
+              "Identification → Nomenclature → Classification"
+            ],
+            "answer": "B",
+            "explanation": "An organism is first identified, then classified, and finally given a scientific name."
+          },
+          {
+            "question": "Which branch of biology deals with assigning scientific names to organisms?",
+            "options": [
+              "Ecology",
+              "Morphology",
+              "Nomenclature",
+              "Anatomy"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Identification of an organism is based on:",
+            "options": [
+              "Habitat only",
+              "Similarities and differences in characteristics",
+              "Economic importance only",
+              "Color only"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which book written by Carolus Linnaeus laid the foundation of modern taxonomy?",
+            "options": [
+              "Origin of Species",
+              "Systema Naturae",
+              "Historia Plantarum",
+              "Genera Plantarum"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "The science of grouping organisms based on similarities and differences is called:",
+            "options": [
+              "Evolution",
+              "Classification",
+              "Physiology",
+              "Genetics"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following is the primary aim of taxonomy?",
+            "options": [
+              "To increase the number of species",
+              "To simplify the study of organisms through systematic arrangement",
+              "To study chemical composition",
+              "To study diseases"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following is correct regarding taxonomy?",
+            "options": [
+              "It deals only with plants.",
+              "It deals only with animals.",
+              "It includes identification, nomenclature, and classification.",
+              "It excludes scientific naming."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Taxonomy helps scientists to:",
+            "options": [
+              "Predict earthquakes",
+              "Identify and classify newly discovered organisms",
+              "Produce vaccines",
+              "Measure atmospheric pressure"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following scientists is known as the \"Father of Biology\"?",
+            "options": [
+              "Aristotle",
+              "Linnaeus",
+              "Darwin",
+              "Hooke"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which statement is incorrect?",
+            "options": [
+              "Taxonomy provides universal names for organisms.",
+              "Taxonomy avoids confusion caused by local names.",
+              "Taxonomy is useful only for botanists.",
+              "Taxonomy helps understand relationships among organisms."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following best defines taxonomy?",
+            "options": [
+              "Study of interactions between organisms and environment",
+              "Science of identifying, naming, and classifying organisms",
+              "Study of internal organs",
+              "Study of fossils"
+            ],
+            "answer": "B"
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Taxonomy is primarily concerned with:",
+            "options": [
+              "Study of ecological interactions",
+              "Identification, nomenclature, and classification of organisms",
+              "Study of heredity",
+              "Study of fossils"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "The term taxonomy was introduced by:",
+            "options": [
+              "Carolus Linnaeus",
+              "Aristotle",
+              "A.P. de Candolle",
+              "Charles Darwin"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which one of the following is not a component of taxonomy?",
+            "options": [
+              "Identification",
+              "Nomenclature",
+              "Classification",
+              "Evolutionary history"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which of the following correctly represents the sequence of taxonomic activities?",
+            "options": [
+              "Classification → Nomenclature → Identification",
+              "Identification → Classification → Nomenclature",
+              "Nomenclature → Identification → Classification",
+              "Identification → Nomenclature → Evolution"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "The process of assigning a scientific name to an organism is called:",
+            "options": [
+              "Classification",
+              "Identification",
+              "Nomenclature",
+              "Phylogeny"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which scientist is regarded as the Father of Modern Taxonomy?",
+            "options": [
+              "Aristotle",
+              "Charles Darwin",
+              "Carolus Linnaeus",
+              "Ernst Haeckel"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Assertion (A): Taxonomy helps avoid confusion caused by local names. Reason (R): Scientific names are universally accepted throughout the world.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, R is false.",
+              "A is false, R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which publication by Linnaeus laid the foundation of modern taxonomy?",
+            "options": [
+              "Origin of Species",
+              "Systema Naturae",
+              "Historia Plantarum",
+              "Species Evolution"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Identification of an organism is mainly based on:",
+            "options": [
+              "Economic value",
+              "Morphological and other observable characters",
+              "Habitat alone",
+              "Color alone"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following is the primary objective of biological classification?",
+            "options": [
+              "To increase the number of species",
+              "To facilitate systematic study of organisms",
+              "To study only extinct organisms",
+              "To identify diseases"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following is incorrect regarding taxonomy?",
+            "options": [
+              "It provides universally accepted names.",
+              "It facilitates identification of organisms.",
+              "It studies only plants.",
+              "It helps classify newly discovered organisms."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Taxonomy is important because it:",
+            "options": [
+              "Predicts earthquakes",
+              "Establishes evolutionary mutations",
+              "Organizes biological diversity systematically",
+              "Prevents extinction"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which one of the following branches is most closely related to taxonomy?",
+            "options": [
+              "Nomenclature",
+              "Cytology",
+              "Histology",
+              "Embryology"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following statements is correct?",
+            "options": [
+              "Taxonomy is broader than systematics.",
+              "Systematics includes taxonomy and evolutionary relationships.",
+              "Taxonomy excludes identification.",
+              "Classification is not part of taxonomy."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Consider the following statements: I. Taxonomy includes identification, nomenclature, and classification. II. Carolus Linnaeus is known as the Father of Modern Taxonomy. III. Taxonomy provides a universal system for naming organisms. Choose the correct answer:",
+            "options": [
+              "I only",
+              "I and II only",
+              "II and III only",
+              "I, II and III"
+            ],
+            "answer": "D"
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Which one of the following statements correctly differentiates taxonomy from systematics?",
+            "options": [
+              "Taxonomy deals with phylogeny, whereas systematics deals only with classification.",
+              "Taxonomy includes identification, nomenclature, and classification, while systematics additionally considers evolutionary relationships.",
+              "Taxonomy is broader than systematics.",
+              "Both taxonomy and systematics are identical in scope."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "The sequence of taxonomic procedures followed while studying an unknown organism is:",
+            "options": [
+              "Nomenclature → Identification → Classification",
+              "Identification → Classification → Nomenclature",
+              "Classification → Identification → Nomenclature",
+              "Identification → Nomenclature → Classification"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Assertion (A): Taxonomy provides universally accepted names to organisms. Reason (R): Scientific names eliminate confusion arising from vernacular names.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, but R is false.",
+              "A is false, but R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following is not included under taxonomy?",
+            "options": [
+              "Identification",
+              "Nomenclature",
+              "Classification",
+              "Phylogenetic relationship"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "A newly discovered flowering plant has been completely studied and identified. The next taxonomic step should be:",
+            "options": [
+              "Evolutionary analysis",
+              "Nomenclature",
+              "Ecology",
+              "Conservation"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following scientists is correctly matched with his contribution?",
+            "options": [
+              "Aristotle — Binomial nomenclature",
+              "Carolus Linnaeus — Modern taxonomy",
+              "Julian Huxley — Law of Segregation",
+              "Charles Darwin — Binomial nomenclature"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following characteristics is most useful during identification of an unknown organism?",
+            "options": [
+              "Local name",
+              "Diagnostic morphological characters",
+              "Economic value",
+              "Habitat alone"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following statements is incorrect?",
+            "options": [
+              "Taxonomic studies require accurate identification.",
+              "Classification groups organisms based on similarities and differences.",
+              "Scientific names differ from country to country.",
+              "Taxonomy facilitates scientific communication."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following is the primary objective of classification?",
+            "options": [
+              "To increase biodiversity",
+              "To arrange organisms into groups for easy study and understanding",
+              "To assign local names",
+              "To study physiology only"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Consider the following statements: I. Identification is based on observable characters. II. Nomenclature follows internationally accepted rules. III. Classification groups organisms based on similarities and differences. Choose the correct answer:",
+            "options": [
+              "I only",
+              "I and II only",
+              "II and III only",
+              "I, II and III"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which of the following best explains why taxonomy is considered dynamic?",
+            "options": [
+              "Taxonomic groups never change.",
+              "New discoveries and molecular evidence may modify classifications.",
+              "Taxonomy depends only on local names.",
+              "Classification is based only on habitat."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following statements is correct?",
+            "options": [
+              "Every taxon must contain the same number of species.",
+              "Taxonomic classification changes with new scientific evidence.",
+              "Taxonomy excludes identification.",
+              "Binomial nomenclature was introduced before classification."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Assertion (A): Molecular biology has influenced modern taxonomy. Reason (R): DNA sequence analysis helps determine evolutionary relationships among organisms.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, but R is false.",
+              "A is false, but R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which one of the following is the correct order of taxonomic work after discovering a new organism?",
+            "options": [
+              "Naming → Classification → Identification",
+              "Identification → Classification → Naming",
+              "Classification → Naming → Identification",
+              "Naming → Identification → Classification"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Consider the following statements: I. Taxonomy includes identification, nomenclature, and classification. II. Carolus Linnaeus is regarded as the Father of Modern Taxonomy. III. Modern taxonomy increasingly incorporates molecular evidence. IV. Taxonomy helps establish universal communication among biologists. Which of the above statements are correct?",
+            "options": [
+              "I and II only",
+              "I, II and III only",
+              "II, III and IV only",
+              "I, II, III and IV"
+            ],
+            "answer": "D"
+          }
+        ]
+      }
+    },
+    {
+      "section": "Systematics",
+      "difficulties": {
+        "Easy": [
+          {
+            "question": "Systematics is the branch of biology that deals with:",
+            "options": [
+              "Only classification of organisms",
+              "Classification based only on morphology",
+              "Classification along with evolutionary relationships",
+              "Study of cells"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "The term Systematics was introduced by:",
+            "options": [
+              "Charles Darwin",
+              "Carolus Linnaeus",
+              "Carl Linnaeus",
+              "Julian Huxley"
+            ],
+            "answer": "D",
+            "explanation": "The term Systematics was introduced by Julian Huxley (1940) and includes taxonomy as well as evolutionary relationships."
+          },
+          {
+            "question": "Systematics includes:",
+            "options": [
+              "Identification only",
+              "Classification only",
+              "Taxonomy and evolutionary relationships",
+              "Ecology only"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "The primary objective of systematics is to:",
+            "options": [
+              "Assign local names",
+              "Study the evolutionary history of organisms",
+              "Count organisms",
+              "Study diseases"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following is included in systematics but not necessarily in traditional taxonomy?",
+            "options": [
+              "Identification",
+              "Nomenclature",
+              "Evolutionary relationships",
+              "Classification"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Systematics mainly helps in understanding:",
+            "options": [
+              "Weather changes",
+              "Phylogenetic relationships",
+              "Chemical reactions",
+              "Cell division"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following is the correct statement?",
+            "options": [
+              "Taxonomy and systematics are exactly the same.",
+              "Systematics is broader than taxonomy.",
+              "Taxonomy includes ecology.",
+              "Systematics excludes classification."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "The evolutionary history of organisms is known as:",
+            "options": [
+              "Ontogeny",
+              "Morphology",
+              "Phylogeny",
+              "Anatomy"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which evidence is commonly used in modern systematics?",
+            "options": [
+              "Morphological characters only",
+              "Molecular and genetic data",
+              "Habitat only",
+              "Color only"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following is not considered while studying systematics?",
+            "options": [
+              "Evolutionary relationships",
+              "Genetic similarities",
+              "Morphological features",
+              "Price of the organism"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Modern systematics uses:",
+            "options": [
+              "Only external features",
+              "Only fossils",
+              "Morphological, anatomical, biochemical, and molecular data",
+              "Local names"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which statement is correct?",
+            "options": [
+              "Systematics ignores evolutionary relationships.",
+              "Systematics studies diversity and relationships among organisms.",
+              "Systematics deals only with extinct organisms.",
+              "Systematics is unrelated to taxonomy."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "The branch of biology that reconstructs evolutionary relationships is closely related to:",
+            "options": [
+              "Cytology",
+              "Embryology",
+              "Phylogenetics",
+              "Histology"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following is an advantage of systematics?",
+            "options": [
+              "It helps understand the origin and evolution of organisms.",
+              "It studies only plant diseases.",
+              "It identifies only microorganisms.",
+              "It is limited to naming species."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which one of the following statements is true?",
+            "options": [
+              "Taxonomy is broader than systematics.",
+              "Systematics includes taxonomy and phylogeny.",
+              "Systematics studies only classification.",
+              "Evolution is not considered in systematics."
+            ],
+            "answer": "B"
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Systematics is the study of:",
+            "options": [
+              "Classification of organisms only",
+              "Naming of organisms only",
+              "Diversity of organisms and their evolutionary relationships",
+              "Ecology of organisms"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "The term Systematics was introduced by:",
+            "options": [
+              "Carolus Linnaeus",
+              "Julian Huxley",
+              "Charles Darwin",
+              "A.P. de Candolle"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following is included in systematics but not necessarily in classical taxonomy?",
+            "options": [
+              "Identification",
+              "Classification",
+              "Evolutionary relationships",
+              "Nomenclature"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "The study of evolutionary history and relationships among organisms is called:",
+            "options": [
+              "Morphology",
+              "Cytology",
+              "Phylogeny",
+              "Histology"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following best describes modern systematics?",
+            "options": [
+              "It is based only on external morphology.",
+              "It uses morphological, anatomical, biochemical, molecular, and evolutionary evidence.",
+              "It considers only DNA sequences.",
+              "It deals only with naming organisms."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following statements is incorrect?",
+            "options": [
+              "Systematics includes taxonomy.",
+              "Systematics studies evolutionary relationships.",
+              "Systematics ignores molecular evidence.",
+              "Systematics helps understand biodiversity."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Assertion (A): Systematics is broader than taxonomy. Reason (R): Systematics includes taxonomy along with evolutionary relationships among organisms.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, R is false.",
+              "A is false, R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which branch is most closely associated with reconstructing evolutionary relationships?",
+            "options": [
+              "Ecology",
+              "Genetics",
+              "Phylogenetics",
+              "Cytology"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Modern systematics uses all of the following except:",
+            "options": [
+              "DNA sequence analysis",
+              "Morphological characters",
+              "Biochemical evidence",
+              "Local names of organisms"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which one of the following provides the strongest evidence for evolutionary relationships?",
+            "options": [
+              "Colour of the organism",
+              "Habitat",
+              "Molecular data (DNA/protein sequences)",
+              "Common names"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following scientists is most closely associated with the concept of evolution that forms the basis of modern systematics?",
+            "options": [
+              "Robert Hooke",
+              "Charles Darwin",
+              "Gregor Mendel",
+              "Robert Brown"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following is not an objective of systematics?",
+            "options": [
+              "Studying diversity",
+              "Understanding evolutionary relationships",
+              "Assigning local names",
+              "Organizing organisms scientifically"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following statements is correct?",
+            "options": [
+              "Taxonomy and systematics are exactly identical.",
+              "Systematics includes phylogeny, taxonomy, and evolutionary studies.",
+              "Systematics is concerned only with plants.",
+              "Phylogeny is unrelated to systematics."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "In modern biology, classification is mainly based on:",
+            "options": [
+              "External appearance alone",
+              "Evolutionary relationships and multiple lines of evidence",
+              "Body size alone",
+              "Feeding habits only"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Consider the following statements: I. Systematics includes taxonomy. II. Phylogeny is an important component of systematics. III. Modern systematics uses molecular evidence along with morphology. Choose the correct answer:",
+            "options": [
+              "I only",
+              "I and II only",
+              "II and III only",
+              "I, II and III"
+            ],
+            "answer": "D"
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Which one of the following best describes systematics?",
+            "options": [
+              "Study of classification only",
+              "Study of nomenclature only",
+              "Study of organismal diversity along with evolutionary relationships",
+              "Study of fossils only"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "The term Systematics was introduced by:",
+            "options": [
+              "Carolus Linnaeus",
+              "Julian Huxley",
+              "Charles Darwin",
+              "Ernst Haeckel"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following is included in systematics but not in classical taxonomy?",
+            "options": [
+              "Identification",
+              "Nomenclature",
+              "Evolutionary relationships (Phylogeny)",
+              "Classification"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Assertion (A): Modern systematics uses molecular evidence for classification. Reason (R): DNA and protein sequence comparisons help determine evolutionary relationships.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, but R is false.",
+              "A is false, but R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which one of the following provides the strongest evidence for determining evolutionary relationships among organisms?",
+            "options": [
+              "Habitat",
+              "Body colour",
+              "DNA sequence analysis",
+              "Mode of nutrition"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which one of the following statements is incorrect?",
+            "options": [
+              "Systematics includes taxonomy.",
+              "Systematics considers phylogeny.",
+              "Systematics is based only on external morphology.",
+              "Molecular data are important in modern systematics."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which branch of biology deals specifically with evolutionary history and relationships among organisms?",
+            "options": [
+              "Ecology",
+              "Cytology",
+              "Phylogenetics",
+              "Histology"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which scientist's work laid the evolutionary foundation for modern systematics?",
+            "options": [
+              "Gregor Mendel",
+              "Robert Hooke",
+              "Charles Darwin",
+              "Robert Brown"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following characters is least reliable for determining phylogenetic relationships?",
+            "options": [
+              "DNA sequence",
+              "Protein sequence",
+              "Homologous structures",
+              "Similar habitat alone"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Modern systematics uses information from: 1. Morphology 2. Anatomy 3. Molecular biology 4. Biochemistry",
+            "options": [
+              "1 and 2 only",
+              "3 and 4 only",
+              "1, 2 and 3 only",
+              "1, 2, 3 and 4"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which of the following is the primary objective of systematics?",
+            "options": [
+              "Assigning common names",
+              "Understanding evolutionary relationships among organisms",
+              "Counting species in a forest",
+              "Studying physiology only"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Consider the following statements: I. Systematics is broader than taxonomy. II. Phylogeny is an important component of systematics. III. Taxonomy is completely independent of systematics. Choose the correct answer:",
+            "options": [
+              "I only",
+              "I and II only",
+              "II and III only",
+              "I, II and III"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following best distinguishes systematics from taxonomy?",
+            "options": [
+              "Systematics ignores classification.",
+              "Taxonomy includes phylogeny.",
+              "Systematics studies evolutionary relationships in addition to taxonomy.",
+              "Taxonomy is broader than systematics."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Assertion (A): Organisms with similar DNA sequences are generally considered more closely related. Reason (R): DNA accumulates heritable changes over evolutionary time.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, but R is false.",
+              "A is false, but R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Consider the following statements: I. Modern systematics integrates taxonomy and phylogeny. II. Molecular evidence has greatly improved biological classification. III. Evolutionary relationships are an essential part of systematics. IV. Systematics relies only on external morphology. Choose the correct answer:",
+            "options": [
+              "I and II only",
+              "I, II and III only",
+              "II, III and IV only",
+              "I, II, III and IV"
+            ],
+            "answer": "B"
+          }
+        ]
+      }
+    },
+    {
+      "section": "Binomial Nomenclature",
+      "difficulties": {
+        "Easy": [
+          {
+            "question": "Binomial nomenclature was introduced by:",
+            "options": [
+              "Aristotle",
+              "Charles Darwin",
+              "Carolus Linnaeus",
+              "Robert Hooke"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "In binomial nomenclature, each organism is given:",
+            "options": [
+              "One scientific name",
+              "Two scientific names",
+              "A two-word scientific name",
+              "Three scientific names"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "The first word in a scientific name represents the:",
+            "options": [
+              "Species",
+              "Family",
+              "Genus",
+              "Order"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "The second word in a scientific name represents the:",
+            "options": [
+              "Genus",
+              "Species (specific epithet)",
+              "Family",
+              "Kingdom"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following is the correct scientific name of humans?",
+            "options": [
+              "*homo sapiens*",
+              "*Homo Sapiens*",
+              "*Homo sapiens*",
+              "*HOMO SAPIENS*"
+            ],
+            "answer": "C",
+            "explanation": "The genus name starts with a capital letter, the species name starts with a small letter, and both are written in italics (or underlined separately when handwritten)."
+          },
+          {
+            "question": "Which rule is followed while writing a scientific name by hand?",
+            "options": [
+              "Write both words in capital letters.",
+              "Underline only the genus.",
+              "Underline the genus and species separately.",
+              "Write in bold letters."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which international code governs the naming of plants?",
+            "options": [
+              "ICZN",
+              "ICBN (now ICN)",
+              "WHO",
+              "UNESCO"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which international code governs the naming of animals?",
+            "options": [
+              "ICZN",
+              "ICN",
+              "IUPAC",
+              "FAO"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following scientific names is written correctly?",
+            "options": [
+              "*Mangifera indica*",
+              "*mangifera Indica*",
+              "*Mangifera Indica*",
+              "*MANGIFERA INDICA*"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "What is the scientific name of the mango?",
+            "options": [
+              "*Mangifera indica*",
+              "*Mangifera indicae*",
+              "*Mangifera mango*",
+              "*Mangus indica*"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "The main advantage of binomial nomenclature is that it:",
+            "options": [
+              "Gives different names in different countries.",
+              "Eliminates confusion caused by local names.",
+              "Uses only common names.",
+              "Changes scientific names frequently."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which statement is incorrect?",
+            "options": [
+              "Scientific names are universally accepted.",
+              "The genus name begins with a capital letter.",
+              "The species name begins with a capital letter.",
+              "Scientific names are generally Latin or Latinized."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following represents the scientific name of the housefly?",
+            "options": [
+              "*Musca domestica*",
+              "*Musca Domestica*",
+              "*musca domestica*",
+              "*MUSCA DOMESTICA*"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following is not a feature of binomial nomenclature?",
+            "options": [
+              "Universal acceptance",
+              "Two-word naming system",
+              "Use of local language only",
+              "Standardized scientific naming"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following statements is true?",
+            "options": [
+              "The first word represents the species.",
+              "The second word represents the genus.",
+              "Scientific names are written in italics when printed.",
+              "Scientific names may contain three words in binomial nomenclature."
+            ],
+            "answer": "C"
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Which one of the following statements regarding binomial nomenclature is correct?",
+            "options": [
+              "Every organism has a three-word scientific name.",
+              "The first word denotes the species and the second denotes the genus.",
+              "The first word denotes the genus and the second denotes the specific epithet.",
+              "Scientific names are always written in capital letters."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "The scientific name of mango is written correctly as:",
+            "options": [
+              "*mangifera Indica*",
+              "*Mangifera Indica*",
+              "*Mangifera indica*",
+              "*MANGIFERA INDICA*"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "According to the rules of binomial nomenclature, when a scientific name is handwritten:",
+            "options": [
+              "It should be written in capital letters.",
+              "Both words should be underlined separately.",
+              "Only the genus should be underlined.",
+              "It should not be underlined."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "The scientific naming system proposed by Linnaeus is accepted because:",
+            "options": [
+              "It uses common names.",
+              "It avoids regional language differences.",
+              "It changes with every country.",
+              "It uses numerical codes only."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following scientific names is incorrectly written?",
+            "options": [
+              "*Panthera leo*",
+              "*Homo sapiens*",
+              "*Canis Lupus*",
+              "*Oryza sativa*"
+            ],
+            "answer": "C",
+            "explanation": "The species epithet should begin with a small letter. The correct form is *Canis lupus*."
+          },
+          {
+            "question": "Which international code governs the scientific naming of animals?",
+            "options": [
+              "ICN",
+              "ICZN",
+              "ICBN",
+              "IUCN"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Assertion (A): Scientific names are written in Latin or Latinized form. Reason (R): Latin is a dead language and its meaning remains stable over time.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, R is false.",
+              "A is false, R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which international code is followed for naming plants?",
+            "options": [
+              "ICZN",
+              "ICN",
+              "WHO",
+              "IUCN"
+            ],
+            "answer": "B",
+            "explanation": "The International Code of Nomenclature (ICN) governs the naming of algae, fungi, and plants."
+          },
+          {
+            "question": "In the scientific name *Homo sapiens*, the word *sapiens* represents the:",
+            "options": [
+              "Family",
+              "Genus",
+              "Species epithet",
+              "Order"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following pairs is correctly matched?",
+            "options": [
+              "*Homo* — Species",
+              "*leo* — Genus",
+              "*Panthera* — Genus",
+              "*Felidae* — Species"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "The main purpose of binomial nomenclature is to:",
+            "options": [
+              "Increase the number of species.",
+              "Provide universal scientific names.",
+              "Replace classification.",
+              "Describe habitats."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following scientific names follows all nomenclature rules?",
+            "options": [
+              "*homo sapiens*",
+              "*Homo Sapiens*",
+              "*Homo sapiens*",
+              "*HOMO SAPIENS*"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which scientist introduced the system of binomial nomenclature?",
+            "options": [
+              "Aristotle",
+              "Charles Darwin",
+              "Carolus Linnaeus",
+              "Julian Huxley"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following statements is incorrect?",
+            "options": [
+              "The genus name starts with a capital letter.",
+              "Scientific names are universally accepted.",
+              "Species names begin with a capital letter.",
+              "Scientific names are italicized when printed."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Consider the following statements: I. A scientific name consists of two words. II. The first word denotes the genus. III. Scientific names are universally accepted. Choose the correct answer:",
+            "options": [
+              "I only",
+              "I and II only",
+              "II and III only",
+              "I, II and III"
+            ],
+            "answer": "D"
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Which one of the following scientific names is correctly written according to the International Code of Nomenclature?",
+            "options": [
+              "*panthera Leo*",
+              "*Panthera Leo*",
+              "*Panthera leo*",
+              "*PANTHERA LEO*"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Assertion (A): Scientific names are written in Latin or Latinized form. Reason (R): Latin is a dead language and its meanings remain stable over time.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, but R is false.",
+              "A is false, but R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following scientific names is incorrectly written?",
+            "options": [
+              "*Mangifera indica*",
+              "*Homo sapiens*",
+              "*Canis Lupus*",
+              "*Oryza sativa*"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "The scientific name of an organism consists of:",
+            "options": [
+              "Family and Genus",
+              "Genus and Specific epithet",
+              "Order and Family",
+              "Family and Species"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following statements is incorrect?",
+            "options": [
+              "The genus name begins with a capital letter.",
+              "The specific epithet begins with a small letter.",
+              "Both words are italicized when printed.",
+              "The specific epithet alone can uniquely identify an organism."
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which international code governs the scientific naming of animals?",
+            "options": [
+              "ICN",
+              "ICZN",
+              "ICBN",
+              "IUCN"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which international code is currently followed for naming algae, fungi, and plants?",
+            "options": [
+              "ICZN",
+              "ICN",
+              "WHO",
+              "CBD"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "If the scientific name is handwritten, it should be:",
+            "options": [
+              "Written in block letters.",
+              "Underlined separately for each word.",
+              "Written only in capital letters.",
+              "Underlined together using one line."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which scientist introduced the system of binomial nomenclature?",
+            "options": [
+              "Aristotle",
+              "Charles Darwin",
+              "Carolus Linnaeus",
+              "Julian Huxley"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Consider the following statements: I. The first word in a scientific name represents the genus. II. The second word represents the specific epithet. III. Scientific names are universally accepted. Choose the correct answer:",
+            "options": [
+              "I only",
+              "II only",
+              "I and II only",
+              "I, II and III"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which of the following pairs is correctly matched?",
+            "options": [
+              "*Homo* — Species",
+              "*sapiens* — Genus",
+              "*Panthera* — Genus",
+              "*Felidae* — Species"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which one of the following best explains the need for binomial nomenclature?",
+            "options": [
+              "It provides local names for organisms.",
+              "It eliminates confusion caused by multiple common names.",
+              "It classifies organisms into kingdoms.",
+              "It identifies ecological relationships."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Assertion (A): The complete scientific name must always be used when an organism is first mentioned in scientific writing. Reason (R): The genus name alone may represent many different species.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, but R is false.",
+              "A is false, but R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following scientific names follows all the rules of binomial nomenclature?",
+            "options": [
+              "*felis Catus*",
+              "*Felis Catus*",
+              "*Felis catus*",
+              "*FELIS CATUS*"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Consider the following statements: I. Binomial nomenclature was introduced by Carolus Linnaeus. II. A scientific name consists of the genus name followed by the specific epithet. III. The genus name starts with a capital letter. IV. The specific epithet always starts with a capital letter. Choose the correct answer:",
+            "options": [
+              "I and II only",
+              "I, II and III only",
+              "II, III and IV only",
+              "I, II, III and IV"
+            ],
+            "answer": "B"
+          }
+        ]
+      }
+    },
+    {
+      "section": "Taxonomic Categories",
+      "difficulties": {
+        "Easy": [
+          {
+            "question": "A taxonomic category is also known as a:",
+            "options": [
+              "Taxon",
+              "Kingdom",
+              "Species",
+              "Variety"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following is the lowest taxonomic category?",
+            "options": [
+              "Genus",
+              "Species",
+              "Family",
+              "Order"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which taxonomic category includes closely related species?",
+            "options": [
+              "Family",
+              "Genus",
+              "Order",
+              "Class"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which taxonomic category includes closely related genera?",
+            "options": [
+              "Family",
+              "Order",
+              "Species",
+              "Phylum"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following is the highest taxonomic category in the NCERT hierarchy?",
+            "options": [
+              "Phylum",
+              "Kingdom",
+              "Class",
+              "Order"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "A group of closely related families forms a:",
+            "options": [
+              "Genus",
+              "Order",
+              "Class",
+              "Phylum"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "A group of closely related orders forms a:",
+            "options": [
+              "Family",
+              "Kingdom",
+              "Class",
+              "Genus"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "A group of closely related classes forms a:",
+            "options": [
+              "Kingdom",
+              "Phylum (Division in plants)",
+              "Order",
+              "Family"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "In plants, the term equivalent to Phylum is:",
+            "options": [
+              "Variety",
+              "Genus",
+              "Division",
+              "Tribe"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following is the correct sequence from lower to higher taxonomic category?",
+            "options": [
+              "Species → Genus → Family → Order",
+              "Family → Genus → Species → Order",
+              "Order → Family → Genus → Species",
+              "Species → Family → Genus → Order"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following is not a taxonomic category?",
+            "options": [
+              "Class",
+              "Order",
+              "Habitat",
+              "Family"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which taxonomic category contains the maximum number of organisms?",
+            "options": [
+              "Species",
+              "Genus",
+              "Family",
+              "Kingdom"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which statement is correct regarding taxonomic categories?",
+            "options": [
+              "Species is the highest category.",
+              "Kingdom is the most specific category.",
+              "Higher taxonomic categories include more organisms with fewer common characteristics.",
+              "Genus contains several families."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following statements is incorrect?",
+            "options": [
+              "Species is the basic unit of classification.",
+              "A family consists of related genera.",
+              "A class consists of related phyla.",
+              "An order consists of related families."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Consider the following statements: I. Species is the basic unit of classification. II. Genus is a group of closely related species. III. Family is formed by grouping related genera. Which of the following is correct?",
+            "options": [
+              "I only",
+              "I and II only",
+              "II and III only",
+              "I, II and III"
+            ],
+            "answer": "D"
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Which one of the following is the basic unit of classification?",
+            "options": [
+              "Genus",
+              "Family",
+              "Species",
+              "Order"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "A group of closely related species constitutes a:",
+            "options": [
+              "Family",
+              "Order",
+              "Genus",
+              "Class"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following taxonomic categories includes one or more related genera?",
+            "options": [
+              "Species",
+              "Family",
+              "Order",
+              "Class"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following sequences is correct from lower to higher taxonomic category?",
+            "options": [
+              "Species → Genus → Family → Order",
+              "Genus → Species → Family → Order",
+              "Family → Genus → Species → Order",
+              "Order → Family → Genus → Species"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "In plants, the taxonomic category corresponding to Phylum is called:",
+            "options": [
+              "Variety",
+              "Division",
+              "Tribe",
+              "Section"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following statements regarding a species is correct?",
+            "options": [
+              "Members of a species always belong to different genera.",
+              "Members of a species can naturally interbreed and produce fertile offspring.",
+              "A species is made up of several families.",
+              "Species is the highest taxonomic category."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Assertion (A): As we move from species to kingdom, similarities among organisms decrease. Reason (R): Higher taxonomic categories contain a larger number of organisms with fewer common characteristics.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, R is false.",
+              "A is false, R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following taxonomic categories contains the maximum number of organisms?",
+            "options": [
+              "Species",
+              "Genus",
+              "Family",
+              "Kingdom"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "A group of related families forms a:",
+            "options": [
+              "Genus",
+              "Order",
+              "Class",
+              "Phylum"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following is not a taxonomic category?",
+            "options": [
+              "Class",
+              "Habitat",
+              "Family",
+              "Genus"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following pairs is correctly matched?",
+            "options": [
+              "Genus — Group of related families",
+              "Family — Group of related genera",
+              "Order — Group of related classes",
+              "Species — Group of related genera"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following statements is incorrect?",
+            "options": [
+              "A class consists of related orders.",
+              "A phylum consists of related classes.",
+              "A genus consists of related species.",
+              "A family consists of related orders."
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which taxonomic category is immediately above Order?",
+            "options": [
+              "Family",
+              "Class",
+              "Phylum",
+              "Kingdom"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Consider the following statements: I. Species is the lowest taxonomic category. II. Kingdom is the highest taxonomic category in the NCERT hierarchy. III. Similarities among organisms increase from kingdom to species. Which of the following is correct?",
+            "options": [
+              "I only",
+              "I and II only",
+              "II and III only",
+              "I, II and III"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Match the following taxonomic categories with what they contain: I. Genus — P. Related species II. Family — Q. Related genera III. Order — R. Related families Choose the correct option:",
+            "options": [
+              "I--P, II--Q, III--R",
+              "I--Q, II--P, III--R",
+              "I--R, II--Q, III--P",
+              "I--P, II--R, III--Q"
+            ],
+            "answer": "A"
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Which one of the following statements regarding species is most appropriate?",
+            "options": [
+              "Members of a species always occupy the same habitat.",
+              "Members of a species can interbreed under natural conditions and produce fertile offspring.",
+              "A species always contains only one population.",
+              "Members of different species can always interbreed."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Arrange the following taxonomic categories in the correct ascending order: 1. Family 2. Species 3. Order 4. Genus 5. Class",
+            "options": [
+              "2 → 4 → 1 → 3 → 5",
+              "2 → 1 → 4 → 3 → 5",
+              "4 → 2 → 1 → 3 → 5",
+              "1 → 2 → 4 → 3 → 5"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Assertion (A): Similarity among organisms decreases from species to kingdom. Reason (R): Higher taxonomic categories include organisms with progressively fewer common characteristics.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, but R is false.",
+              "A is false, but R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which one of the following taxonomic categories contains the largest number of species?",
+            "options": [
+              "Genus",
+              "Family",
+              "Kingdom",
+              "Order"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which one of the following is incorrectly matched?",
+            "options": [
+              "Genus — Group of related species",
+              "Family — Group of related genera",
+              "Order — Group of related families",
+              "Class — Group of related phyla"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which taxonomic category is immediately above Family?",
+            "options": [
+              "Genus",
+              "Order",
+              "Class",
+              "Phylum"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Consider the following statements: I. Species is the basic unit of classification. II. Members of a genus show more similarities than members of a family. III. Kingdom is the highest taxonomic category in the NCERT hierarchy. Choose the correct answer:",
+            "options": [
+              "I only",
+              "I and II only",
+              "II and III only",
+              "I, II and III"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which of the following taxonomic categories is represented by Felidae?",
+            "options": [
+              "Species",
+              "Genus",
+              "Family",
+              "Order"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which one of the following statements is incorrect?",
+            "options": [
+              "Genus contains closely related species.",
+              "Order contains related families.",
+              "Class contains related phyla.",
+              "Kingdom contains related phyla."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Match the following: I. Species — P. Related species II. Genus — Q. Basic unit of classification III. Family — R. Related genera IV. Order — S. Related families Choose the correct option:",
+            "options": [
+              "I--Q, II--P, III--R, IV--S",
+              "I--P, II--Q, III--S, IV--R",
+              "I--Q, II--R, III--P, IV--S",
+              "I--P, II--R, III--Q, IV--S"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which one of the following correctly represents the taxonomic position of humans?",
+            "options": [
+              "Kingdom Animalia → Phylum Chordata → Class Mammalia → Order Primates → Family Hominidae → Genus Homo → Species *Homo sapiens*",
+              "Kingdom Animalia → Class Mammalia → Phylum Chordata → Order Primates → Family Hominidae → Genus Homo",
+              "Kingdom Animalia → Phylum Mammalia → Class Chordata → Order Primates",
+              "Kingdom Animalia → Family Hominidae → Order Primates → Class Mammalia"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following statements correctly compares genus and family?",
+            "options": [
+              "A genus is broader than a family.",
+              "A family contains one or more related genera.",
+              "A family contains one or more related species.",
+              "A genus contains one or more related families."
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Assertion (A): As we move from kingdom to species, similarities among organisms increase. Reason (R): Lower taxonomic categories consist of fewer organisms sharing more common characteristics.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, but R is false.",
+              "A is false, but R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which one of the following is not a taxonomic category?",
+            "options": [
+              "Species",
+              "Division",
+              "Habitat",
+              "Family"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Consider the following statements: I. Taxonomic categories form a hierarchy. II. Similarity decreases as we move from species to kingdom. III. A family contains one or more related genera. IV. Species is the smallest taxonomic unit. Choose the correct answer:",
+            "options": [
+              "I and II only",
+              "I, II and III only",
+              "II, III and IV only",
+              "I, II, III and IV"
+            ],
+            "answer": "D"
+          }
+        ]
+      }
+    },
+    {
+      "section": "Taxonomic Hierarchy",
+      "difficulties": {
+        "Easy": [
+          {
+            "question": "The correct taxonomic hierarchy from highest to lowest is:",
+            "options": [
+              "Kingdom → Phylum → Class → Order → Family → Genus → Species",
+              "Kingdom → Class → Phylum → Family → Order → Genus → Species",
+              "Species → Genus → Family → Order → Class → Phylum → Kingdom",
+              "Phylum → Kingdom → Class → Order → Family → Genus → Species"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which is the basic unit of classification?",
+            "options": [
+              "Genus",
+              "Family",
+              "Species",
+              "Order"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "A group of closely related species forms a:",
+            "options": [
+              "Family",
+              "Genus",
+              "Order",
+              "Class"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which taxonomic category comes immediately above Family?",
+            "options": [
+              "Genus",
+              "Order",
+              "Class",
+              "Phylum"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following sequences is correct from lower to higher category?",
+            "options": [
+              "Species → Genus → Family → Order → Class",
+              "Genus → Species → Family → Class → Order",
+              "Family → Species → Genus → Order → Class",
+              "Species → Family → Genus → Class → Order"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which taxonomic rank contains organisms with the maximum similarities?",
+            "options": [
+              "Kingdom",
+              "Phylum",
+              "Species",
+              "Class"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "The scientific classification of humans places them in the genus:",
+            "options": [
+              "Sapiens",
+              "Homo",
+              "Mammalia",
+              "Primates"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which taxonomic category includes one or more related orders?",
+            "options": [
+              "Family",
+              "Class",
+              "Genus",
+              "Species"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "In plants, the category corresponding to Phylum is called:",
+            "options": [
+              "Division",
+              "Variety",
+              "Tribe",
+              "Section"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following statements is correct?",
+            "options": [
+              "Kingdom is the most specific category.",
+              "Species contains many unrelated organisms.",
+              "Similarity among organisms decreases as we move from species to kingdom.",
+              "Genus is broader than family."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following belongs to the same genus as the lion (*Panthera leo*)?",
+            "options": [
+              "*Felis catus*",
+              "*Panthera tigris*",
+              "*Canis lupus*",
+              "*Equus caballus*"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following represents the correct hierarchy for the housefly (*Musca domestica*)?",
+            "options": [
+              "Species → Genus → Family → Order → Class → Phylum → Kingdom",
+              "Genus → Species → Family → Order → Class → Phylum → Kingdom",
+              "Kingdom → Family → Phylum → Class → Order → Genus → Species",
+              "Kingdom → Class → Phylum → Order → Family → Species → Genus"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "As we move from Kingdom to Species, the number of organisms:",
+            "options": [
+              "Increases",
+              "Remains constant",
+              "Decreases",
+              "First increases then decreases"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which statement is incorrect?",
+            "options": [
+              "Species is the lowest taxonomic category.",
+              "Family is formed by grouping related genera.",
+              "Order is formed by grouping related families.",
+              "Kingdom is more specific than species."
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Consider the following statements: I. Species is the fundamental unit of classification. II. Similarities among organisms increase from kingdom to species. III. Taxonomic hierarchy helps in the systematic study of organisms. Which of the following is correct?",
+            "options": [
+              "I only",
+              "I and II only",
+              "II and III only",
+              "I, II and III"
+            ],
+            "answer": "D"
+          }
+        ],
+        "Medium": [
+          {
+            "question": "The correct taxonomic hierarchy from highest to lowest is:",
+            "options": [
+              "Kingdom → Phylum → Class → Order → Family → Genus → Species",
+              "Kingdom → Class → Phylum → Order → Family → Genus → Species",
+              "Species → Genus → Family → Order → Class → Phylum → Kingdom",
+              "Phylum → Kingdom → Class → Family → Order → Genus → Species"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which taxonomic rank is immediately above Genus?",
+            "options": [
+              "Order",
+              "Family",
+              "Class",
+              "Species"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which of the following statements is correct?",
+            "options": [
+              "Similarities among organisms increase from species to kingdom.",
+              "Kingdom contains the fewest organisms.",
+              "Species is the basic unit of classification.",
+              "Order is below family."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "A group of closely related orders forms a:",
+            "options": [
+              "Family",
+              "Class",
+              "Phylum",
+              "Kingdom"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following taxonomic categories has organisms with the maximum number of common characteristics?",
+            "options": [
+              "Kingdom",
+              "Phylum",
+              "Species",
+              "Class"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Consider the following hierarchy: **Felidae → Panthera → Panthera leo** The taxonomic category **Felidae** represents:",
+            "options": [
+              "Order",
+              "Family",
+              "Genus",
+              "Species"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Assertion (A): The number of organisms increases from species to kingdom. Reason (R): Higher taxonomic categories include organisms with fewer common characteristics.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, R is false.",
+              "A is false, R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which one of the following is correctly matched?",
+            "options": [
+              "Genus — Collection of related families",
+              "Order — Collection of related classes",
+              "Family — Collection of related genera",
+              "Class — Collection of related kingdoms"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which one of the following is the correct hierarchy for humans?",
+            "options": [
+              "Kingdom → Phylum → Class → Order → Family → Genus → Species",
+              "Kingdom → Class → Phylum → Family → Order → Genus → Species",
+              "Species → Family → Genus → Order → Class → Phylum → Kingdom",
+              "Kingdom → Order → Class → Phylum → Family → Genus → Species"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which taxonomic category contains one or more related families?",
+            "options": [
+              "Class",
+              "Order",
+              "Phylum",
+              "Genus"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which statement is incorrect?",
+            "options": [
+              "Genus consists of closely related species.",
+              "Family consists of closely related genera.",
+              "Kingdom is the lowest taxonomic category.",
+              "Order consists of related families."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following pairs belongs to the same genus?",
+            "options": [
+              "*Panthera leo* and *Panthera tigris*",
+              "*Panthera leo* and *Canis lupus*",
+              "*Mangifera indica* and *Oryza sativa*",
+              "*Homo sapiens* and *Felis catus*"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "As we move from Kingdom to Species:",
+            "options": [
+              "Similarities increase and the number of organisms decreases.",
+              "Similarities decrease and the number of organisms increases.",
+              "Both similarities and number of organisms increase.",
+              "Both similarities and number of organisms decrease."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Match the following: I. Species — P. Related genera II. Genus — Q. Basic unit of classification III. Family — R. Related species Choose the correct option:",
+            "options": [
+              "I--Q, II--R, III--P",
+              "I--P, II--Q, III--R",
+              "I--R, II--P, III--Q",
+              "I--Q, II--P, III--R"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Consider the following statements: I. Species is the fundamental unit of classification. II. Organisms belonging to the same species show the highest degree of similarity. III. As we move upward in the taxonomic hierarchy, similarities decrease while the number of organisms increases. Choose the correct answer:",
+            "options": [
+              "I only",
+              "I and II only",
+              "II and III only",
+              "I, II and III"
+            ],
+            "answer": "D"
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Which one of the following correctly represents the taxonomic hierarchy from the highest to the lowest category?",
+            "options": [
+              "Kingdom → Class → Phylum → Order → Family → Genus → Species",
+              "Kingdom → Phylum → Class → Order → Family → Genus → Species",
+              "Phylum → Kingdom → Class → Order → Family → Genus → Species",
+              "Kingdom → Phylum → Order → Class → Family → Genus → Species"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "The taxonomic position of the domestic cat (*Felis catus*) includes:",
+            "options": [
+              "Family Canidae",
+              "Family Felidae",
+              "Genus Panthera",
+              "Order Rodentia"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Assertion (A): The number of common characteristics decreases as we move from species to kingdom. Reason (R): Higher taxonomic categories contain organisms that are less closely related.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, but R is false.",
+              "A is false, but R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which one of the following taxonomic ranks contains the largest number of organisms?",
+            "options": [
+              "Species",
+              "Genus",
+              "Family",
+              "Kingdom"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Which one of the following is incorrectly matched?",
+            "options": [
+              "Species — Basic unit of classification",
+              "Genus — Group of related species",
+              "Order — Group of related families",
+              "Class — Group of related kingdoms"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Consider the following taxonomic hierarchy: Kingdom → Phylum → Class → Order → Family → Genus → Species. Which taxonomic category lies immediately **below Class**?",
+            "options": [
+              "Phylum",
+              "Family",
+              "Order",
+              "Genus"
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Which of the following statements is correct?",
+            "options": [
+              "Every family contains only one genus.",
+              "Every genus contains only one species.",
+              "Similarity among organisms increases from kingdom to species.",
+              "Kingdom contains organisms with the greatest similarity."
+            ],
+            "answer": "C"
+          },
+          {
+            "question": "Match the following: I. Species — P. Related species II. Genus — Q. Related genera III. Family — R. Related families IV. Order — S. Basic unit of classification Choose the correct option:",
+            "options": [
+              "I--S, II--P, III--Q, IV--R",
+              "I--P, II--Q, III--R, IV--S",
+              "I--S, II--Q, III--P, IV--R",
+              "I--P, II--R, III--Q, IV--S"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which one of the following taxonomic hierarchies is correct?",
+            "options": [
+              "Species → Family → Genus → Order",
+              "Species → Genus → Family → Order",
+              "Genus → Species → Family → Class",
+              "Family → Species → Order → Kingdom"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Two organisms belonging to the same family must always belong to the same:",
+            "options": [
+              "Order",
+              "Class only",
+              "Phylum only",
+              "Species"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Consider the following statements: I. Species is the smallest taxonomic category. II. Members of the same genus may belong to different families. III. Members of the same order always belong to the same class. Which statements are correct?",
+            "options": [
+              "I only",
+              "I and III only",
+              "II and III only",
+              "I, II and III"
+            ],
+            "answer": "B"
+          },
+          {
+            "question": "Which one of the following taxonomic categories includes the maximum diversity of organisms?",
+            "options": [
+              "Family",
+              "Order",
+              "Phylum",
+              "Kingdom"
+            ],
+            "answer": "D"
+          },
+          {
+            "question": "Assertion (A): Organisms belonging to the same species share the greatest number of characteristics. Reason (R): Species is the lowest taxonomic category in the hierarchy.",
+            "options": [
+              "Both A and R are true, and R correctly explains A.",
+              "Both A and R are true, but R is not the correct explanation.",
+              "A is true, but R is false.",
+              "A is false, but R is true."
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Which of the following sequences correctly shows decreasing similarity among organisms?",
+            "options": [
+              "Species → Genus → Family → Order → Class",
+              "Class → Order → Family → Genus → Species",
+              "Genus → Species → Family → Order → Class",
+              "Family → Genus → Order → Species → Class"
+            ],
+            "answer": "A"
+          },
+          {
+            "question": "Consider the following statements: I. Taxonomic hierarchy arranges organisms into successive categories. II. As we move upward in the hierarchy, the number of organisms increases. III. As we move downward in the hierarchy, similarities among organisms increase. IV. Species is the fundamental unit of classification. Choose the correct answer:",
+            "options": [
+              "I and II only",
+              "I, II and III only",
+              "II, III and IV only",
+              "I, II, III and IV"
+            ],
+            "answer": "D"
+          }
+        ]
+      }
+    }
+  ]
+}
