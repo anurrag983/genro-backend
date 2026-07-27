@@ -419,7 +419,7 @@ app.post('/api/auth/login', ah(async (req, res) => {
 // hota hai — isliye purana content bhi bina kisi change ke chalta rehta hai.
 function normalizeDifficulty(value) {
     const normalized = String(value || '').trim().toLowerCase();
-    return ['easy', 'medium', 'hard'].includes(normalized) ? normalized : 'medium';
+    return ['easy', 'medium', 'hard', 'tough', 'all'].includes(normalized) ? normalized : 'medium';
 }
 
 function pickTestUrl(row, difficulty) {
@@ -480,7 +480,7 @@ function collectQuestionCandidates(value, currentTopic = '', currentDifficulty =
     if (typeof value.question === 'string' || typeof value.question_text === 'string' || typeof value.text === 'string') {
         const question = { ...value };
         if (currentTopic && !directTopicField(question)) question.__inheritedTopic = currentTopic;
-        if (currentDifficulty && !question.difficulty && !question.level) question.__inheritedDifficulty = currentDifficulty;
+        if (currentDifficulty && !question.difficulty && !question.level) question.difficulty = currentDifficulty;
         candidates.push(question);
         return candidates;
     }
@@ -515,7 +515,7 @@ async function loadMasterChapterJson(testJsonUrl) {
 // Returns { questions, matchedTopics } — matchedTopics is every distinct
 // topic label actually found tagged in the file, which the validator/admin
 // tooling below uses to flag typos against the real topic list in the DB.
-function filterQuestionsForTopic(masterPayload, topicName) {
+function filterQuestionsForTopic(masterPayload, topicName, difficulty) {
     const root = masterPayload?.questions || masterPayload?.data || masterPayload;
     const allQuestions = collectQuestionCandidates(root);
     const wanted = normalizeTopicLabel(topicName);
@@ -528,10 +528,21 @@ function filterQuestionsForTopic(masterPayload, topicName) {
     // — treat the whole file as belonging to this topic rather than
     // returning an empty test.
     const anyTagged = allQuestions.some((question) => questionTopicLabel(question));
-    const filtered = !anyTagged
+    let filtered = !anyTagged
         ? allQuestions
         : allQuestions.filter((question) => normalizeTopicLabel(questionTopicLabel(question)) === wanted);
-    return { questions: filtered.length ? filtered : (anyTagged ? [] : allQuestions), matchedTopics: [...matchedTopics] };
+    filtered = filtered.length ? filtered : (anyTagged ? [] : allQuestions);
+
+    if (difficulty && difficulty !== 'all') {
+        const wantedDifficulty = normalizeTopicLabel(difficulty);
+        const withDifficulty = filtered.filter((question) => normalizeTopicLabel(question.difficulty || question.level || '') === wantedDifficulty);
+        // Never hand back an empty test just because a difficulty label
+        // didn't match exactly (e.g. "hard" requested but the file says
+        // "tough") — fall back to the unfiltered topic set instead.
+        if (withDifficulty.length) filtered = withDifficulty;
+    }
+
+    return { questions: filtered, matchedTopics: [...matchedTopics] };
 }
 
 app.get('/api/test/chapter/:chapter_id', ah(async (req, res) => {
@@ -597,7 +608,7 @@ app.get('/api/test/:topic_id', ah(async (req, res) => {
     // chapter has one "all topics in one JSON" file, serve a live,
     // topic-filtered slice of it instead of failing.
     const testJsonUrl = directUrl || (topicRow.chapter_test_json_url
-        ? `/api/test-content/topic/${topicRow.topic_id}`
+        ? `/api/test-content/topic/${topicRow.topic_id}?difficulty=${encodeURIComponent(difficulty)}`
         : null);
     if (!testJsonUrl) {
         return res.status(404).json({ success: false, message: 'Is topic ke liye test abhi available nahi hai.' });
@@ -608,12 +619,14 @@ app.get('/api/test/:topic_id', ah(async (req, res) => {
     });
 }));
 
-// Live topic-filtered slice of a chapter's single master JSON file. Returned
-// directly as the raw quiz payload (same shape as a static test-content
-// file) since this is exactly what fetchQuizPayload() on the frontend expects
-// — no frontend change needed for this to work.
+// Live topic-filtered (and optionally difficulty-filtered) slice of a
+// chapter's single master JSON file. Returned directly as the raw quiz
+// payload (same shape as a static test-content file) since this is exactly
+// what fetchQuizPayload() on the frontend expects — no frontend change
+// needed for this to work.
 app.get('/api/test-content/topic/:topic_id', ah(async (req, res) => {
     const { topic_id } = req.params;
+    const difficulty = String(req.query.difficulty || 'all').toLowerCase();
     const [[topicRow]] = await db.query(
         `SELECT t.topic_id, t.topic_name, c.chapter_name, c.test_json_url AS chapter_test_json_url
          FROM topics t JOIN chapters c ON t.chapter_id = c.chapter_id
@@ -624,7 +637,7 @@ app.get('/api/test-content/topic/:topic_id', ah(async (req, res) => {
         return res.status(404).json({ success: false, message: 'Is topic ke liye koi master chapter file nahi mili.' });
     }
     const masterPayload = await loadMasterChapterJson(topicRow.chapter_test_json_url);
-    const { questions } = filterQuestionsForTopic(masterPayload, topicRow.topic_name);
+    const { questions } = filterQuestionsForTopic(masterPayload, topicRow.topic_name, difficulty);
     if (!questions.length) {
         return res.status(404).json({ success: false, message: `"${topicRow.topic_name}" ke liye is chapter file mein koi question tagged nahi mila.` });
     }
