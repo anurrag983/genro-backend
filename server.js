@@ -438,35 +438,61 @@ function pickTestUrl(row, difficulty) {
 // files use a different key for the topic name, add it to TOPIC_FIELD_KEYS
 // below (or tell Claude the exact key and this list gets updated).
 // ==========================================
-const TOPIC_FIELD_KEYS = ['topic', 'topic_name', 'topicName', 'chapter_topic', 'sub_topic', 'subtopic'];
+// Some files tag a topic directly on each question ("topic": "..."); others
+// (e.g. chapter -> sections[] -> {section, difficulties: {Easy: [...]}})
+// nest questions under a parent object that carries the topic name instead.
+// TOPIC_FIELD_KEYS covers both — "section"/"section_name" for the nested
+// style, the rest for a direct per-question field.
+const TOPIC_FIELD_KEYS = ['topic', 'topic_name', 'topicName', 'chapter_topic', 'sub_topic', 'subtopic', 'section', 'section_name'];
+// Dict keys that mean "everything under here is this difficulty" even when
+// no question itself carries a difficulty field, e.g. {"Easy": [...],
+// "Medium": [...], "Tough": [...]}.
+const DIFFICULTY_KEY_TOKENS = new Set(['easy', 'medium', 'hard', 'tough', 'difficult']);
 
 function normalizeTopicLabel(value) {
     return String(value || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
-// Same recursive "find anything that looks like a question" walk the
-// frontend uses (collectQuestionCandidates in App.jsx), kept in sync so a
-// file that works for a chapter's full test also works for a single topic.
-function collectQuestionCandidates(value, candidates = [], depth = 0) {
-    if (depth > 8) return candidates;
-    if (Array.isArray(value)) {
-        value.forEach((item) => collectQuestionCandidates(item, candidates, depth + 1));
-        return candidates;
-    }
-    if (!value || typeof value !== 'object') return candidates;
-    if (typeof value.question === 'string' || typeof value.question_text === 'string' || typeof value.text === 'string') {
-        candidates.push(value);
-        return candidates;
-    }
-    Object.values(value).forEach((item) => collectQuestionCandidates(item, candidates, depth + 1));
-    return candidates;
-}
-
-function questionTopicLabel(question) {
+function directTopicField(question) {
     for (const key of TOPIC_FIELD_KEYS) {
         if (question[key]) return String(question[key]);
     }
     return '';
+}
+
+function questionTopicLabel(question) {
+    return directTopicField(question) || question.__inheritedTopic || '';
+}
+
+// Recursively walks the JSON looking for anything with a question-text
+// field, carrying down the nearest enclosing topic/section name and
+// difficulty (from a dict key like "Easy") so a question nested inside
+// grouped sections still knows which topic and difficulty it belongs to.
+// Kept in sync with collectQuestionCandidates in App.jsx (frontend) and
+// collect_question_candidates in tools/chapter_content_tool.py (Python).
+function collectQuestionCandidates(value, currentTopic = '', currentDifficulty = '', candidates = [], depth = 0) {
+    if (depth > 10) return candidates;
+    if (Array.isArray(value)) {
+        value.forEach((item) => collectQuestionCandidates(item, currentTopic, currentDifficulty, candidates, depth + 1));
+        return candidates;
+    }
+    if (!value || typeof value !== 'object') return candidates;
+    if (typeof value.question === 'string' || typeof value.question_text === 'string' || typeof value.text === 'string') {
+        const question = { ...value };
+        if (currentTopic && !directTopicField(question)) question.__inheritedTopic = currentTopic;
+        if (currentDifficulty && !question.difficulty && !question.level) question.__inheritedDifficulty = currentDifficulty;
+        candidates.push(question);
+        return candidates;
+    }
+    let nextTopic = currentTopic;
+    for (const key of TOPIC_FIELD_KEYS) {
+        if (typeof value[key] === 'string') { nextTopic = value[key]; break; }
+    }
+    Object.entries(value).forEach(([key, item]) => {
+        const nextDifficulty = DIFFICULTY_KEY_TOKENS.has(normalizeTopicLabel(key)) ? key : currentDifficulty;
+        collectQuestionCandidates(item, nextTopic, nextDifficulty, candidates, depth + 1);
+    });
+    return candidates;
 }
 
 // Loads a chapter's master JSON. Files served from this app's own
