@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs'); // Password hashing ke liye
 const cors = require('cors');
 const mysql = require('mysql2');
 const path = require('path');
+const fsPromises = require('fs').promises;
 require('dotenv').config();
 
 const app = express();
@@ -233,16 +234,24 @@ app.get('/api/syllabus/:class_level/:subject_name', ah(async (req, res) => {
             };
         }
         if (row.topic_id) {
+            // CHAPTER-MASTER-FILE ENGINE: a topic counts as practicable either
+            // with its own file, or by falling back to a live filtered slice
+            // of its chapter's single master JSON file.
+            const hasOwnTest = !!row.topic_test_json_url;
+            const hasChapterFallback = !hasOwnTest && !!row.chapter_test_json_url;
             chaptersMap[row.chapter_id].topics.push({
                 topic_id: row.topic_id,
                 topic_sequence: row.topic_sequence,
                 topic_name: row.topic_name,
                 video_url: row.video_url || '',
-                has_test: !!row.topic_test_json_url,
-                difficulty_available: difficultyAvailability(
-                    row.topic_test_json_url, row.topic_test_json_url_easy,
-                    row.topic_test_json_url_medium, row.topic_test_json_url_hard
-                ),
+                has_test: hasOwnTest || hasChapterFallback,
+                from_chapter_bank: hasChapterFallback,
+                difficulty_available: hasOwnTest
+                    ? difficultyAvailability(
+                        row.topic_test_json_url, row.topic_test_json_url_easy,
+                        row.topic_test_json_url_medium, row.topic_test_json_url_hard
+                      )
+                    : { easy: hasChapterFallback, medium: hasChapterFallback, hard: hasChapterFallback },
             });
         }
     });
@@ -418,6 +427,87 @@ function pickTestUrl(row, difficulty) {
     return row[columnMap[difficulty]] || row.test_json_url || null;
 }
 
+// ==========================================
+// CHAPTER-MASTER-FILE ENGINE — serves a per-topic test straight out of a
+// single "one JSON per chapter" file (all topics + all difficulties mixed
+// together), with no per-topic file needed at all.
+//
+// This mirrors the same tolerant parsing the frontend already uses for
+// question fields (normalizeQuestions in App.jsx) and additionally matches a
+// question to a topic by trying several likely field names. If your content
+// files use a different key for the topic name, add it to TOPIC_FIELD_KEYS
+// below (or tell Claude the exact key and this list gets updated).
+// ==========================================
+const TOPIC_FIELD_KEYS = ['topic', 'topic_name', 'topicName', 'chapter_topic', 'sub_topic', 'subtopic'];
+
+function normalizeTopicLabel(value) {
+    return String(value || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+// Same recursive "find anything that looks like a question" walk the
+// frontend uses (collectQuestionCandidates in App.jsx), kept in sync so a
+// file that works for a chapter's full test also works for a single topic.
+function collectQuestionCandidates(value, candidates = [], depth = 0) {
+    if (depth > 8) return candidates;
+    if (Array.isArray(value)) {
+        value.forEach((item) => collectQuestionCandidates(item, candidates, depth + 1));
+        return candidates;
+    }
+    if (!value || typeof value !== 'object') return candidates;
+    if (typeof value.question === 'string' || typeof value.question_text === 'string' || typeof value.text === 'string') {
+        candidates.push(value);
+        return candidates;
+    }
+    Object.values(value).forEach((item) => collectQuestionCandidates(item, candidates, depth + 1));
+    return candidates;
+}
+
+function questionTopicLabel(question) {
+    for (const key of TOPIC_FIELD_KEYS) {
+        if (question[key]) return String(question[key]);
+    }
+    return '';
+}
+
+// Loads a chapter's master JSON. Files served from this app's own
+// /test-content static folder are read straight off disk (fast, no self
+// HTTP round trip); anything else is fetched over HTTP.
+async function loadMasterChapterJson(testJsonUrl) {
+    const localPrefix = '/test-content/';
+    const localIndex = testJsonUrl.indexOf(localPrefix);
+    if (localIndex !== -1) {
+        const filename = decodeURIComponent(testJsonUrl.slice(localIndex + localPrefix.length).split(/[?#]/)[0]);
+        const filePath = path.join(__dirname, 'test-content', filename);
+        const raw = await fsPromises.readFile(filePath, 'utf8');
+        return JSON.parse(raw);
+    }
+    const response = await fetch(testJsonUrl);
+    if (!response.ok) throw new Error(`Master chapter file returned ${response.status}`);
+    return response.json();
+}
+
+// Returns { questions, matchedTopics } — matchedTopics is every distinct
+// topic label actually found tagged in the file, which the validator/admin
+// tooling below uses to flag typos against the real topic list in the DB.
+function filterQuestionsForTopic(masterPayload, topicName) {
+    const root = masterPayload?.questions || masterPayload?.data || masterPayload;
+    const allQuestions = collectQuestionCandidates(root);
+    const wanted = normalizeTopicLabel(topicName);
+    const matchedTopics = new Set();
+    allQuestions.forEach((question) => {
+        const label = questionTopicLabel(question);
+        if (label) matchedTopics.add(label);
+    });
+    // If nothing in the file is topic-tagged at all, we can't safely split it
+    // — treat the whole file as belonging to this topic rather than
+    // returning an empty test.
+    const anyTagged = allQuestions.some((question) => questionTopicLabel(question));
+    const filtered = !anyTagged
+        ? allQuestions
+        : allQuestions.filter((question) => normalizeTopicLabel(questionTopicLabel(question)) === wanted);
+    return { questions: filtered.length ? filtered : (anyTagged ? [] : allQuestions), matchedTopics: [...matchedTopics] };
+}
+
 app.get('/api/test/chapter/:chapter_id', ah(async (req, res) => {
     const { chapter_id } = req.params;
     const difficulty = normalizeDifficulty(req.query.difficulty);
@@ -438,24 +528,81 @@ app.get('/api/test/chapter/:chapter_id', ah(async (req, res) => {
     });
 }));
 
+// Quick sanity check for a chapter's master file: which topic names does the
+// file actually contain, and do they line up with the topics already in the
+// database for that chapter? Handy to open in a browser right after
+// uploading a new file, before students ever see it.
+app.get('/api/admin/chapter/:chapter_id/bank-check', ah(async (req, res) => {
+    const { chapter_id } = req.params;
+    const [[chapter]] = await db.query('SELECT chapter_id, chapter_name, test_json_url FROM chapters WHERE chapter_id = ?', [chapter_id]);
+    if (!chapter) return res.status(404).json({ success: false, message: 'Chapter nahi mila!' });
+    if (!chapter.test_json_url) return res.status(400).json({ success: false, message: 'Is chapter ke liye abhi koi test_json_url set nahi hai.' });
+    const [dbTopics] = await db.query('SELECT topic_id, topic_name FROM topics WHERE chapter_id = ? ORDER BY topic_sequence ASC', [chapter_id]);
+    const masterPayload = await loadMasterChapterJson(chapter.test_json_url);
+    const fileTopicLabels = new Set();
+    collectQuestionCandidates(masterPayload?.questions || masterPayload?.data || masterPayload).forEach((question) => {
+        const label = questionTopicLabel(question);
+        if (label) fileTopicLabels.add(normalizeTopicLabel(label));
+    });
+    const perTopic = dbTopics.map((topic) => {
+        const { questions } = filterQuestionsForTopic(masterPayload, topic.topic_name);
+        return { topic_id: topic.topic_id, topic_name: topic.topic_name, questions_found: questions.length };
+    });
+    const unmatchedInFile = [...fileTopicLabels].filter((label) => !dbTopics.some((topic) => normalizeTopicLabel(topic.topic_name) === label));
+    res.status(200).json({ success: true, data: { chapter_name: chapter.chapter_name, per_topic: perTopic, unmatched_labels_in_file: unmatchedInFile } });
+}));
+
 app.get('/api/test/:topic_id', ah(async (req, res) => {
     const { topic_id } = req.params;
     const difficulty = normalizeDifficulty(req.query.difficulty);
     const [results] = await db.query(
-        'SELECT topic_id, topic_name, test_json_url, test_json_url_easy, test_json_url_medium, test_json_url_hard FROM topics WHERE topic_id = ?',
+        `SELECT t.topic_id, t.topic_name, t.test_json_url, t.test_json_url_easy, t.test_json_url_medium, t.test_json_url_hard,
+                c.test_json_url AS chapter_test_json_url
+         FROM topics t JOIN chapters c ON t.chapter_id = c.chapter_id
+         WHERE t.topic_id = ?`,
         [topic_id]
     );
     if (results.length === 0) {
         return res.status(404).json({ success: false, message: 'Topic nahi mila!' });
     }
-    const testJsonUrl = pickTestUrl(results[0], difficulty);
+    const topicRow = results[0];
+    const directUrl = pickTestUrl(topicRow, difficulty);
+    // CHAPTER-MASTER-FILE ENGINE: no dedicated file for this topic? If its
+    // chapter has one "all topics in one JSON" file, serve a live,
+    // topic-filtered slice of it instead of failing.
+    const testJsonUrl = directUrl || (topicRow.chapter_test_json_url
+        ? `/api/test-content/topic/${topicRow.topic_id}`
+        : null);
     if (!testJsonUrl) {
         return res.status(404).json({ success: false, message: 'Is topic ke liye test abhi available nahi hai.' });
     }
     res.status(200).json({
         success: true,
-        data: { topic_id: results[0].topic_id, topic_name: results[0].topic_name, test_json_url: testJsonUrl, difficulty },
+        data: { topic_id: topicRow.topic_id, topic_name: topicRow.topic_name, test_json_url: testJsonUrl, difficulty },
     });
+}));
+
+// Live topic-filtered slice of a chapter's single master JSON file. Returned
+// directly as the raw quiz payload (same shape as a static test-content
+// file) since this is exactly what fetchQuizPayload() on the frontend expects
+// — no frontend change needed for this to work.
+app.get('/api/test-content/topic/:topic_id', ah(async (req, res) => {
+    const { topic_id } = req.params;
+    const [[topicRow]] = await db.query(
+        `SELECT t.topic_id, t.topic_name, c.chapter_name, c.test_json_url AS chapter_test_json_url
+         FROM topics t JOIN chapters c ON t.chapter_id = c.chapter_id
+         WHERE t.topic_id = ?`,
+        [topic_id]
+    );
+    if (!topicRow || !topicRow.chapter_test_json_url) {
+        return res.status(404).json({ success: false, message: 'Is topic ke liye koi master chapter file nahi mili.' });
+    }
+    const masterPayload = await loadMasterChapterJson(topicRow.chapter_test_json_url);
+    const { questions } = filterQuestionsForTopic(masterPayload, topicRow.topic_name);
+    if (!questions.length) {
+        return res.status(404).json({ success: false, message: `"${topicRow.topic_name}" ke liye is chapter file mein koi question tagged nahi mila.` });
+    }
+    res.status(200).json({ chapter_name: topicRow.chapter_name, topic_name: topicRow.topic_name, questions });
 }));
 
 // ==========================================
