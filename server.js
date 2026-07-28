@@ -12,8 +12,6 @@ const PORT = process.env.PORT || 3000;
 // ==========================================
 // MIDDLEWARE
 // ==========================================
-// CORS enable karna taaki request block na ho. FRONTEND_URL env var set karke
-// isse specific domain(s) tak restrict kiya ja sakta hai (comma-separated).
 app.use(cors({
     origin: process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',').map(s => s.trim()) : '*'
 }));
@@ -21,20 +19,11 @@ app.use(cors({
 app.use(express.json({ limit: '8mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Static hosting for chapter-level test question banks (e.g. files friends/
-// content-writers hand over, like chemical_kinetics.json or gravitation.json).
-// Drop any such JSON file into the test-content/ folder and it becomes
-// reachable at https://<this-backend>/test-content/<filename>.json — that
-// URL is exactly what goes into a chapter's or topic's test_json_url column.
 app.use('/test-content', express.static(path.join(__dirname, 'test-content')));
 
 // ==========================================
 // DATABASE CONNECTION (POOL)
 // ==========================================
-// FIX: A single mysql.createConnection() silently dies on idle timeout / network
-// blips and every request after that fails until the process restarts. A pool
-// hands out a fresh connection per request and reconnects automatically, which
-// is what you want under real traffic on Render.
 const pool = mysql.createPool({
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
@@ -49,8 +38,6 @@ const pool = mysql.createPool({
 
 const db = pool.promise();
 
-// Quick boot-time check so a bad DB config fails loudly instead of every route
-// failing silently later.
 pool.query('SELECT 1', (err) => {
     if (err) {
         console.error('Database connection failed: ' + err.message);
@@ -59,8 +46,6 @@ pool.query('SELECT 1', (err) => {
     console.log('Connected to MySQL Database successfully!');
 });
 
-// Wraps an async route handler so a rejected promise reaches Express's error
-// handler instead of crashing the process or hanging the request.
 const ah = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
 function getIstTimestamp() {
@@ -99,27 +84,20 @@ async function makeColumnNullable(tableName, columnName, definition) {
     }
 }
 
-// Existing deployments already have the original tables, so apply only additive
-// changes at boot. A failed migration is logged but never hides the root cause
-// by preventing the server from starting.
 async function ensureDatabaseSchema() {
     await addColumnIfMissing('users', 'study_track', "study_track ENUM('Medical', 'Non-Medical') NOT NULL DEFAULT 'Medical' AFTER board");
     await addColumnIfMissing('users', 'last_active_date', 'last_active_date DATE NULL AFTER day_streak');
     await addColumnIfMissing('ai_chat_history', 'attachment_data', 'attachment_data MEDIUMTEXT NULL AFTER message_text');
     await addColumnIfMissing('ai_chat_history', 'attachment_mime', 'attachment_mime VARCHAR(100) NULL AFTER attachment_data');
     await addColumnIfMissing('ai_chat_history', 'parent_message_id', 'parent_message_id INT NULL AFTER attachment_mime');
-    // use hoga; khaali hone par default test_json_url par fallback hota hai
-    // (isliye purana data turant break nahi hota).
-    // use hoga; khaali hone par default test_json_url par fallback hota hai
-    // (isliye purana data turant break nahi hota).
+    
     await addColumnIfMissing('topics', 'test_json_url_easy', 'test_json_url_easy VARCHAR(500) NULL AFTER test_json_url');
     await addColumnIfMissing('topics', 'test_json_url_medium', 'test_json_url_medium VARCHAR(500) NULL AFTER test_json_url_easy');
     await addColumnIfMissing('topics', 'test_json_url_hard', 'test_json_url_hard VARCHAR(500) NULL AFTER test_json_url_medium');
     await addColumnIfMissing('chapters', 'test_json_url_easy', 'test_json_url_easy VARCHAR(500) NULL AFTER test_json_url');
     await addColumnIfMissing('chapters', 'test_json_url_medium', 'test_json_url_medium VARCHAR(500) NULL AFTER test_json_url_easy');
     await addColumnIfMissing('chapters', 'test_json_url_hard', 'test_json_url_hard VARCHAR(500) NULL AFTER test_json_url_medium');
-    // Create test_attempts with ALL columns (including newer ones) so both fresh
-    // installs and upgrades work correctly without relying on addColumnIfMissing order.
+    
     await db.query(`CREATE TABLE IF NOT EXISTS test_attempts (
         attempt_id   BIGINT AUTO_INCREMENT PRIMARY KEY,
         user_id      INT NOT NULL,
@@ -127,7 +105,7 @@ async function ensureDatabaseSchema() {
         chapter_id   INT NULL,
         attempt_kind ENUM('Topic','Chapter','Custom') NOT NULL DEFAULT 'Topic',
         label        VARCHAR(255) NULL,
-        topic_ids_json JSON NULL,
+        topic_ids_json TEXT NULL,
         difficulty   ENUM('Easy','Medium','Hard') NOT NULL DEFAULT 'Medium',
         status       ENUM('Mastered','Revision Required') NOT NULL,
         accuracy_percentage DECIMAL(5,2) NOT NULL,
@@ -137,18 +115,13 @@ async function ensureDatabaseSchema() {
         FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
     )`);
 
-    // Additive migrations for existing DBs that already have the old table
-    // without the newer columns — each is a no-op if column already exists.
     await makeColumnNullable('test_attempts', 'topic_id', 'topic_id INT NULL');
     await addColumnIfMissing('test_attempts', 'difficulty',      "difficulty ENUM('Easy','Medium','Hard') NOT NULL DEFAULT 'Medium' AFTER topic_id");
     await addColumnIfMissing('test_attempts', 'chapter_id',      'chapter_id INT NULL AFTER topic_id');
     await addColumnIfMissing('test_attempts', 'attempt_kind',    "attempt_kind ENUM('Topic','Chapter','Custom') NOT NULL DEFAULT 'Topic' AFTER chapter_id");
     await addColumnIfMissing('test_attempts', 'label',           'label VARCHAR(255) NULL AFTER attempt_kind');
-    await addColumnIfMissing('test_attempts', 'topic_ids_json',  'topic_ids_json JSON NULL AFTER label');
+    await addColumnIfMissing('test_attempts', 'topic_ids_json',  'topic_ids_json TEXT NULL AFTER label');
 
-    // TEST REPORT: har question ka detail (kya poocha gaya, student ne kya
-    // select kiya, sahi jawab kya tha) yahan save hota hai taaki baad mein
-    // Progress page se poora review dobara dekha ja sake.
     await db.query(`CREATE TABLE IF NOT EXISTS test_attempt_answers (
         answer_id       BIGINT AUTO_INCREMENT PRIMARY KEY,
         attempt_id      BIGINT NOT NULL,
@@ -169,7 +142,7 @@ async function ensureDatabaseSchema() {
 // 0. HEALTH CHECK
 // ==========================================
 app.get('/', (req, res) => {
-    res.json({ success: true, message: 'GENRO Server is alive', build: 'topic_ids_json-fix-v2' });
+    res.json({ success: true, message: 'GENRO Server is alive', build: 'topic_ids_json-fix-v3' });
 });
 
 app.post('/api/genro/data', (req, res) => {
@@ -183,7 +156,7 @@ app.post('/api/genro/data', (req, res) => {
 });
 
 // ==========================================
-// 2. SYLLABUS API — chapters + nested topics in NCERT sequence
+// 2. SYLLABUS API
 // ==========================================
 app.get('/api/syllabus/:class_level/:subject_name', ah(async (req, res) => {
     const { class_level, subject_name } = req.params;
@@ -206,9 +179,6 @@ app.get('/api/syllabus/:class_level/:subject_name', ah(async (req, res) => {
         [class_level, subject_name]
     );
 
-    // Difficulty ke liye ek specific URL na ho to default test_json_url par
-    // fallback — isse purana content bhi teeno difficulty buttons ke saath
-    // turant kaam karta hai, naya content dheere-dheere specific bana sakte ho.
     const difficultyAvailability = (defaultUrl, easyUrl, mediumUrl, hardUrl) => ({
         easy: !!(easyUrl || defaultUrl),
         medium: !!(mediumUrl || defaultUrl),
@@ -231,9 +201,6 @@ app.get('/api/syllabus/:class_level/:subject_name', ah(async (req, res) => {
             };
         }
         if (row.topic_id) {
-            // CHAPTER-MASTER-FILE ENGINE: a topic counts as practicable either
-            // with its own file, or by falling back to a live filtered slice
-            // of its chapter's single master JSON file.
             const hasOwnTest = !!row.topic_test_json_url;
             const hasChapterFallback = !hasOwnTest && !!row.chapter_test_json_url;
             chaptersMap[row.chapter_id].topics.push({
@@ -257,16 +224,9 @@ app.get('/api/syllabus/:class_level/:subject_name', ah(async (req, res) => {
 }));
 
 // ==========================================
-// 3. OTP APIS (Signup se pehle mobile verify karne ke liye)
+// 3. OTP APIS
 // ==========================================
-// SIMULATED OTP: koi SMS gateway (Twilio / MSG91 / Firebase) is codebase mein
-// configured nahi hai, isliye OTP ek in-memory store mein rakha jaata hai aur
-// demo mode mein response ke andar hi wapas bhej diya jaata hai taaki aap bina
-// SMS provider ke pura signup flow test kar sakein. Production mein:
-//   1) OTP_DEMO_MODE=false set karein (.env mein) taaki otp_debug field hat jaaye
-//   2) Neeche wale `sendSms()` stub ko apne real SMS provider se replace karein
-//   3) In-memory Map ki jagah Redis / DB table use karein (multi-instance ke liye)
-const otpStore = new Map(); // mobile_no -> { otp, expiresAt, verified }
+const otpStore = new Map();
 const OTP_TTL_MS = 5 * 60 * 1000;
 const OTP_DEMO_MODE = process.env.OTP_DEMO_MODE !== 'false';
 
@@ -275,8 +235,6 @@ function generateOtp() {
 }
 
 async function sendSms(mobile_no, otp) {
-    // TODO: replace with a real SMS gateway call. Left as a console log so the
-    // demo flow works out of the box with zero external configuration.
     console.log(`[OTP DEMO] ${mobile_no} ko bhejna hai OTP: ${otp}`);
     return true;
 }
@@ -322,7 +280,7 @@ app.post('/api/otp/verify', ah(async (req, res) => {
 }));
 
 // ==========================================
-// 4. USER SIGNUP API (POST)
+// 4. USER SIGNUP API
 // ==========================================
 app.post('/api/signup', ah(async (req, res) => {
     const { full_name, mobile_no, email, password, class_level, board, study_track } = req.body;
@@ -335,8 +293,6 @@ app.post('/api/signup', ah(async (req, res) => {
         return res.status(400).json({ success: false, message: 'Password kam se kam 6 characters ka hona chahiye!' });
     }
 
-    // Mobile OTP verify hua tha ya nahi, ye server-side confirm karte hain
-    // (sirf frontend par bharosa nahi karte).
     const otpEntry = otpStore.get(mobile_no);
     if (!otpEntry || !otpEntry.verified) {
         return res.status(400).json({ success: false, message: 'Pehle mobile number ko OTP se verify karein!' });
@@ -353,7 +309,7 @@ app.post('/api/signup', ah(async (req, res) => {
             [full_name, mobile_no, email, hashedPassword, class_level, board, normalizedTrack, enrolledSubjects, formattedISTTime]
         );
 
-        otpStore.delete(mobile_no); // cleanup, isko dobara verify karne ki zaroorat nahi
+        otpStore.delete(mobile_no);
 
         res.status(201).json({
             success: true,
@@ -369,7 +325,7 @@ app.post('/api/signup', ah(async (req, res) => {
 }));
 
 // ==========================================
-// 5. USER LOGIN API (POST)
+// 5. USER LOGIN API
 // ==========================================
 app.post('/api/auth/login', ah(async (req, res) => {
     const { email, password } = req.body;
@@ -407,13 +363,8 @@ app.post('/api/auth/login', ah(async (req, res) => {
 }));
 
 // ==========================================
-// 6. FETCH TEST JSON URL APIS (GET)
+// 6. FETCH TEST JSON URL APIS
 // ==========================================
-// NOTE: iska specific route generic "/:topic_id" route se PEHLE define hona
-// zaroori hai, warna Express "chapter" ko hi ek topic_id samajh lega.
-// ?difficulty=easy|medium|hard (optional, defaults to "medium"). Agar us
-// difficulty ke liye alag JSON set nahi hai, to default test_json_url use
-// hota hai — isliye purana content bhi bina kisi change ke chalta rehta hai.
 function normalizeDifficulty(value) {
     const normalized = String(value || '').trim().toLowerCase();
     if (normalized === 'all') return 'all';
@@ -425,26 +376,7 @@ function pickTestUrl(row, difficulty) {
     return row[columnMap[difficulty]] || row.test_json_url || null;
 }
 
-// ==========================================
-// CHAPTER-MASTER-FILE ENGINE — serves a per-topic test straight out of a
-// single "one JSON per chapter" file (all topics + all difficulties mixed
-// together), with no per-topic file needed at all.
-//
-// This mirrors the same tolerant parsing the frontend already uses for
-// question fields (normalizeQuestions in App.jsx) and additionally matches a
-// question to a topic by trying several likely field names. If your content
-// files use a different key for the topic name, add it to TOPIC_FIELD_KEYS
-// below (or tell Claude the exact key and this list gets updated).
-// ==========================================
-// Some files tag a topic directly on each question ("topic": "..."); others
-// (e.g. chapter -> sections[] -> {section, difficulties: {Easy: [...]}})
-// nest questions under a parent object that carries the topic name instead.
-// TOPIC_FIELD_KEYS covers both — "section"/"section_name" for the nested
-// style, the rest for a direct per-question field.
 const TOPIC_FIELD_KEYS = ['topic', 'topic_name', 'topicName', 'chapter_topic', 'sub_topic', 'subtopic', 'section', 'section_name', 'sectionTitle', 'unit', 'unit_name', 'lesson', 'concept'];
-// Dict keys that mean "everything under here is this difficulty" even when
-// no question itself carries a difficulty field, e.g. {"Easy": [...],
-// "Medium": [...], "Tough": [...]}.
 const DIFFICULTY_KEY_TOKENS = new Set(['easy', 'medium', 'moderate', 'hard', 'tough', 'difficult', 'advanced', 'basic']);
 
 function canonicalDifficulty(value) {
@@ -470,12 +402,6 @@ function questionTopicLabel(question) {
     return directTopicField(question) || question.__inheritedTopic || '';
 }
 
-// Recursively walks the JSON looking for anything with a question-text
-// field, carrying down the nearest enclosing topic/section name and
-// difficulty (from a dict key like "Easy") so a question nested inside
-// grouped sections still knows which topic and difficulty it belongs to.
-// Kept in sync with collectQuestionCandidates in App.jsx (frontend) and
-// collect_question_candidates in tools/chapter_content_tool.py (Python).
 function collectQuestionCandidates(value, currentTopic = '', currentDifficulty = '', candidates = [], depth = 0, seen = new WeakSet()) {
     if (depth > 40 || !value || typeof value !== 'object') return candidates;
     if (seen.has(value)) return candidates;
@@ -504,9 +430,6 @@ function collectQuestionCandidates(value, currentTopic = '', currentDifficulty =
     return candidates;
 }
 
-// Loads a chapter's master JSON. Files served from this app's own
-// /test-content static folder are read straight off disk (fast, no self
-// HTTP round trip); anything else is fetched over HTTP.
 async function loadMasterChapterJson(testJsonUrl) {
     const localPrefix = '/test-content/';
     const localIndex = testJsonUrl.indexOf(localPrefix);
@@ -521,9 +444,6 @@ async function loadMasterChapterJson(testJsonUrl) {
     return response.json();
 }
 
-// Returns { questions, matchedTopics } — matchedTopics is every distinct
-// topic label actually found tagged in the file, which the validator/admin
-// tooling below uses to flag typos against the real topic list in the DB.
 function filterQuestionsForTopic(masterPayload, topicName, difficulty) {
     const root = masterPayload?.questions || masterPayload?.data || masterPayload;
     const allQuestions = collectQuestionCandidates(root);
@@ -533,9 +453,6 @@ function filterQuestionsForTopic(masterPayload, topicName, difficulty) {
         const label = questionTopicLabel(question);
         if (label) matchedTopics.add(label);
     });
-    // If nothing in the file is topic-tagged at all, we can't safely split it
-    // — treat the whole file as belonging to this topic rather than
-    // returning an empty test.
     const anyTagged = allQuestions.some((question) => questionTopicLabel(question));
     let filtered = !anyTagged
         ? allQuestions
@@ -545,9 +462,6 @@ function filterQuestionsForTopic(masterPayload, topicName, difficulty) {
     if (difficulty && difficulty !== 'all') {
         const wantedDifficulty = canonicalDifficulty(difficulty);
         const withDifficulty = filtered.filter((question) => canonicalDifficulty(question.difficulty || question.level || '') === wantedDifficulty);
-        // Never hand back an empty test just because a difficulty label
-        // didn't match exactly (e.g. "hard" requested but the file says
-        // "tough") — fall back to the unfiltered topic set instead.
         if (withDifficulty.length) filtered = withDifficulty;
     }
 
@@ -585,10 +499,6 @@ app.get('/api/test/chapter/:chapter_id', ah(async (req, res) => {
     });
 }));
 
-// Quick sanity check for a chapter's master file: which topic names does the
-// file actually contain, and do they line up with the topics already in the
-// database for that chapter? Handy to open in a browser right after
-// uploading a new file, before students ever see it.
 app.get('/api/admin/chapter/:chapter_id/bank-check', ah(async (req, res) => {
     const { chapter_id } = req.params;
     const [[chapter]] = await db.query('SELECT chapter_id, chapter_name, test_json_url FROM chapters WHERE chapter_id = ?', [chapter_id]);
@@ -624,11 +534,6 @@ app.get('/api/test/:topic_id', ah(async (req, res) => {
     }
     const topicRow = results[0];
     const directUrl = pickTestUrl(topicRow, difficulty);
-    // CHAPTER-MASTER-FILE ENGINE: no dedicated file for this topic? If its
-    // chapter has one "all topics in one JSON" file, serve a live,
-    // topic-filtered slice of it instead of failing.
-    // Legacy imports often copied the same chapter JSON URL to every topic.
-    // Prefer the chapter-aware filtering endpoint whenever it is available.
     const testJsonUrl = topicRow.chapter_test_json_url
         ? `/api/test-content/topic/${topicRow.topic_id}?difficulty=${encodeURIComponent(difficulty)}`
         : directUrl;
@@ -641,11 +546,6 @@ app.get('/api/test/:topic_id', ah(async (req, res) => {
     });
 }));
 
-// Live topic-filtered (and optionally difficulty-filtered) slice of a
-// chapter's single master JSON file. Returned directly as the raw quiz
-// payload (same shape as a static test-content file) since this is exactly
-// what fetchQuizPayload() on the frontend expects — no frontend change
-// needed for this to work.
 app.get('/api/test-content/topic/:topic_id', ah(async (req, res) => {
     const { topic_id } = req.params;
     const difficulty = String(req.query.difficulty || 'all').toLowerCase();
@@ -667,7 +567,7 @@ app.get('/api/test-content/topic/:topic_id', ah(async (req, res) => {
 }));
 
 // ==========================================
-// 7. USER DASHBOARD API (GET)
+// 7. USER DASHBOARD API
 // ==========================================
 app.get('/api/user/:user_id/dashboard', ah(async (req, res) => {
     const { user_id } = req.params;
@@ -683,18 +583,13 @@ app.get('/api/user/:user_id/dashboard', ah(async (req, res) => {
 }));
 
 // ==========================================
-// 8. UPDATE PROFILE API (PUT). Email and mobile are verified identity keys and
-// deliberately never come from this route; changing either needs a dedicated
-// OTP-protected account-recovery flow.
+// 8. UPDATE PROFILE API
 // ==========================================
 app.put('/api/user/:user_id/profile', ah(async (req, res) => {
     const { user_id } = req.params;
     const { full_name, class_level, board, study_track } = req.body;
     const normalizedTrack = normalizeStudyTrack(study_track);
 
-    // DEBUG: Render ke "Logs" tab mein ye line dikhegi. Isse pata chalega ki
-    // frontend se kya value aa rahi hai aur normalize hone ke baad kya ban rahi hai.
-    // Agar "normalizedTrack" yahan null aa raha hai, to isi wajah se save fail ho raha hai.
     console.log('[PROFILE UPDATE] incoming study_track:', JSON.stringify(study_track), '-> normalized:', normalizedTrack);
 
     if (!full_name || !normalizedTrack) {
@@ -720,7 +615,6 @@ app.put('/api/user/:user_id/profile', ah(async (req, res) => {
             [user_id]
         );
 
-        // DEBUG: DB se dobara padh kar confirm karta hai ki save actually ho gaya.
         console.log('[PROFILE UPDATE] saved study_track in DB now:', updatedUser.study_track);
 
         res.status(200).json({ success: true, message: 'Profile update ho gayi!', data: updatedUser });
@@ -730,23 +624,16 @@ app.put('/api/user/:user_id/profile', ah(async (req, res) => {
 }));
 
 // ==========================================
-// 9. UPDATE USER PROGRESS API (POST) — test complete hone ke baad
+// 9. UPDATE USER PROGRESS API
 // ==========================================
 app.post('/api/user/:user_id/progress', ah(async (req, res) => {
     const { user_id } = req.params;
     const { topic_id, chapter_id, topic_ids, label, accuracy_percentage, xp_earned, difficulty, answers } = req.body;
+    
     const accuracy = Number(accuracy_percentage);
     const xp = Number(xp_earned);
     const normalizedDifficulty = ({ easy: 'Easy', medium: 'Medium', hard: 'Hard' })[canonicalDifficulty(difficulty)] || 'Medium';
-    // Report ke liye per-question answers (optional — purane frontend clients
-    // jo ye array na bhejein unke liye bhi ye route bina toote kaam karta hai).
-    const answerList = Array.isArray(answers) ? answers : [];
 
-    // PROGRESS FIX: this route used to only accept a single topic_id, so any
-    // full-chapter test or Custom Practice attempt (multiple topics) had
-    // nowhere to be saved and silently vanished. It now accepts exactly one
-    // of: topic_id (topic test), chapter_id (full chapter test), or
-    // topic_ids (Custom Practice, an array of the topics that were mixed).
     const isCustom = Array.isArray(topic_ids) && topic_ids.length > 0;
     const isChapter = !isCustom && chapter_id;
     const isTopic = !isCustom && !isChapter && topic_id;
@@ -757,9 +644,12 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
     if (!Number.isFinite(accuracy) || accuracy < 0 || accuracy > 100 || !Number.isFinite(xp) || xp < 0) {
         return res.status(400).json({ success: false, message: 'Valid accuracy aur XP dena zaroori hai.' });
     }
+    
     const normalizedAccuracy = Math.round(accuracy * 100) / 100;
     const normalizedXp = Math.round(xp);
     const status = normalizedAccuracy >= 70 ? 'Mastered' : 'Revision Required';
+    const answerList = Array.isArray(answers) ? answers : [];
+
     const connection = await db.getConnection();
 
     try {
@@ -779,27 +669,6 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
             }
             savedTopicId = topic_id;
             progressTopicIds = [Number(topic_id)];
-
-            const [[existing]] = await connection.query(
-                'SELECT progress_id FROM user_progress WHERE user_id = ? AND topic_id = ? FOR UPDATE',
-                [user_id, topic_id]
-            );
-
-            if (existing) {
-                await connection.query(
-                    `UPDATE user_progress
-                     SET status = ?, accuracy_percentage = ?, tests_attempted = tests_attempted + 1,
-                         xp_earned = xp_earned + ?, last_tested_at = CURRENT_TIMESTAMP
-                     WHERE progress_id = ?`,
-                    [status, normalizedAccuracy, normalizedXp, existing.progress_id]
-                );
-            } else {
-                await connection.query(
-                    `INSERT INTO user_progress (user_id, topic_id, status, accuracy_percentage, tests_attempted, xp_earned)
-                     VALUES (?, ?, ?, ?, 1, ?)`,
-                    [user_id, topic_id, status, normalizedAccuracy, normalizedXp]
-                );
-            }
         } else if (isChapter) {
             const [[chapter]] = await connection.query('SELECT chapter_id, chapter_name FROM chapters WHERE chapter_id = ?', [chapter_id]);
             if (!chapter) {
@@ -827,7 +696,31 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
             [user_id, savedTopicId, savedChapterId, attemptKind, attemptLabel, topicIdsJson, normalizedDifficulty, status, normalizedAccuracy, normalizedXp]
         );
 
-        // Report ke liye har question ki detail alag row mein save karo.
+        if (progressTopicIds.length > 0) {
+            const xpPerTopic = Math.round(normalizedXp / Math.max(progressTopicIds.length, 1));
+            for (const pid of progressTopicIds) {
+                const [[existing]] = await connection.query(
+                    'SELECT progress_id FROM user_progress WHERE user_id = ? AND topic_id = ? FOR UPDATE',
+                    [user_id, pid]
+                );
+                if (existing) {
+                    await connection.query(
+                        `UPDATE user_progress
+                         SET status = ?, accuracy_percentage = ?, tests_attempted = tests_attempted + 1,
+                             xp_earned = xp_earned + ?, last_tested_at = CURRENT_TIMESTAMP
+                         WHERE progress_id = ?`,
+                        [status, normalizedAccuracy, xpPerTopic, existing.progress_id]
+                    );
+                } else {
+                    await connection.query(
+                        `INSERT INTO user_progress (user_id, topic_id, status, accuracy_percentage, tests_attempted, xp_earned)
+                         VALUES (?, ?, ?, ?, 1, ?)`,
+                        [user_id, pid, status, normalizedAccuracy, xpPerTopic]
+                    );
+                }
+            }
+        }
+
         let detailedAnswersSaved = false;
         if (answerList.length) {
             const answerRows = answerList.slice(0, 200).map((item, index) => [
@@ -835,7 +728,6 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
                 index + 1,
                 String(item.question_text || item.text || '').slice(0, 2000),
                 String(item.topic_name || item.topic || item.section || '').slice(0, 255) || null,
-                // MySQL JSON rejects truncated JSON, so preserve valid data.
                 item.options ? JSON.stringify(item.options) : null,
                 item.selected_key ? String(item.selected_key).slice(0, 4) : null,
                 item.correct_key ? String(item.correct_key).slice(0, 4) : null,
@@ -850,8 +742,6 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
                 );
                 detailedAnswersSaved = true;
             } catch (answerError) {
-                // Keep the scored attempt and progress even if an older
-                // deployment has not yet received the optional topic column.
                 console.error('Detailed answer save failed:', answerError.message);
                 const legacyRows = answerRows.map(([attemptId, number, text, _topic, options, selected, correct, isCorrect]) => [
                     attemptId, number, text, options, selected, correct, isCorrect
@@ -888,6 +778,7 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
             return res.status(404).json({ success: false, message: 'User nahi mila!' });
         }
         const [[updatedUser]] = await connection.query('SELECT total_xp, day_streak FROM users WHERE user_id = ?', [user_id]);
+        
         await connection.commit();
 
         res.status(200).json({
@@ -897,8 +788,6 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
         });
     } catch (error) {
         await connection.rollback();
-        // The client previously received only "Server error" which made a
-        // database/configuration issue impossible to diagnose in production.
         error.status = error.status || 500;
         error.message = `Progress could not be saved: ${error.message}`;
         throw error;
@@ -908,16 +797,11 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
 }));
 
 // ==========================================
-// 9B. DETAILED TEST REPORT (GET) — ek attempt ke saare questions, student ka
-//     jawab, aur sahi jawab wapas deta hai taaki Progress page se dobara
-//     review kiya ja sake.
+// 9B. DETAILED TEST REPORT
 // ==========================================
 app.get('/api/user/:user_id/attempts/:attempt_id/report', ah(async (req, res) => {
     const { user_id, attempt_id } = req.params;
 
-    // LEFT JOINs (not JOIN) so Chapter and Custom attempts — which have no
-    // single topic_id — still resolve to a row instead of vanishing; their
-    // display name falls back to the saved label.
     const [[attempt]] = await db.query(
         `SELECT ta.attempt_id, ta.topic_id, ta.chapter_id, ta.attempt_kind, ta.label, ta.difficulty, ta.status,
                 ta.accuracy_percentage, ta.xp_earned, ta.attempted_at,
@@ -956,8 +840,7 @@ app.get('/api/user/:user_id/attempts/:attempt_id/report', ah(async (req, res) =>
 }));
 
 // ==========================================
-// 10. GET FULL PROGRESS LIST (GET) — "Your Progress" screen ke liye zaroori,
-//     pehle sirf POST tha, list wapas karne ka koi endpoint nahi tha.
+// 10. GET FULL PROGRESS LIST
 // ==========================================
 app.get('/api/user/:user_id/progress', ah(async (req, res) => {
     const { user_id } = req.params;
@@ -973,9 +856,6 @@ app.get('/api/user/:user_id/progress', ah(async (req, res) => {
          ORDER BY up.last_tested_at DESC`,
         [user_id]
     );
-    // PROGRESS FIX: LEFT JOINs so Chapter and Custom Practice attempts (no
-    // single topic_id) still show up in test history instead of being
-    // dropped by an inner JOIN that required one.
     const [testHistory] = await db.query(
         `SELECT ta.attempt_id, ta.topic_id, ta.chapter_id, ta.attempt_kind, ta.label, ta.difficulty, ta.status,
                 ta.accuracy_percentage, ta.xp_earned, ta.attempted_at,
@@ -1011,7 +891,6 @@ app.get('/api/user/:user_id/progress', ah(async (req, res) => {
             },
             strong_topics: strongTopics,
             revision_required: revisionRequired,
-            // Kept for older frontend clients while the clearer field above rolls out.
             weak_topics: revisionRequired,
             all_progress: rows,
             test_history: testHistory
@@ -1020,10 +899,8 @@ app.get('/api/user/:user_id/progress', ah(async (req, res) => {
 }));
 
 // ==========================================
-// 11. AI CHAT HISTORY API (GET & POST & PUT & DELETE)
+// 11. AI CHAT HISTORY API
 // ==========================================
-
-// 11A. Pichli chat mangwane ke liye (GET)
 app.get('/api/chat/:user_id', ah(async (req, res) => {
     const { user_id } = req.params;
     const [results] = await db.query(
@@ -1050,9 +927,6 @@ app.get('/api/chat/:user_id/:message_id/attachment', ah(async (req, res) => {
     res.send(Buffer.from(attachment.attachment_data, 'base64'));
 }));
 
-// Accepts either a photo (JPG/PNG/WebP, sent from the camera button) or a
-// document (PDF, sent from the document button) — both flow through the
-// same attachment column, just tagged with their real mime type.
 function sanitizeChatAttachment(rawAttachment) {
     if (!rawAttachment) return null;
     const match = String(rawAttachment.data_url || '').match(/^data:(image\/(?:jpeg|png|webp)|application\/pdf);base64,([A-Za-z0-9+/=\s]+)$/i);
@@ -1070,8 +944,6 @@ function sanitizeChatAttachment(rawAttachment) {
     return { mime: match[1].toLowerCase(), data };
 }
 
-// Very small rule-based tutor used when ANTHROPIC_API_KEY isn't configured, so
-// the chat never breaks — it just isn't "smart" until you add a real key.
 function fallbackAiReply(userText, hasAttachment = false) {
     const imageNote = hasAttachment ? ' Aapka attachment conversation mein securely save ho gaya hai. ' : ' ';
     return `Aapne poocha: "${userText}".${imageNote}Abhi is server par koi live AI model connect nahi hai — ` +
@@ -1080,8 +952,6 @@ function fallbackAiReply(userText, hasAttachment = false) {
         `related topic dhoondh kar concept video dekhein!`;
 }
 
-// Real AI reply via the Claude API — only runs if a key is configured. Swap
-// ANTHROPIC_MODEL for any current Claude model string.
 async function generateAiReply(userText, attachment = null) {
     const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) return fallbackAiReply(userText, Boolean(attachment));
@@ -1125,9 +995,6 @@ async function generateAiReply(userText, attachment = null) {
     }
 }
 
-// 11B. Naya message save karne ke liye (POST). Agar sender User hai, to server
-// khud AI ka reply generate karke save bhi kar deta hai aur dono wapas bhejta
-// hai — isse frontend ko doosri round-trip nahi karni padti.
 app.post('/api/chat/:user_id', ah(async (req, res) => {
     const { user_id } = req.params;
     const { sender_type, message_text, attachment: rawAttachment } = req.body;
@@ -1166,7 +1033,6 @@ app.post('/api/chat/:user_id', ah(async (req, res) => {
     });
 }));
 
-// 11C. Message edit karne ke liye (PUT)
 app.put('/api/chat/:user_id/:message_id', ah(async (req, res) => {
     const { user_id, message_id } = req.params;
     const { message_text } = req.body;
@@ -1185,8 +1051,6 @@ app.put('/api/chat/:user_id/:message_id', ah(async (req, res) => {
     const text = message_text.trim();
     await db.query("UPDATE ai_chat_history SET message_text = ? WHERE message_id = ?", [text, message_id]);
 
-    // Remove the obsolete reply first. parent_message_id handles new rows;
-    // the range fallback cleans chat rows created before that migration.
     await db.query(
         "DELETE FROM ai_chat_history WHERE user_id = ? AND sender_type = 'Genro_AI' AND parent_message_id = ?",
         [user_id, message_id]
@@ -1239,9 +1103,6 @@ app.get('/api/test-content/chapter/:chapter_id', ah(async (req, res) => {
     res.json({ chapter_name: chapter.chapter_name, questions: sampleQuestions(questions) });
 }));
 
-// One efficient request for Custom Practice. It reads each selected topic's
-// source (including chapter master files), preserves the source topic label,
-// and lets the browser shuffle only after the complete set has arrived.
 app.post('/api/test/custom', ah(async (req, res) => {
     const topicIds = [...new Set((Array.isArray(req.body.topic_ids) ? req.body.topic_ids : [])
         .map(Number).filter(Number.isInteger))].slice(0, 100);
@@ -1260,8 +1121,6 @@ app.post('/api/test/custom', ah(async (req, res) => {
         if (!topic) return [];
         const url = pickTestUrl(topic, difficulty);
         try {
-            // A master chapter source must be topic-filtered even if an older
-            // topic row also has a URL value copied from that master file.
             const payload = topic.chapter_test_json_url
                 ? await loadMasterChapterJson(topic.chapter_test_json_url)
                 : await loadMasterChapterJson(url);
@@ -1277,7 +1136,6 @@ app.post('/api/test/custom', ah(async (req, res) => {
     res.json({ success: true, data: { questions: sampleQuestions(questionSets.flat()), topic_ids: topicIds, difficulty } });
 }));
 
-// 11D. Message delete karne ke liye (DELETE)
 app.delete('/api/chat/:user_id/:message_id', ah(async (req, res) => {
     const { user_id, message_id } = req.params;
     const [result] = await db.query(
@@ -1291,7 +1149,7 @@ app.delete('/api/chat/:user_id/:message_id', ah(async (req, res) => {
 }));
 
 // ==========================================
-// 404 + ERROR HANDLERS (sabse aakhir mein)
+// 404 + ERROR HANDLERS
 // ==========================================
 app.use((req, res) => {
     res.status(404).json({ success: false, message: `Route not found: ${req.method} ${req.originalUrl}` });
