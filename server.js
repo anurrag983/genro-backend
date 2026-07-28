@@ -833,6 +833,7 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
         );
 
         // Report ke liye har question ki detail alag row mein save karo.
+        let detailedAnswersSaved = false;
         if (answerList.length) {
             const answerRows = answerList.slice(0, 200).map((item, index) => [
                 attempt.insertId,
@@ -845,12 +846,33 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
                 item.correct_key ? String(item.correct_key).slice(0, 4) : null,
                 item.is_correct ? 1 : 0,
             ]);
-            await connection.query(
-                `INSERT INTO test_attempt_answers
-                 (attempt_id, question_number, question_text, topic_name, options_json, selected_key, correct_key, is_correct)
-                 VALUES ?`,
-                [answerRows]
-            );
+            try {
+                await connection.query(
+                    `INSERT INTO test_attempt_answers
+                     (attempt_id, question_number, question_text, topic_name, options_json, selected_key, correct_key, is_correct)
+                     VALUES ?`,
+                    [answerRows]
+                );
+                detailedAnswersSaved = true;
+            } catch (answerError) {
+                // Keep the scored attempt and progress even if an older
+                // deployment has not yet received the optional topic column.
+                console.error('Detailed answer save failed:', answerError.message);
+                const legacyRows = answerRows.map(([attemptId, number, text, _topic, options, selected, correct, isCorrect]) => [
+                    attemptId, number, text, options, selected, correct, isCorrect
+                ]);
+                try {
+                    await connection.query(
+                        `INSERT INTO test_attempt_answers
+                         (attempt_id, question_number, question_text, options_json, selected_key, correct_key, is_correct)
+                         VALUES ?`,
+                        [legacyRows]
+                    );
+                    detailedAnswersSaved = true;
+                } catch (legacyError) {
+                    console.error('Legacy detailed answer save failed:', legacyError.message);
+                }
+            }
         }
 
         const [userUpdate] = await connection.query('UPDATE users SET total_xp = total_xp + ? WHERE user_id = ?', [normalizedXp, user_id]);
@@ -864,10 +886,14 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
         res.status(200).json({
             success: true,
             message: 'Progress aur XP successfully update ho gaye!',
-            data: { attempt_id: attempt.insertId, status, total_xp: updatedUser.total_xp, day_streak: updatedUser.day_streak }
+            data: { attempt_id: attempt.insertId, status, detailed_answers_saved: detailedAnswersSaved, total_xp: updatedUser.total_xp, day_streak: updatedUser.day_streak }
         });
     } catch (error) {
         await connection.rollback();
+        // The client previously received only "Server error" which made a
+        // database/configuration issue impossible to diagnose in production.
+        error.status = error.status || 500;
+        error.message = `Progress could not be saved: ${error.message}`;
         throw error;
     } finally {
         connection.release();
@@ -1167,30 +1193,6 @@ app.put('/api/chat/:user_id/:message_id', ah(async (req, res) => {
             "DELETE FROM ai_chat_history WHERE user_id = ? AND sender_type = 'Genro_AI' AND parent_message_id IS NULL AND message_id > ? AND message_id < ?",
             [user_id, message_id, nextUser.message_id]
         );
-
-        // Chapter/custom attempts have no single topic_id on test_attempts,
-        // but they must still update the per-topic dashboard summaries.
-        if (!isTopic) {
-            for (const progressTopicId of progressTopicIds) {
-                const [[existing]] = await connection.query(
-                    'SELECT progress_id FROM user_progress WHERE user_id = ? AND topic_id = ? FOR UPDATE',
-                    [user_id, progressTopicId]
-                );
-                if (existing) {
-                    await connection.query(
-                        `UPDATE user_progress SET status = ?, accuracy_percentage = ?, tests_attempted = tests_attempted + 1,
-                         xp_earned = xp_earned + ?, last_tested_at = CURRENT_TIMESTAMP WHERE progress_id = ?`,
-                        [status, normalizedAccuracy, normalizedXp, existing.progress_id]
-                    );
-                } else {
-                    await connection.query(
-                        `INSERT INTO user_progress (user_id, topic_id, status, accuracy_percentage, tests_attempted, xp_earned)
-                         VALUES (?, ?, ?, ?, 1, ?)`,
-                        [user_id, progressTopicId, status, normalizedAccuracy, normalizedXp]
-                    );
-                }
-            }
-        }
     } else {
         await db.query(
             "DELETE FROM ai_chat_history WHERE user_id = ? AND sender_type = 'Genro_AI' AND parent_message_id IS NULL AND message_id > ?",
