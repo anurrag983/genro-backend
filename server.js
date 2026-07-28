@@ -110,65 +110,61 @@ async function ensureDatabaseSchema() {
     await addColumnIfMissing('ai_chat_history', 'parent_message_id', 'parent_message_id INT NULL AFTER attachment_mime');
     // use hoga; khaali hone par default test_json_url par fallback hota hai
     // (isliye purana data turant break nahi hota).
+    // use hoga; khaali hone par default test_json_url par fallback hota hai
+    // (isliye purana data turant break nahi hota).
     await addColumnIfMissing('topics', 'test_json_url_easy', 'test_json_url_easy VARCHAR(500) NULL AFTER test_json_url');
     await addColumnIfMissing('topics', 'test_json_url_medium', 'test_json_url_medium VARCHAR(500) NULL AFTER test_json_url_easy');
     await addColumnIfMissing('topics', 'test_json_url_hard', 'test_json_url_hard VARCHAR(500) NULL AFTER test_json_url_medium');
     await addColumnIfMissing('chapters', 'test_json_url_easy', 'test_json_url_easy VARCHAR(500) NULL AFTER test_json_url');
     await addColumnIfMissing('chapters', 'test_json_url_medium', 'test_json_url_medium VARCHAR(500) NULL AFTER test_json_url_easy');
     await addColumnIfMissing('chapters', 'test_json_url_hard', 'test_json_url_hard VARCHAR(500) NULL AFTER test_json_url_medium');
-
+    // Create test_attempts with ALL columns (including newer ones) so both fresh
+    // installs and upgrades work correctly without relying on addColumnIfMissing order.
     await db.query(`CREATE TABLE IF NOT EXISTS test_attempts (
-        attempt_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-        user_id INT NOT NULL,
-        topic_id INT NOT NULL,
-        status ENUM('Mastered', 'Revision Required') NOT NULL,
+        attempt_id   BIGINT AUTO_INCREMENT PRIMARY KEY,
+        user_id      INT NOT NULL,
+        topic_id     INT NULL,
+        chapter_id   INT NULL,
+        attempt_kind ENUM('Topic','Chapter','Custom') NOT NULL DEFAULT 'Topic',
+        label        VARCHAR(255) NULL,
+        topic_ids_json JSON NULL,
+        difficulty   ENUM('Easy','Medium','Hard') NOT NULL DEFAULT 'Medium',
+        status       ENUM('Mastered','Revision Required') NOT NULL,
         accuracy_percentage DECIMAL(5,2) NOT NULL,
-        xp_earned INT NOT NULL DEFAULT 0,
+        xp_earned    INT NOT NULL DEFAULT 0,
         attempted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         INDEX idx_test_attempts_user_time (user_id, attempted_at),
-        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-        FOREIGN KEY (topic_id) REFERENCES topics(topic_id) ON DELETE CASCADE
+        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
     )`);
-    await addColumnIfMissing('test_attempts', 'difficulty', "difficulty ENUM('Easy','Medium','Hard') NOT NULL DEFAULT 'Medium' AFTER topic_id");
 
-    // PROGRESS FIX: Full-chapter tests and Custom Practice (multiple topics)
-    // used to be silently skipped when saving progress, because this table
-    // only ever accepted a single required topic_id. These columns let one
-    // attempt row represent a topic test, a chapter test, or a custom mix.
+    // Additive migrations for existing DBs that already have the old table
+    // without the newer columns — each is a no-op if column already exists.
     await makeColumnNullable('test_attempts', 'topic_id', 'topic_id INT NULL');
-    await addColumnIfMissing('test_attempts', 'chapter_id', 'chapter_id INT NULL AFTER topic_id');
-    await addColumnIfMissing('test_attempts', 'attempt_kind', "attempt_kind ENUM('Topic','Chapter','Custom') NOT NULL DEFAULT 'Topic' AFTER chapter_id");
-    await addColumnIfMissing('test_attempts', 'label', 'label VARCHAR(255) NULL AFTER attempt_kind');
-    await addColumnIfMissing('test_attempts', 'topic_ids_json', 'topic_ids_json JSON NULL AFTER label');
+    await addColumnIfMissing('test_attempts', 'difficulty',      "difficulty ENUM('Easy','Medium','Hard') NOT NULL DEFAULT 'Medium' AFTER topic_id");
+    await addColumnIfMissing('test_attempts', 'chapter_id',      'chapter_id INT NULL AFTER topic_id');
+    await addColumnIfMissing('test_attempts', 'attempt_kind',    "attempt_kind ENUM('Topic','Chapter','Custom') NOT NULL DEFAULT 'Topic' AFTER chapter_id");
+    await addColumnIfMissing('test_attempts', 'label',           'label VARCHAR(255) NULL AFTER attempt_kind');
+    await addColumnIfMissing('test_attempts', 'topic_ids_json',  'topic_ids_json JSON NULL AFTER label');
 
     // TEST REPORT: har question ka detail (kya poocha gaya, student ne kya
     // select kiya, sahi jawab kya tha) yahan save hota hai taaki baad mein
     // Progress page se poora review dobara dekha ja sake.
     await db.query(`CREATE TABLE IF NOT EXISTS test_attempt_answers (
-        answer_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-        attempt_id BIGINT NOT NULL,
+        answer_id       BIGINT AUTO_INCREMENT PRIMARY KEY,
+        attempt_id      BIGINT NOT NULL,
         question_number INT NOT NULL,
-        question_text TEXT NOT NULL,
-        options_json JSON NULL,
-        selected_key VARCHAR(4) NULL,
-        correct_key VARCHAR(4) NULL,
-        is_correct TINYINT(1) NOT NULL DEFAULT 0,
+        question_text   TEXT NOT NULL,
+        topic_name      VARCHAR(255) NULL,
+        options_json    JSON NULL,
+        selected_key    VARCHAR(4) NULL,
+        correct_key     VARCHAR(4) NULL,
+        is_correct      TINYINT(1) NOT NULL DEFAULT 0,
         INDEX idx_test_attempt_answers_attempt (attempt_id),
         FOREIGN KEY (attempt_id) REFERENCES test_attempts(attempt_id) ON DELETE CASCADE
     )`);
     await addColumnIfMissing('test_attempt_answers', 'topic_name', 'topic_name VARCHAR(255) NULL AFTER question_text');
 }
 
-// ==========================================
-// 0. HEALTH CHECK (Render pings "/" — avoid a bare "Cannot GET /")
-// ==========================================
-app.get('/', (req, res) => {
-    res.json({ success: true, message: 'GENRO Server is alive', build: 'study-track-debug-v1' });
-});
-
-// ==========================================
-// 1. GENRO ka Main Data API (Jo pehle se tha)
-// ==========================================
 app.post('/api/genro/data', (req, res) => {
     const incomingData = req.body;
     console.log('GENRO App se naya data mila:', incomingData);
