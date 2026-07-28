@@ -81,7 +81,6 @@ function normalizeStudyTrack(track) {
     const value = String(track || '').trim().toLowerCase().replace(/[\s_-]/g, '');
     return value === 'nonmedical' ? 'Non-Medical' : value === 'medical' ? 'Medical' : null;
 }
-
 function enrolledSubjectsForTrack(track) {
     return track === 'Non-Medical'
         ? JSON.stringify(['Physics', 'Chemistry', 'Maths'])
@@ -93,10 +92,6 @@ async function addColumnIfMissing(tableName, columnName, definition) {
     if (!columns.length) await db.query(`ALTER TABLE \`${tableName}\` ADD COLUMN ${definition}`);
 }
 
-// Some columns (e.g. test_attempts.topic_id) were originally NOT NULL. Chapter
-// and Custom practice attempts don't have a single topic, so this relaxes the
-// column to NULL the first time the server boots with this update — a no-op
-// on every boot after that.
 async function makeColumnNullable(tableName, columnName, definition) {
     const [columns] = await db.query(`SHOW COLUMNS FROM \`${tableName}\` LIKE ?`, [columnName]);
     if (columns.length && columns[0].Null === 'NO') {
@@ -109,13 +104,10 @@ async function makeColumnNullable(tableName, columnName, definition) {
 // by preventing the server from starting.
 async function ensureDatabaseSchema() {
     await addColumnIfMissing('users', 'study_track', "study_track ENUM('Medical', 'Non-Medical') NOT NULL DEFAULT 'Medical' AFTER board");
+    await addColumnIfMissing('users', 'last_active_date', 'last_active_date DATE NULL AFTER day_streak');
     await addColumnIfMissing('ai_chat_history', 'attachment_data', 'attachment_data MEDIUMTEXT NULL AFTER message_text');
     await addColumnIfMissing('ai_chat_history', 'attachment_mime', 'attachment_mime VARCHAR(100) NULL AFTER attachment_data');
     await addColumnIfMissing('ai_chat_history', 'parent_message_id', 'parent_message_id INT NULL AFTER attachment_mime');
-
-    // CUSTOM PRACTICE (difficulty): topics/chapters ke pehle se maujood
-    // test_json_url ko "default" ki tarah rakha gaya hai. Agar in teen naye
-    // columns mein se koi bhara hua hai, to us difficulty ke liye wahi URL
     // use hoga; khaali hone par default test_json_url par fallback hota hai
     // (isliye purana data turant break nahi hota).
     await addColumnIfMissing('topics', 'test_json_url_easy', 'test_json_url_easy VARCHAR(500) NULL AFTER test_json_url');
@@ -875,7 +867,19 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
             }
         }
 
-        const [userUpdate] = await connection.query('UPDATE users SET total_xp = total_xp + ? WHERE user_id = ?', [normalizedXp, user_id]);
+        const [userUpdate] = await connection.query(
+            `UPDATE users 
+             SET total_xp = total_xp + ?,
+                 day_streak = CASE 
+                    WHEN last_active_date IS NULL THEN 1
+                    WHEN DATEDIFF(CURRENT_DATE, last_active_date) = 1 THEN day_streak + 1
+                    WHEN DATEDIFF(CURRENT_DATE, last_active_date) > 1 THEN 1
+                    ELSE GREATEST(day_streak, 1)
+                 END,
+                 last_active_date = CURRENT_DATE
+             WHERE user_id = ?`,
+            [normalizedXp, user_id]
+        );
         if (!userUpdate.affectedRows) {
             await connection.rollback();
             return res.status(404).json({ success: false, message: 'User nahi mila!' });
