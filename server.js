@@ -165,6 +165,13 @@ async function ensureDatabaseSchema() {
     await addColumnIfMissing('test_attempt_answers', 'topic_name', 'topic_name VARCHAR(255) NULL AFTER question_text');
 }
 
+// ==========================================
+// 0. HEALTH CHECK
+// ==========================================
+app.get('/', (req, res) => {
+    res.json({ success: true, message: 'GENRO Server is alive', build: 'topic_ids_json-fix-v2' });
+});
+
 app.post('/api/genro/data', (req, res) => {
     const incomingData = req.body;
     console.log('GENRO App se naya data mila:', incomingData);
