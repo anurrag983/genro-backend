@@ -559,6 +559,15 @@ function filterQuestionsForTopic(masterPayload, topicName, difficulty) {
     return { questions: filtered, matchedTopics: [...matchedTopics] };
 }
 
+function sampleQuestions(questions, limit = 20) {
+    const copy = [...questions];
+    for (let index = copy.length - 1; index > 0; index -= 1) {
+        const randomIndex = Math.floor(Math.random() * (index + 1));
+        [copy[index], copy[randomIndex]] = [copy[randomIndex], copy[index]];
+    }
+    return copy.slice(0, limit);
+}
+
 app.get('/api/test/chapter/:chapter_id', ah(async (req, res) => {
     const { chapter_id } = req.params;
     const difficulty = normalizeDifficulty(req.query.difficulty);
@@ -569,7 +578,9 @@ app.get('/api/test/chapter/:chapter_id', ah(async (req, res) => {
     if (results.length === 0) {
         return res.status(404).json({ success: false, message: 'Chapter nahi mila!' });
     }
-    const testJsonUrl = pickTestUrl(results[0], difficulty);
+    const testJsonUrl = results[0].test_json_url
+        ? `/api/test-content/chapter/${chapter_id}?difficulty=${encodeURIComponent(difficulty)}`
+        : pickTestUrl(results[0], difficulty);
     if (!testJsonUrl) {
         return res.status(404).json({ success: false, message: 'Is chapter ke liye full test abhi available nahi hai.' });
     }
@@ -621,9 +632,11 @@ app.get('/api/test/:topic_id', ah(async (req, res) => {
     // CHAPTER-MASTER-FILE ENGINE: no dedicated file for this topic? If its
     // chapter has one "all topics in one JSON" file, serve a live,
     // topic-filtered slice of it instead of failing.
-    const testJsonUrl = directUrl || (topicRow.chapter_test_json_url
+    // Legacy imports often copied the same chapter JSON URL to every topic.
+    // Prefer the chapter-aware filtering endpoint whenever it is available.
+    const testJsonUrl = topicRow.chapter_test_json_url
         ? `/api/test-content/topic/${topicRow.topic_id}?difficulty=${encodeURIComponent(difficulty)}`
-        : null);
+        : directUrl;
     if (!testJsonUrl) {
         return res.status(404).json({ success: false, message: 'Is topic ke liye test abhi available nahi hai.' });
     }
@@ -655,7 +668,7 @@ app.get('/api/test-content/topic/:topic_id', ah(async (req, res) => {
     if (!questions.length) {
         return res.status(404).json({ success: false, message: `"${topicRow.topic_name}" ke liye is chapter file mein koi question tagged nahi mila.` });
     }
-    res.status(200).json({ chapter_name: topicRow.chapter_name, topic_name: topicRow.topic_name, questions });
+    res.status(200).json({ chapter_name: topicRow.chapter_name, topic_name: topicRow.topic_name, questions: sampleQuestions(questions) });
 }));
 
 // ==========================================
@@ -761,6 +774,7 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
         let savedTopicId = null;
         let savedChapterId = null;
         let topicIdsJson = null;
+        let progressTopicIds = [];
 
         if (isTopic) {
             const [[topic]] = await connection.query('SELECT topic_id FROM topics WHERE topic_id = ?', [topic_id]);
@@ -769,6 +783,7 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
                 return res.status(404).json({ success: false, message: 'Topic nahi mila!' });
             }
             savedTopicId = topic_id;
+            progressTopicIds = [Number(topic_id)];
 
             const [[existing]] = await connection.query(
                 'SELECT progress_id FROM user_progress WHERE user_id = ? AND topic_id = ? FOR UPDATE',
@@ -797,12 +812,18 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
                 return res.status(404).json({ success: false, message: 'Chapter nahi mila!' });
             }
             savedChapterId = chapter_id;
+            const [chapterTopics] = await connection.query('SELECT topic_id FROM topics WHERE chapter_id = ?', [chapter_id]);
+            progressTopicIds = chapterTopics.map(row => Number(row.topic_id));
             attemptKind = 'Chapter';
             attemptLabel = String(label || chapter.chapter_name || 'Full chapter test').slice(0, 255);
         } else {
             attemptKind = 'Custom';
             attemptLabel = String(label || `Custom practice · ${topic_ids.length} topics`).slice(0, 255);
             topicIdsJson = JSON.stringify(topic_ids.slice(0, 100));
+            const [validTopics] = await connection.query(
+                `SELECT topic_id FROM topics WHERE topic_id IN (${topic_ids.map(() => '?').join(',')})`, topic_ids
+            );
+            progressTopicIds = validTopics.map(row => Number(row.topic_id));
         }
 
         const [attempt] = await connection.query(
@@ -818,7 +839,8 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
                 index + 1,
                 String(item.question_text || item.text || '').slice(0, 2000),
                 String(item.topic_name || item.topic || item.section || '').slice(0, 255) || null,
-                item.options ? JSON.stringify(item.options).slice(0, 4000) : null,
+                // MySQL JSON rejects truncated JSON, so preserve valid data.
+                item.options ? JSON.stringify(item.options) : null,
                 item.selected_key ? String(item.selected_key).slice(0, 4) : null,
                 item.correct_key ? String(item.correct_key).slice(0, 4) : null,
                 item.is_correct ? 1 : 0,
@@ -1130,25 +1152,61 @@ app.put('/api/chat/:user_id/:message_id', ah(async (req, res) => {
     const text = message_text.trim();
     await db.query("UPDATE ai_chat_history SET message_text = ? WHERE message_id = ?", [text, message_id]);
 
+    // Remove the obsolete reply first. parent_message_id handles new rows;
+    // the range fallback cleans chat rows created before that migration.
+    await db.query(
+        "DELETE FROM ai_chat_history WHERE user_id = ? AND sender_type = 'Genro_AI' AND parent_message_id = ?",
+        [user_id, message_id]
+    );
+    const [[nextUser]] = await db.query(
+        "SELECT MIN(message_id) AS message_id FROM ai_chat_history WHERE user_id = ? AND sender_type = 'User' AND message_id > ?",
+        [user_id, message_id]
+    );
+    if (nextUser?.message_id) {
+        await db.query(
+            "DELETE FROM ai_chat_history WHERE user_id = ? AND sender_type = 'Genro_AI' AND parent_message_id IS NULL AND message_id > ? AND message_id < ?",
+            [user_id, message_id, nextUser.message_id]
+        );
+
+        // Chapter/custom attempts have no single topic_id on test_attempts,
+        // but they must still update the per-topic dashboard summaries.
+        if (!isTopic) {
+            for (const progressTopicId of progressTopicIds) {
+                const [[existing]] = await connection.query(
+                    'SELECT progress_id FROM user_progress WHERE user_id = ? AND topic_id = ? FOR UPDATE',
+                    [user_id, progressTopicId]
+                );
+                if (existing) {
+                    await connection.query(
+                        `UPDATE user_progress SET status = ?, accuracy_percentage = ?, tests_attempted = tests_attempted + 1,
+                         xp_earned = xp_earned + ?, last_tested_at = CURRENT_TIMESTAMP WHERE progress_id = ?`,
+                        [status, normalizedAccuracy, normalizedXp, existing.progress_id]
+                    );
+                } else {
+                    await connection.query(
+                        `INSERT INTO user_progress (user_id, topic_id, status, accuracy_percentage, tests_attempted, xp_earned)
+                         VALUES (?, ?, ?, ?, 1, ?)`,
+                        [user_id, progressTopicId, status, normalizedAccuracy, normalizedXp]
+                    );
+                }
+            }
+        }
+    } else {
+        await db.query(
+            "DELETE FROM ai_chat_history WHERE user_id = ? AND sender_type = 'Genro_AI' AND parent_message_id IS NULL AND message_id > ?",
+            [user_id, message_id]
+        );
+    }
+
     const attachment = userMessage.attachment_data
         ? { data: userMessage.attachment_data, mime: userMessage.attachment_mime || 'image/jpeg' }
         : null;
     const aiText = await generateAiReply(text, attachment);
-    const [[existingReply]] = await db.query(
-        "SELECT message_id FROM ai_chat_history WHERE user_id = ? AND sender_type = 'Genro_AI' AND parent_message_id = ? ORDER BY message_id DESC LIMIT 1",
-        [user_id, message_id]
+    const [insert] = await db.query(
+        "INSERT INTO ai_chat_history (user_id, sender_type, message_text, parent_message_id) VALUES (?, 'Genro_AI', ?, ?)",
+        [user_id, aiText, message_id]
     );
-    let aiMessageId;
-    if (existingReply) {
-        aiMessageId = existingReply.message_id;
-        await db.query("UPDATE ai_chat_history SET message_text = ? WHERE message_id = ?", [aiText, aiMessageId]);
-    } else {
-        const [insert] = await db.query(
-            "INSERT INTO ai_chat_history (user_id, sender_type, message_text, parent_message_id) VALUES (?, 'Genro_AI', ?, ?)",
-            [user_id, aiText, message_id]
-        );
-        aiMessageId = insert.insertId;
-    }
+    const aiMessageId = insert.insertId;
     res.status(200).json({
         success: true,
         message: 'Message aur Genro AI ka fresh reply update ho gaya!',
@@ -1157,6 +1215,19 @@ app.put('/api/chat/:user_id/:message_id', ah(async (req, res) => {
             ai_message: { message_id: aiMessageId, sender_type: 'Genro_AI', message_text: aiText, parent_message_id: Number(message_id) }
         }
     });
+}));
+
+app.get('/api/test-content/chapter/:chapter_id', ah(async (req, res) => {
+    const difficulty = normalizeDifficulty(req.query.difficulty);
+    const [[chapter]] = await db.query('SELECT chapter_name, test_json_url FROM chapters WHERE chapter_id = ?', [req.params.chapter_id]);
+    if (!chapter?.test_json_url) return res.status(404).json({ success: false, message: 'Chapter test source not found.' });
+    const payload = await loadMasterChapterJson(chapter.test_json_url);
+    let questions = collectQuestionCandidates(payload?.questions || payload?.data || payload);
+    if (difficulty !== 'all') {
+        const tagged = questions.filter(question => canonicalDifficulty(question.difficulty || question.level) === canonicalDifficulty(difficulty));
+        if (tagged.length) questions = tagged;
+    }
+    res.json({ chapter_name: chapter.chapter_name, questions: sampleQuestions(questions) });
 }));
 
 // One efficient request for Custom Practice. It reads each selected topic's
@@ -1180,15 +1251,21 @@ app.post('/api/test/custom', ah(async (req, res) => {
         if (!topic) return [];
         const url = pickTestUrl(topic, difficulty);
         try {
-            const payload = url ? await loadMasterChapterJson(url) : await loadMasterChapterJson(topic.chapter_test_json_url);
-            const questions = url ? collectQuestionCandidates(payload?.questions || payload?.data || payload) : filterQuestionsForTopic(payload, topic.topic_name, difficulty).questions;
+            // A master chapter source must be topic-filtered even if an older
+            // topic row also has a URL value copied from that master file.
+            const payload = topic.chapter_test_json_url
+                ? await loadMasterChapterJson(topic.chapter_test_json_url)
+                : await loadMasterChapterJson(url);
+            const questions = topic.chapter_test_json_url
+                ? filterQuestionsForTopic(payload, topic.topic_name, difficulty).questions
+                : collectQuestionCandidates(payload?.questions || payload?.data || payload);
             return questions.map(question => ({ ...question, __inheritedTopic: questionTopicLabel(question) || topic.topic_name }));
         } catch (error) {
             console.warn(`Custom test source failed for topic ${topicId}:`, error.message);
             return [];
         }
     }));
-    res.json({ success: true, data: { questions: questionSets.flat(), topic_ids: topicIds, difficulty } });
+    res.json({ success: true, data: { questions: sampleQuestions(questionSets.flat()), topic_ids: topicIds, difficulty } });
 }));
 
 // 11D. Message delete karne ke liye (DELETE)
