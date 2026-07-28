@@ -111,6 +111,7 @@ async function ensureDatabaseSchema() {
     await addColumnIfMissing('users', 'study_track', "study_track ENUM('Medical', 'Non-Medical') NOT NULL DEFAULT 'Medical' AFTER board");
     await addColumnIfMissing('ai_chat_history', 'attachment_data', 'attachment_data MEDIUMTEXT NULL AFTER message_text');
     await addColumnIfMissing('ai_chat_history', 'attachment_mime', 'attachment_mime VARCHAR(100) NULL AFTER attachment_data');
+    await addColumnIfMissing('ai_chat_history', 'parent_message_id', 'parent_message_id INT NULL AFTER attachment_mime');
 
     // CUSTOM PRACTICE (difficulty): topics/chapters ke pehle se maujood
     // test_json_url ko "default" ki tarah rakha gaya hai. Agar in teen naye
@@ -163,6 +164,7 @@ async function ensureDatabaseSchema() {
         INDEX idx_test_attempt_answers_attempt (attempt_id),
         FOREIGN KEY (attempt_id) REFERENCES test_attempts(attempt_id) ON DELETE CASCADE
     )`);
+    await addColumnIfMissing('test_attempt_answers', 'topic_name', 'topic_name VARCHAR(255) NULL AFTER question_text');
 }
 
 // ==========================================
@@ -419,7 +421,8 @@ app.post('/api/auth/login', ah(async (req, res) => {
 // hota hai — isliye purana content bhi bina kisi change ke chalta rehta hai.
 function normalizeDifficulty(value) {
     const normalized = String(value || '').trim().toLowerCase();
-    return ['easy', 'medium', 'hard', 'tough', 'all'].includes(normalized) ? normalized : 'medium';
+    if (normalized === 'all') return 'all';
+    return canonicalDifficulty(normalized) || 'medium';
 }
 
 function pickTestUrl(row, difficulty) {
@@ -443,11 +446,19 @@ function pickTestUrl(row, difficulty) {
 // nest questions under a parent object that carries the topic name instead.
 // TOPIC_FIELD_KEYS covers both — "section"/"section_name" for the nested
 // style, the rest for a direct per-question field.
-const TOPIC_FIELD_KEYS = ['topic', 'topic_name', 'topicName', 'chapter_topic', 'sub_topic', 'subtopic', 'section', 'section_name'];
+const TOPIC_FIELD_KEYS = ['topic', 'topic_name', 'topicName', 'chapter_topic', 'sub_topic', 'subtopic', 'section', 'section_name', 'sectionTitle', 'unit', 'unit_name', 'lesson', 'concept'];
 // Dict keys that mean "everything under here is this difficulty" even when
 // no question itself carries a difficulty field, e.g. {"Easy": [...],
 // "Medium": [...], "Tough": [...]}.
-const DIFFICULTY_KEY_TOKENS = new Set(['easy', 'medium', 'hard', 'tough', 'difficult']);
+const DIFFICULTY_KEY_TOKENS = new Set(['easy', 'medium', 'moderate', 'hard', 'tough', 'difficult', 'advanced', 'basic']);
+
+function canonicalDifficulty(value) {
+    const label = normalizeTopicLabel(value);
+    if (['hard', 'tough', 'difficult', 'advanced'].includes(label)) return 'hard';
+    if (['medium', 'moderate'].includes(label)) return 'medium';
+    if (['easy', 'basic'].includes(label)) return 'easy';
+    return '';
+}
 
 function normalizeTopicLabel(value) {
     return String(value || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
@@ -470,14 +481,17 @@ function questionTopicLabel(question) {
 // grouped sections still knows which topic and difficulty it belongs to.
 // Kept in sync with collectQuestionCandidates in App.jsx (frontend) and
 // collect_question_candidates in tools/chapter_content_tool.py (Python).
-function collectQuestionCandidates(value, currentTopic = '', currentDifficulty = '', candidates = [], depth = 0) {
-    if (depth > 10) return candidates;
+function collectQuestionCandidates(value, currentTopic = '', currentDifficulty = '', candidates = [], depth = 0, seen = new WeakSet()) {
+    if (depth > 40 || !value || typeof value !== 'object') return candidates;
+    if (seen.has(value)) return candidates;
+    seen.add(value);
     if (Array.isArray(value)) {
-        value.forEach((item) => collectQuestionCandidates(item, currentTopic, currentDifficulty, candidates, depth + 1));
+        value.forEach((item) => collectQuestionCandidates(item, currentTopic, currentDifficulty, candidates, depth + 1, seen));
         return candidates;
     }
-    if (!value || typeof value !== 'object') return candidates;
-    if (typeof value.question === 'string' || typeof value.question_text === 'string' || typeof value.text === 'string') {
+    const text = value.question || value.question_text || value.questionText || value.prompt || value.stem || value.text;
+    const hasOptions = value.options || value.answers || value.choices || value.option || value.mcq_options;
+    if (typeof text === 'string' && (hasOptions || value.correct_answer || value.answer || value.correctOption || value.correct_option)) {
         const question = { ...value };
         if (currentTopic && !directTopicField(question)) question.__inheritedTopic = currentTopic;
         if (currentDifficulty && !question.difficulty && !question.level) question.difficulty = currentDifficulty;
@@ -490,7 +504,7 @@ function collectQuestionCandidates(value, currentTopic = '', currentDifficulty =
     }
     Object.entries(value).forEach(([key, item]) => {
         const nextDifficulty = DIFFICULTY_KEY_TOKENS.has(normalizeTopicLabel(key)) ? key : currentDifficulty;
-        collectQuestionCandidates(item, nextTopic, nextDifficulty, candidates, depth + 1);
+        collectQuestionCandidates(item, nextTopic, nextDifficulty, candidates, depth + 1, seen);
     });
     return candidates;
 }
@@ -534,8 +548,8 @@ function filterQuestionsForTopic(masterPayload, topicName, difficulty) {
     filtered = filtered.length ? filtered : (anyTagged ? [] : allQuestions);
 
     if (difficulty && difficulty !== 'all') {
-        const wantedDifficulty = normalizeTopicLabel(difficulty);
-        const withDifficulty = filtered.filter((question) => normalizeTopicLabel(question.difficulty || question.level || '') === wantedDifficulty);
+        const wantedDifficulty = canonicalDifficulty(difficulty);
+        const withDifficulty = filtered.filter((question) => canonicalDifficulty(question.difficulty || question.level || '') === wantedDifficulty);
         // Never hand back an empty test just because a difficulty label
         // didn't match exactly (e.g. "hard" requested but the file says
         // "tough") — fall back to the unfiltered topic set instead.
@@ -715,7 +729,7 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
     const { topic_id, chapter_id, topic_ids, label, accuracy_percentage, xp_earned, difficulty, answers } = req.body;
     const accuracy = Number(accuracy_percentage);
     const xp = Number(xp_earned);
-    const normalizedDifficulty = ['Easy', 'Medium', 'Hard'].includes(difficulty) ? difficulty : 'Medium';
+    const normalizedDifficulty = ({ easy: 'Easy', medium: 'Medium', hard: 'Hard' })[canonicalDifficulty(difficulty)] || 'Medium';
     // Report ke liye per-question answers (optional — purane frontend clients
     // jo ye array na bhejein unke liye bhi ye route bina toote kaam karta hai).
     const answerList = Array.isArray(answers) ? answers : [];
@@ -803,6 +817,7 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
                 attempt.insertId,
                 index + 1,
                 String(item.question_text || item.text || '').slice(0, 2000),
+                String(item.topic_name || item.topic || item.section || '').slice(0, 255) || null,
                 item.options ? JSON.stringify(item.options).slice(0, 4000) : null,
                 item.selected_key ? String(item.selected_key).slice(0, 4) : null,
                 item.correct_key ? String(item.correct_key).slice(0, 4) : null,
@@ -810,7 +825,7 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
             ]);
             await connection.query(
                 `INSERT INTO test_attempt_answers
-                 (attempt_id, question_number, question_text, options_json, selected_key, correct_key, is_correct)
+                 (attempt_id, question_number, question_text, topic_name, options_json, selected_key, correct_key, is_correct)
                  VALUES ?`,
                 [answerRows]
             );
@@ -866,7 +881,7 @@ app.get('/api/user/:user_id/attempts/:attempt_id/report', ah(async (req, res) =>
     }
 
     const [answers] = await db.query(
-        `SELECT question_number, question_text, options_json, selected_key, correct_key, is_correct
+        `SELECT question_number, question_text, topic_name, options_json, selected_key, correct_key, is_correct
          FROM test_attempt_answers WHERE attempt_id = ? ORDER BY question_number ASC`,
         [attempt_id]
     );
@@ -1084,8 +1099,8 @@ app.post('/api/chat/:user_id', ah(async (req, res) => {
 
     const aiText = await generateAiReply(messageText, attachment);
     const [aiInsert] = await db.query(
-        "INSERT INTO ai_chat_history (user_id, sender_type, message_text) VALUES (?, 'Genro_AI', ?)",
-        [user_id, aiText]
+        "INSERT INTO ai_chat_history (user_id, sender_type, message_text, parent_message_id) VALUES (?, 'Genro_AI', ?, ?)",
+        [user_id, aiText, userInsert.insertId]
     );
     const savedAiMessage = { message_id: aiInsert.insertId, sender_type: 'Genro_AI', message_text: aiText };
 
@@ -1105,14 +1120,75 @@ app.put('/api/chat/:user_id/:message_id', ah(async (req, res) => {
         return res.status(400).json({ success: false, message: 'Message khali nahi ho sakta!' });
     }
 
-    const [result] = await db.query(
-        "UPDATE ai_chat_history SET message_text = ? WHERE message_id = ? AND user_id = ? AND sender_type = 'User'",
-        [message_text.trim(), message_id, user_id]
+    const [[userMessage]] = await db.query(
+        "SELECT attachment_data, attachment_mime FROM ai_chat_history WHERE message_id = ? AND user_id = ? AND sender_type = 'User'",
+        [message_id, user_id]
     );
-    if (result.affectedRows === 0) {
+    if (!userMessage) {
         return res.status(404).json({ success: false, message: 'Message nahi mila!' });
     }
-    res.status(200).json({ success: true, message: 'Message update ho gaya!' });
+    const text = message_text.trim();
+    await db.query("UPDATE ai_chat_history SET message_text = ? WHERE message_id = ?", [text, message_id]);
+
+    const attachment = userMessage.attachment_data
+        ? { data: userMessage.attachment_data, mime: userMessage.attachment_mime || 'image/jpeg' }
+        : null;
+    const aiText = await generateAiReply(text, attachment);
+    const [[existingReply]] = await db.query(
+        "SELECT message_id FROM ai_chat_history WHERE user_id = ? AND sender_type = 'Genro_AI' AND parent_message_id = ? ORDER BY message_id DESC LIMIT 1",
+        [user_id, message_id]
+    );
+    let aiMessageId;
+    if (existingReply) {
+        aiMessageId = existingReply.message_id;
+        await db.query("UPDATE ai_chat_history SET message_text = ? WHERE message_id = ?", [aiText, aiMessageId]);
+    } else {
+        const [insert] = await db.query(
+            "INSERT INTO ai_chat_history (user_id, sender_type, message_text, parent_message_id) VALUES (?, 'Genro_AI', ?, ?)",
+            [user_id, aiText, message_id]
+        );
+        aiMessageId = insert.insertId;
+    }
+    res.status(200).json({
+        success: true,
+        message: 'Message aur Genro AI ka fresh reply update ho gaya!',
+        data: {
+            user_message: { message_id: Number(message_id), sender_type: 'User', message_text: text },
+            ai_message: { message_id: aiMessageId, sender_type: 'Genro_AI', message_text: aiText, parent_message_id: Number(message_id) }
+        }
+    });
+}));
+
+// One efficient request for Custom Practice. It reads each selected topic's
+// source (including chapter master files), preserves the source topic label,
+// and lets the browser shuffle only after the complete set has arrived.
+app.post('/api/test/custom', ah(async (req, res) => {
+    const topicIds = [...new Set((Array.isArray(req.body.topic_ids) ? req.body.topic_ids : [])
+        .map(Number).filter(Number.isInteger))].slice(0, 100);
+    const difficulty = normalizeDifficulty(req.body.difficulty);
+    if (!topicIds.length) return res.status(400).json({ success: false, message: 'At least one topic is required.' });
+    const placeholders = topicIds.map(() => '?').join(',');
+    const [topics] = await db.query(
+        `SELECT t.topic_id, t.topic_name, t.test_json_url, t.test_json_url_easy, t.test_json_url_medium, t.test_json_url_hard,
+                c.test_json_url AS chapter_test_json_url
+         FROM topics t JOIN chapters c ON c.chapter_id = t.chapter_id WHERE t.topic_id IN (${placeholders})`,
+        topicIds
+    );
+    const byId = new Map(topics.map(topic => [Number(topic.topic_id), topic]));
+    const questionSets = await Promise.all(topicIds.map(async (topicId) => {
+        const topic = byId.get(topicId);
+        if (!topic) return [];
+        const url = pickTestUrl(topic, difficulty);
+        try {
+            const payload = url ? await loadMasterChapterJson(url) : await loadMasterChapterJson(topic.chapter_test_json_url);
+            const questions = url ? collectQuestionCandidates(payload?.questions || payload?.data || payload) : filterQuestionsForTopic(payload, topic.topic_name, difficulty).questions;
+            return questions.map(question => ({ ...question, __inheritedTopic: questionTopicLabel(question) || topic.topic_name }));
+        } catch (error) {
+            console.warn(`Custom test source failed for topic ${topicId}:`, error.message);
+            return [];
+        }
+    }));
+    res.json({ success: true, data: { questions: questionSets.flat(), topic_ids: topicIds, difficulty } });
 }));
 
 // 11D. Message delete karne ke liye (DELETE)
