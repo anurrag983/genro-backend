@@ -691,9 +691,9 @@ app.post('/api/user/:user_id/progress', ah(async (req, res) => {
         }
 
         const [attempt] = await connection.query(
-            `INSERT INTO test_attempts (user_id, topic_id, chapter_id, attempt_kind, label, topic_ids_json, difficulty, status, accuracy_percentage, xp_earned)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-            [user_id, savedTopicId, savedChapterId, attemptKind, attemptLabel, topicIdsJson, normalizedDifficulty, status, normalizedAccuracy, normalizedXp]
+            `INSERT INTO test_attempts (user_id, topic_id, chapter_id, attempt_kind, label, topic_ids_json, difficulty, status, accuracy_percentage, xp_earned, attempted_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [user_id, savedTopicId, savedChapterId, attemptKind, attemptLabel, topicIdsJson, normalizedDifficulty, status, normalizedAccuracy, normalizedXp, new Date()]
         );
 
         if (progressTopicIds.length > 0) {
