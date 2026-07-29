@@ -128,7 +128,7 @@ async function ensureDatabaseSchema() {
         question_number INT NOT NULL,
         question_text   TEXT NOT NULL,
         topic_name      VARCHAR(255) NULL,
-        options_json    JSON NULL,
+        options_json    TEXT NULL,
         selected_key    VARCHAR(4) NULL,
         correct_key     VARCHAR(4) NULL,
         is_correct      TINYINT(1) NOT NULL DEFAULT 0,
@@ -966,7 +966,7 @@ async function generateAiReply(userText, attachment = null) {
             });
         }
 
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
