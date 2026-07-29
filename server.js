@@ -192,7 +192,7 @@ app.get('/api/syllabus/:class_level/:subject_name', ah(async (req, res) => {
                 chapter_id: row.chapter_id,
                 chapter_number: row.chapter_number,
                 chapter_name: row.chapter_name,
-                has_chapter_test: !!row.chapter_test_json_url,
+                has_chapter_test: !!(row.chapter_test_json_url || row.chapter_test_json_url_easy || row.chapter_test_json_url_medium || row.chapter_test_json_url_hard),
                 chapter_difficulty_available: difficultyAvailability(
                     row.chapter_test_json_url, row.chapter_test_json_url_easy,
                     row.chapter_test_json_url_medium, row.chapter_test_json_url_hard
@@ -201,8 +201,8 @@ app.get('/api/syllabus/:class_level/:subject_name', ah(async (req, res) => {
             };
         }
         if (row.topic_id) {
-            const hasOwnTest = !!row.topic_test_json_url;
-            const hasChapterFallback = !hasOwnTest && !!row.chapter_test_json_url;
+            const hasOwnTest = !!(row.topic_test_json_url || row.topic_test_json_url_easy || row.topic_test_json_url_medium || row.topic_test_json_url_hard);
+            const hasChapterFallback = !hasOwnTest && !!(row.chapter_test_json_url || row.chapter_test_json_url_easy || row.chapter_test_json_url_medium || row.chapter_test_json_url_hard);
             chaptersMap[row.chapter_id].topics.push({
                 topic_id: row.topic_id,
                 topic_sequence: row.topic_sequence,
