@@ -1,0 +1,2997 @@
+{
+  "Biology": {
+    "The Living World": {
+      "Application of Taxonomy": {
+        "Easy": [
+          {
+            "question": "Which of the following fields benefits from the taxonomic studies of various plant and animal species according to the text?",
+            "options": {
+              "A": "Agriculture, forestry, and industry",
+              "B": "Astrophysics and meteorology",
+              "C": "Geology and mineralogy",
+              "D": "Mechanical engineering and robotics"
+            },
+            "answer": "A",
+            "explanation": "The summary explicitly mentions that taxonomic studies are useful in agriculture, forestry, industry, and in general for knowing bio-resources and diversity. Hence, A is the correct option."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Why do biologists rely on taxonomic studies beyond pure academic curiosity, specifically regarding global bio-resources?",
+            "options": {
+              "A": "To invent completely synthetic artificial life forms",
+              "B": "To know our bio-resources and their diversity for practical utilities like agriculture and forestry",
+              "C": "To establish a single universal spoken language for all human populations",
+              "D": "To eliminate all unknown species from forest ecosystems"
+            },
+            "answer": "B",
+            "explanation": "The text highlights that taxonomic studies are useful in agriculture, forestry, industry, and in general for knowing our bio-resources and their diversity. Option B accurately reflects this connection."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "How do the practical applications of taxonomy in agriculture, forestry, and industry depend fundamentally on the basics of taxonomy (identification, naming, and classification)?",
+            "options": {
+              "A": "Practical fields require accurate bio-resource identification and universal naming to track, utilize, and conserve diverse organisms correctly.",
+              "B": "Practical fields rely on arbitrary naming schemes rather than international codes.",
+              "C": "Taxonomy is purely theoretical and has no bearing on agricultural or industrial bio-resources.",
+              "D": "Industry only uses unknown organisms that lack any taxonomic hierarchy."
+            },
+            "answer": "A",
+            "explanation": "The text states that taxonomic studies are useful in agriculture, forestry, industry, and for knowing bio-resources and diversity, which builds directly on the basics of identification, naming, and classification."
+          }
+        ]
+      },
+      "Basics of Taxonomy": {
+        "Easy": [
+          {
+            "question": "Which of the following processes is NOT listed as basic to taxonomy?",
+            "options": {
+              "A": "Characterisation",
+              "B": "Metamorphosis",
+              "C": "Classification",
+              "D": "Nomenclature"
+            },
+            "answer": "B",
+            "explanation": "The text states that characterisation, identification, classification, and nomenclature are the processes that are basic to taxonomy. Metamorphosis is a biological developmental process, not a foundational taxonomic process."
+          },
+          {
+            "question": "Which of the following terms refers to the scientific study of classification, including external and internal structure, cell structure, development processes, and ecological information?",
+            "options": {
+              "A": "Systematics",
+              "B": "Taxonomy",
+              "C": "Nomenclature",
+              "D": "Ecology"
+            },
+            "answer": "B",
+            "explanation": "Taxonomy is the process of classification based on characteristics, incorporating modern studies of external and internal structure, cell structure, development, and ecology."
+          },
+          {
+            "question": "Under what authority are the basics of taxonomy like identification, naming, and classification universally evolved?",
+            "options": {
+              "A": "National governmental decrees",
+              "B": "International codes",
+              "C": "Local municipal bodies",
+              "D": "Independent individual researchers"
+            },
+            "answer": "B",
+            "explanation": "The text explicitly states that the basics of taxonomy are universally evolved under international codes. Therefore, B is correct."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Which of the following sets of parameters forms the foundational basis of modern taxonomic studies as described in the text?",
+            "options": {
+              "A": "External structure only",
+              "B": "External and internal structure, cell structure, development process, and ecological information",
+              "C": "Human utility, food value, and shelter capability",
+              "D": "Economic importance and geographic distribution alone"
+            },
+            "answer": "B",
+            "explanation": "The text lists external and internal structure, along with the structure of cell, development process, and ecological information as essential bases for modern taxonomic studies."
+          },
+          {
+            "question": "Which sequence of processes correctly represents the foundational steps basic to taxonomy as outlined in the text?",
+            "options": {
+              "A": "Classification -> Nomenclature -> Identification -> Characterisation",
+              "B": "Characterisation -> Identification -> Classification -> Nomenclature",
+              "C": "Nomenclature -> Classification -> Characterisation -> Identification",
+              "D": "Identification -> Characterisation -> Nomenclature -> Classification"
+            },
+            "answer": "B",
+            "explanation": "The text explicitly lists the processes in this order: 'characterisation, identification, classification and nomenclature are the processes that are basic to taxonomy.'"
+          },
+          {
+            "question": "How do the fundamental procedures of identification, naming, and classification maintain uniformity across the global scientific community?",
+            "options": {
+              "A": "They are dictated by individual local researchers in isolated laboratories.",
+              "B": "They are universally evolved under international codes.",
+              "C": "They change every now and then without any systematic framework.",
+              "D": "They rely entirely on morphological size rather than resemblances."
+            },
+            "answer": "B",
+            "explanation": "The summary notes that the basics of taxonomy like identification, naming, and classification of organisms are universally evolved under international codes, ensuring global uniformity."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "If a researcher is studying the ecological information, developmental processes, and cell structure of an organism to classify it, which branch of study are they primarily executing according to the text?",
+            "options": {
+              "A": "Pre-historic utility classification",
+              "B": "Modern taxonomic studies",
+              "C": "Purely nominal nomenclature",
+              "D": "Historical systematics without structural observation"
+            },
+            "answer": "B",
+            "explanation": "The text specifies that 'External and internal structure, along with the structure of cell, development process and ecological information of organisms are essential and form the basis of modern taxonomic studies.'"
+          },
+          {
+            "question": "Which of the following combinations correctly pairs a taxonomic process from the text with its primary descriptive feature given in the passage?",
+            "options": {
+              "A": "Nomenclature -> Grouping organisms based on internal cell structure",
+              "B": "Classification -> Grouping anything into convenient categories based on easily observable characters",
+              "C": "Systematics -> Writing the author's name in abbreviated form after the specific epithet",
+              "D": "Characterisation -> Deriving the word from the Latin 'systema'"
+            },
+            "answer": "B",
+            "explanation": "Classification is explicitly defined in the text as 'the process by which anything is grouped into convenient categories based on some easily observable characters.' The other pairings mismatch definitions from different sections."
+          },
+          {
+            "question": "Synthesize the role of 'international codes' in the context of taxonomic identification and nomenclature based on the excerpt.",
+            "options": {
+              "A": "They provide the universally evolved framework under which the basics of taxonomy (identification, naming, classification) are conducted.",
+              "B": "They are local guidelines used exclusively by forestry departments.",
+              "C": "They dictate the physiological and morphological features of living organisms.",
+              "D": "They replace the taxonomic hierarchy with a single categorical rank."
+            },
+            "answer": "A",
+            "explanation": "The text specifies that the basics of taxonomy like identification, naming, and classification of organisms are universally evolved under international codes."
+          }
+        ]
+      },
+      "Binomial Nomenclature": {
+        "Easy": [
+          {
+            "question": "Who provided the system of binomial nomenclature?",
+            "options": {
+              "A": "Carolus Linnaeus",
+              "B": "The International Code of Zoological Nomenclature",
+              "C": "Darwin",
+              "D": "Botanical and Zoological committees jointly"
+            },
+            "answer": "A",
+            "explanation": "The text states that 'This naming system given by Carolus Linnaeus is being practised by biologists all over the world.' Options B, C, and D are incorrect or not mentioned as the originator of the binomial system."
+          },
+          {
+            "question": "In the biological name Mangifera indica Linn., what does the abbreviation 'Linn.' represent?",
+            "options": {
+              "A": "The local name of the species",
+              "B": "The name of the author who first described the species",
+              "C": "The language in which the name is written",
+              "D": "The laboratory where the plant was first cultured"
+            },
+            "answer": "B",
+            "explanation": "The name of the author appears after the specific epithet at the end of the biological name in abbreviated form, indicating the scientist who first described the species (e.g., Linn. for Linnaeus). Option A, C, and D are incorrect interpretations."
+          },
+          {
+            "question": "According to the rules of binomial nomenclature illustrated by Mangifera indica, which of the following is correct regarding capitalization?",
+            "options": {
+              "A": "Both genus and specific epithet start with capital letters.",
+              "B": "Both genus and specific epithet start with small letters.",
+              "C": "Genus starts with a capital letter and specific epithet starts with a small letter.",
+              "D": "Genus starts with a small letter and specific epithet starts with a capital letter."
+            },
+            "answer": "C",
+            "explanation": "The first word denoting the genus starts with a capital letter while the specific epithet starts with a small letter, as seen in Mangifera indica."
+          },
+          {
+            "question": "In the binomial name Mangifera indica Linn., where is the author's name placed?",
+            "options": {
+              "A": "Before the genus name",
+              "B": "Between the genus and specific epithet",
+              "C": "After the specific epithet at the end of the biological name",
+              "D": "Separately in a footnote"
+            },
+            "answer": "C",
+            "explanation": "The text states that the name of the author appears after the specific epithet, i.e., at the end of the biological name in an abbreviated form."
+          },
+          {
+            "question": "As per the binomial system of nomenclature, how many words comprise a correct scientific/biological name assigned to an organism?",
+            "options": {
+              "A": "One word",
+              "B": "Two words",
+              "C": "Three words",
+              "D": "Four words"
+            },
+            "answer": "B",
+            "explanation": "The excerpt states that each organism is identified and assigned a correct scientific/biological name comprising two words as per the binomial system. Thus, B is correct."
+          },
+          {
+            "question": "Which of the following represents the correct scientific name of Mango as per standard binomial nomenclature rules mentioned or implied in the exercises?",
+            "options": {
+              "A": "Mangifera Indica",
+              "B": "Mangifera indica",
+              "C": "MANGIFERA INDICA",
+              "D": "mangifera Indica"
+            },
+            "answer": "B",
+            "explanation": "Exercise 5 asks to identify the correctly written scientific name of Mango from 'Mangifera Indica' and 'Mangifera indica'. Biological nomenclature rules dictate lowercase for the specific epithet, making 'Mangifera indica' correct."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Which of the following statements best describes the relationship between the two components of a binomial name?",
+            "options": {
+              "A": "The first component is the specific epithet and the second is the generic name.",
+              "B": "Both components together form a two-word format where the first is genus and second is specific epithet.",
+              "C": "The first component represents the family and the second represents the genus.",
+              "D": "Both components are independent and can be written in any order."
+            },
+            "answer": "B",
+            "explanation": "The text clearly states that each name has two components – the Generic name and the specific epithet, using a two-word format where the first word represents the genus and the second denotes the specific epithet."
+          },
+          {
+            "question": "Why was the two-word format of nomenclature adopted by biologists?",
+            "options": {
+              "A": "It was found convenient.",
+              "B": "It was legally required by international trade laws.",
+              "C": "Single-word names were completely exhausted.",
+              "D": "It prevents organisms from having a genus name."
+            },
+            "answer": "A",
+            "explanation": "The text directly states: 'This naming system using a two word format was found convenient.' Options B, C, and D are not mentioned in the text."
+          },
+          {
+            "question": "Consider the biological name Mangifera indica Linn. If a student writes the name as 'mangifera Indica Linn.', which rule(s) of botanical nomenclature have been violated based on the excerpt?",
+            "options": {
+              "A": "Only the genus capitalization rule has been violated.",
+              "B": "Only the specific epithet capitalization rule has been violated.",
+              "C": "Both the genus capitalization and specific epithet capitalization rules have been violated.",
+              "D": "No rule has been violated since the author's name is present."
+            },
+            "answer": "C",
+            "explanation": "The text dictates that the genus ('Mangifera') must start with a capital letter and the specific epithet ('indica') must start with a small letter. Writing 'mangifera' with a small letter and 'Indica' with a capital violates both rules."
+          },
+          {
+            "question": "What does the inclusion of the author's abbreviated name (like Linn.) at the end of a binomial name scientifically signify?",
+            "options": {
+              "A": "The patent holder of that particular organism variety",
+              "B": "The person who funded the expedition to discover the organism",
+              "C": "The person who first described the species",
+              "D": "The creator of the modern classification system for that kingdom"
+            },
+            "answer": "C",
+            "explanation": "The text clarifies that the author's name in abbreviated form 'indicates that this species was first described by Linnaeus' (or the respective author)."
+          },
+          {
+            "question": "When assigning a scientific name to a newly discovered organism, what foundational principle from the summary must be applied?",
+            "options": {
+              "A": "Assigning a single descriptive word based on its habitat",
+              "B": "Assigning a two-word scientific name based on resemblances and distinct differences using international codes",
+              "C": "Assigning an arbitrary number determined by industrial utility",
+              "D": "Ignoring international codes if the organism is microscopic"
+            },
+            "answer": "B",
+            "explanation": "The text mentions that based on resemblances and distinct differences, each organism is identified and assigned a correct scientific/biological name comprising two words under international codes."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "How do the rules of binomial nomenclature structurally reflect the hierarchical relationship between a genus and its specific component?",
+            "options": {
+              "A": "By placing the specific epithet first to govern the generic name",
+              "B": "By utilizing a two-word format where the first word designates the broader group (genus) and the second designates the specific epithet",
+              "C": "By requiring both words to be identical in spelling",
+              "D": "By omitting the generic name when the specific epithet is Latinised"
+            },
+            "answer": "B",
+            "explanation": "The text states that each name has two components – the Generic name (first word) and the specific epithet (second component), establishing a structured two-word format."
+          },
+          {
+            "question": "Synthesize the text's explanation of binomial nomenclature: What are the dual functions achieved by the two components (generic name and specific epithet)?",
+            "options": {
+              "A": "They categorize the organism into a genus while providing a specific epithet, maintaining convenience and universal recognition.",
+              "B": "They translate local names into Latin and provide geographical origin.",
+              "C": "They separate plant nomenclature from animal nomenclature permanently.",
+              "D": "They eliminate the need for correct organism description."
+            },
+            "answer": "A",
+            "explanation": "The text explains binomial nomenclature as a convenient two-word system where the first component represents the genus and the second represents the specific epithet, facilitating universal biological naming."
+          },
+          {
+            "question": "A student encounters a biological name written as 'Mangifera Linn. indica'. Based on the excerpt's rules of binomial nomenclature, what is the error in this formulation?",
+            "options": {
+              "A": "The author's name is placed between the genus and specific epithet instead of at the end.",
+              "B": "The specific epithet is capitalized while the genus is not.",
+              "C": "Both words start with small letters.",
+              "D": "The genus name is missing."
+            },
+            "answer": "A",
+            "explanation": "The text states that the name of the author appears 'after the specific epithet, i.e., at the end of the biological name', making placement between genus and epithet incorrect."
+          },
+          {
+            "question": "Why is the binomial system of nomenclature considered robust for managing millions of identified and yet-to-be-identified species?",
+            "options": {
+              "A": "Because it restricts every organism name to exactly two words based on universal codes, preventing ambiguity across diverse languages and regions.",
+              "B": "Because it uses an infinite number of words to describe every physiological trait.",
+              "C": "Because it eliminates the need for hierarchical classification altogether.",
+              "D": "Because it changes scientific names every time a new classification system is introduced."
+            },
+            "answer": "A",
+            "explanation": "Binomial nomenclature assigns each organism a two-word name universally under international codes based on resemblances and differences, providing a standardized global reference system."
+          }
+        ]
+      },
+      "Binomial Nomenclature Rules": {
+        "Easy": [
+          {
+            "question": "In the scientific name Mangifera indica, what does 'indica' represent?",
+            "options": {
+              "A": "Generic name",
+              "B": "Specific epithet",
+              "C": "Latin origin",
+              "D": "Family name"
+            },
+            "answer": "B",
+            "explanation": "The text explains that in Mangifera indica, 'Mangifera represents the genus while indica, is a particular species, or a specific epithet.' Options A, C, and D incorrectly identify the component."
+          }
+        ],
+        "Medium": [],
+        "Tough": []
+      },
+      "Binomial Nomenclature and Taxonomy": {
+        "Easy": [],
+        "Medium": [],
+        "Tough": [
+          {
+            "question": "Consider the following assertions based on the excerpt: \nI. The specific epithet of a biological name is capitalized if named after a plant.\nII. Taxa can represent categories at very different levels.\nIII. Modern taxonomic studies incorporate external/internal structure, cell structure, development, and ecology.\nWhich of the above assertions are correct?",
+            "options": {
+              "A": "I and II only",
+              "B": "II and III only",
+              "C": "I and III only",
+              "D": "I, II, and III"
+            },
+            "answer": "B",
+            "explanation": "Assertion I is false because specific epithets always start with a small letter (e.g., indica), regardless of whether they are plants or animals. Assertions II and III are directly supported by the text."
+          }
+        ]
+      },
+      "Biodiversity Conservation": {
+        "Easy": [
+          {
+            "question": "The realization that all present-day living organisms are related led to what cultural movement?",
+            "options": {
+              "A": "Industrialization of agriculture",
+              "B": "Urban expansion",
+              "C": "Conservation of biodiversity",
+              "D": "Anthropocentrism"
+            },
+            "answer": "C",
+            "explanation": "According to the text, the revelation that present-day organisms are related humbled man and led to cultural movements for the conservation of biodiversity."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "What profound realization about life on Earth humbled mankind, according to the passage?",
+            "options": {
+              "A": "That humans are completely unrelated to any other living organism on Earth.",
+              "B": "That all present-day living organisms are related to each other and to all organisms that ever lived.",
+              "C": "That inanimate matter evokes more fear than animate objects.",
+              "D": "That taxonomy is an obsolete science developed by early man."
+            },
+            "answer": "B",
+            "explanation": "The text explicitly states that the revelation that all present-day living organisms are related to each other and to all organisms that ever lived on this earth was what humbled man."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "What philosophical and cultural consequence emerged directly from the revelation of universal biological relatedness among all past and present organisms?",
+            "options": {
+              "A": "The complete abandonment of taxonomy in favor of anthropocentrism",
+              "B": "A humbling of mankind that stimulated cultural movements geared toward conserving biodiversity",
+              "C": "The immediate awarding of the Balzan Prize to early human societies",
+              "D": "The reclassification of wind, sea, and fire as biological organisms"
+            },
+            "answer": "B",
+            "explanation": "The text explicitly links the revelation of relatedness among all organisms that ever lived to a humbling of man and subsequent cultural movements for biodiversity conservation."
+          }
+        ]
+      },
+      "Class": {
+        "Easy": [
+          {
+            "question": "Order Primata, comprising monkey, gorilla, and gibbon, is placed in which class along with order Carnivora?",
+            "options": {
+              "A": "Phylum Chordata",
+              "B": "Class Mammalia",
+              "C": "Family Felidae",
+              "D": "Genus Homo"
+            },
+            "answer": "B",
+            "explanation": "The text specifies that order Primata is placed in class Mammalia along with order Carnivora. Phylum, family, and genus are incorrect categories."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Consider the classification of class Mammalia. Which of the following orders are combined under Class Mammalia according to the text?",
+            "options": {
+              "A": "Polymoniales and Carnivora",
+              "B": "Primata and Carnivora",
+              "C": "Solanaceae and Felidae",
+              "D": "Convolvulaceae and Primata"
+            },
+            "answer": "B",
+            "explanation": "The text mentions order Primata (comprising monkey, gorilla, gibbon) is placed in class Mammalia along with order Carnivora (animals like tiger, cat, dog)."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Evaluate the following assertion and reason based on the text:\nAssertion: The order Primata and the order Carnivora are placed in the same class, Mammalia.\nReason: Both Primata and Carnivora share a high degree of identical specific epithets.",
+            "options": {
+              "A": "Both Assertion and Reason are true and Reason is the correct explanation of Assertion.",
+              "B": "Both Assertion and Reason are true but Reason is not the correct explanation of Assertion.",
+              "C": "Assertion is true, but Reason is false.",
+              "D": "Both Assertion and Reason are false."
+            },
+            "answer": "C",
+            "explanation": "The assertion is true: order Primata and order Carnivora are placed in class Mammalia. The reason is false because orders are not grouped into classes based on 'specific epithets' (which apply to species names like sapiens or leo), but rather based on related orders sharing broader mammalian characteristics."
+          }
+        ]
+      },
+      "Classification Criteria": {
+        "Easy": [],
+        "Medium": [],
+        "Tough": [
+          {
+            "question": "In light of Exercise 3 and Exercise 4 ('What different criteria would you choose to classify people...', 'What do we learn from identification of individuals and populations?'), how does classification at the human/population level mirror formal biological classification?",
+            "options": {
+              "A": "Both involve observing resemblances and distinct differences to group entities into meaningful categories or populations.",
+              "B": "Neither involves any criteria or structured identification.",
+              "C": "Human classification uses international binomial codes, while biological classification uses arbitrary traits.",
+              "D": "Biological classification ignores populations, whereas human classification creates taxonomic hierarchies."
+            },
+            "answer": "A",
+            "explanation": "Biological and everyday classification both rely on identifying resemblances and distinct differences to establish structured categories and understand populations."
+          }
+        ]
+      },
+      "Classification and Taxa": {
+        "Easy": [
+          {
+            "question": "What is the process by which anything is grouped into convenient categories based on some easily observable characters called?",
+            "options": {
+              "A": "Nomenclature",
+              "B": "Identification",
+              "C": "Classification",
+              "D": "Characterisation"
+            },
+            "answer": "C",
+            "explanation": "Classification is explicitly defined as the process by which anything is grouped into convenient categories based on some easily observable characters."
+          },
+          {
+            "question": "What is the scientific term for categories like 'plants', 'dogs', or 'mammals' used to study organisms?",
+            "options": {
+              "A": "Taxa",
+              "B": "Phyla",
+              "C": "Clades",
+              "D": "Domains"
+            },
+            "answer": "A",
+            "explanation": "The scientific term for these categories is taxa. Plants, wheat, animals, and mammals are all examples of taxa."
+          },
+          {
+            "question": "When we think of the category 'mammals', what associated characteristics come to mind according to the text?",
+            "options": {
+              "A": "Green leaves and vascular tissue",
+              "B": "External ears and body hair",
+              "C": "Wings and hollow bones",
+              "D": "Scales and gills"
+            },
+            "answer": "B",
+            "explanation": "The text explicitly states: 'suppose we were to say “mammals”, you would, of course, think of animals with external ears and body hair.'"
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Why is classification considered a necessary process when studying living organisms?",
+            "options": {
+              "A": "Because organisms change their names every decade.",
+              "B": "Because it is nearly impossible to study all the living organisms individually without grouping them.",
+              "C": "Because classification allows scientists to create new species in laboratories.",
+              "D": "Because organisms cannot survive without being classified into taxonomic categories."
+            },
+            "answer": "B",
+            "explanation": "The excerpt states: 'Since it is nearly impossible to study all the living organisms, it is necessary to devise some means to make this possible. This process is classification.'"
+          },
+          {
+            "question": "How do categories like 'animals', 'mammals', and 'dogs' relate to one another in terms of hierarchical level?",
+            "options": {
+              "A": "They represent taxa at the exact same level.",
+              "B": "They represent taxa at completely unrelated levels with no overlap.",
+              "C": "They represent taxa at different levels, where a dog is a mammal and mammals are animals.",
+              "D": "They represent artificial categories that have no biological hierarchy."
+            },
+            "answer": "C",
+            "explanation": "The text notes that 'animals', 'mammals', and 'dogs' are all taxa, but a dog is a mammal and mammals are animals, meaning they represent taxa at different levels."
+          },
+          {
+            "question": "When someone mentions the word 'Wheat', what cognitive association happens according to the passage, and what does 'Wheat' represent?",
+            "options": {
+              "A": "It brings up an image of rice; it represents a species.",
+              "B": "It brings up a picture of wheat plants, not rice; it represents a taxon.",
+              "C": "It brings up an image of grain storage; it represents an economic category.",
+              "D": "It brings up a picture of monocots; it represents a kingdom."
+            },
+            "answer": "B",
+            "explanation": "The text states that the picture in each of our minds will be of wheat plants, not rice, and explicitly affirms that 'Wheat is also a taxa.'"
+          },
+          {
+            "question": "If 'Plants' and 'Wheat' are both described as taxa in the text, what can be inferred about the nature of taxa?",
+            "options": {
+              "A": "Taxa can only exist at the level of species.",
+              "B": "Taxa can indicate categories at very different hierarchical levels.",
+              "C": "Taxa are restricted exclusively to the plant kingdom.",
+              "D": "Taxa must always contain identical numbers of organisms."
+            },
+            "answer": "B",
+            "explanation": "The text directly states: 'Here you must recognise that taxa can indicate categories at very different levels. “Plants” – also form a taxa. “Wheat” is also a taxa.'"
+          },
+          {
+            "question": "How does the concept of a 'category' function when we use terms like 'dogs', 'cats', or 'insects'?",
+            "options": {
+              "A": "They are abstract thoughts that have no connection to observable physical characters.",
+              "B": "They are convenient categories that allow us to associate specific characters with the organisms grouped within them.",
+              "C": "They are random groupings that change depending on geographical location.",
+              "D": "They are strictly theoretical entities used only in molecular laboratories."
+            },
+            "answer": "B",
+            "explanation": "The text explains that when we use terms like dogs, cats, or insects, 'we associate certain characters with the organism in that group' and use them as convenient categories."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Why does the author use the mental image examples of 'dogs', 'Alsatians', 'mammals', and 'wheat' in the discussion of classification?",
+            "options": {
+              "A": "To demonstrate that human memory is unreliable when classifying plants.",
+              "B": "To illustrate how easily observable characters allow us to group things into convenient categories (taxa) at various hierarchical levels.",
+              "C": "To prove that mammals and wheat share the same specific epithet.",
+              "D": "To show that scientific names are unnecessary for everyday communication."
+            },
+            "answer": "B",
+            "explanation": "The examples illustrate how mentioning terms evokes specific character associations and forms convenient categories (taxa) that operate at different levels."
+          },
+          {
+            "question": "Evaluate the following statement: 'Because classification groups things based on easily observable characters, categories like 'animals', 'mammals', and 'dogs' are mutually exclusive and exist on the exact same tier of biological organization.' Why is this incorrect?",
+            "options": {
+              "A": "Because 'dogs' are mammals and 'mammals' are animals, demonstrating that taxa indicate categories at very different hierarchical levels.",
+              "B": "Because animals are plants, making the categories overlapping.",
+              "C": "Because classification does not rely on easily observable characters.",
+              "D": "Because dogs and mammals belong to different kingdoms."
+            },
+            "answer": "A",
+            "explanation": "The text explicitly refutes the idea of a single tier by pointing out that 'a dog is a mammal and mammals are animals. Therefore, “animals”, “mammals” and “dogs” represent taxa at different levels.'"
+          },
+          {
+            "question": "Why does the text state that classification is necessary in the study of biology?",
+            "options": {
+              "A": "It allows scientists to rename every organism every year to maintain job security.",
+              "B": "It is practically impossible to study every single living organism individually without organizing them into convenient categories based on observable characters.",
+              "C": "It eliminates the need for modern taxonomic studies involving cell structures.",
+              "D": "It guarantees that all plants and animals share the same author abbreviation like Linn."
+            },
+            "answer": "B",
+            "explanation": "The text directly states: 'Since it is nearly impossible to study all the living organisms, it is necessary to devise some means to make this possible. This process is classification.'"
+          }
+        ]
+      },
+      "Codes of Nomenclature": {
+        "Easy": [
+          {
+            "question": "What does ICBN stand for in biology?",
+            "options": {
+              "A": "International Code for Biological Nomenclature",
+              "B": "Indian Code of Botanical Nomenclature",
+              "C": "International Code for Botanical Nomenclature",
+              "D": "International Council for Biological Names"
+            },
+            "answer": "C",
+            "explanation": "According to the text, scientific names for plants are based on principles provided in the 'International Code for Botanical Nomenclature (ICBN)'. Options A, B, and D misstate the exact acronym definition given in the passage."
+          },
+          {
+            "question": "Which of the following bodies provides rules for naming animals?",
+            "options": {
+              "A": "ICBN",
+              "B": "ICZN",
+              "C": "International Code for Biological Nomenclature",
+              "D": "Linnaean Society"
+            },
+            "answer": "B",
+            "explanation": "The text notes: 'Animal taxonomists have evolved International Code of Zoological Nomenclature (ICZN).' Option A is for plants. Options C and D are incorrect."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "What is the primary purpose of having separate codes like ICBN and ICZN?",
+            "options": {
+              "A": "To ensure that each organism has only one unique name and descriptions enable people worldwide to arrive at the same name.",
+              "B": "To ensure that plants and animals can share the exact same generic name without conflict.",
+              "C": "To keep biological names strictly confidential among taxonomists.",
+              "D": "To replace binomial nomenclature with trinomial nomenclature."
+            },
+            "answer": "A",
+            "explanation": "The text specifies that scientific names ensure each organism has only one name and description enables people in any part of the world to arrive at the same name, avoiding duplicate usage."
+          },
+          {
+            "question": "What guarantees that a chosen scientific name has not already been assigned to another known organism?",
+            "options": {
+              "A": "The use of local names alongside scientific names",
+              "B": "Agreed principles and criteria provided by codes like ICBN and ICZN",
+              "C": "Translating the name into English before publication",
+              "D": "Limiting names to single-word descriptors"
+            },
+            "answer": "B",
+            "explanation": "The text mentions that scientists have established procedures (ICBN, ICZN) to assign scientific names, which ensure that 'such a name has not been used for any other known organism.'"
+          }
+        ],
+        "Tough": [
+          {
+            "question": "If two different plant taxonomists independently discover and attempt to name the same newly found plant species without coordinating, what mechanism described in the text prevents the existence of two conflicting valid scientific names?",
+            "options": {
+              "A": "The enforcement of local names by local governments",
+              "B": "The adherence to agreed principles and criteria provided in the ICBN, ensuring names are unique and previously unused",
+              "C": "The requirement that all plant names must start with the letter M",
+              "D": "The automatic translation of names into Greek"
+            },
+            "answer": "B",
+            "explanation": "The text notes that scientific names are based on agreed principles in the ICBN/ICZN, which 'ensure that each organism has only one name' and that 'such a name has not been used for any other known organism.'"
+          },
+          {
+            "question": "If an animal taxonomist discovers a new species of mammal, which governing code of nomenclature must guide the assignment of its scientific name, and what does this name guarantee?",
+            "options": {
+              "A": "ICBN; guarantees the name is derived from Greek.",
+              "B": "ICZN; ensures the organism has only one name and the name has not been used for any other known organism.",
+              "C": "ICBN; ensures multiple organisms share the same name.",
+              "D": "ICZN; replaces the binomial system with a single-word name."
+            },
+            "answer": "B",
+            "explanation": "Animal taxonomists use ICZN (International Code of Zoological Nomenclature). Scientific names under these codes ensure each organism has only one name and that the name is unique (not used for any other known organism)."
+          }
+        ]
+      },
+      "Diversity and Taxonomy": {
+        "Easy": [],
+        "Medium": [
+          {
+            "question": "How do identification and classification collectively assist biologists dealing with the rich variety of the living world?",
+            "options": {
+              "A": "They facilitate the study of kinds and diversity of organisms by organizing them into a hierarchy.",
+              "B": "They restrict biological research strictly to agricultural plants.",
+              "C": "They eliminate the need to recognize distinct differences among organisms.",
+              "D": "They prove that all plants and animals belong to the same species."
+            },
+            "answer": "A",
+            "explanation": "The summary notes: 'In order to facilitate the study of kinds and diversity of organisms, biologists have evolved certain rules and principles for identification, nomenclature and classification...'"
+          }
+        ],
+        "Tough": []
+      },
+      "Diversity in Living World": {
+        "Easy": [
+          {
+            "question": "What is the primary reason biologists seek the defining characteristics of living organisms?",
+            "options": {
+              "A": "To categorize them into alphabetical order",
+              "B": "Due to the vast range of organisms in terms of size, colour, habitat, physiological, and morphological features",
+              "C": "To eliminate the need for international codes of nomenclature",
+              "D": "To prove that all organisms share identical physiological traits"
+            },
+            "answer": "B",
+            "explanation": "The text states that the very range of organisms in terms of size, colour, habitat, physiological and morphological features makes us seek the defining characteristics of living organisms. Option B correctly captures this. Options A, C, and D are not supported by the text."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "What makes the identification of defining characteristics of living organisms necessary despite millions already being identified?",
+            "options": {
+              "A": "A large number still remains unknown, and their immense variety in size, colour, and habitat requires structured study.",
+              "B": "All known organisms have identical physiological and morphological features.",
+              "C": "Classification systems never change, making rigid definitions mandatory.",
+              "D": "Taxonomy is restricted solely to industrial applications."
+            },
+            "answer": "A",
+            "explanation": "The summary points out that millions have been identified, a large number remains unknown, and the range of organisms in size, color, habitat, etc., makes us seek defining characteristics to facilitate study."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Evaluate the statement: 'The diversity of the living world in terms of physiological and morphological features complicates intuitive grouping, necessitating formal taxonomy.' Is this supported by the text?",
+            "options": {
+              "A": "Yes, the very range of organisms in terms of size, colour, habitat, physiological and morphological features makes us seek defining characteristics and rules for classification.",
+              "B": "No, morphological and physiological features are irrelevant to taxonomic classification.",
+              "C": "No, all organisms share identical physiological traits, making classification trivial.",
+              "D": "Yes, but only for microscopic bacteria, not for higher plants and animals."
+            },
+            "answer": "A",
+            "explanation": "The opening lines of the summary directly support this: the range of organisms in size, color, habitat, physiological, and morphological features makes us seek defining characteristics, leading to taxonomy."
+          }
+        ]
+      },
+      "Diversity in the Living World": {
+        "Easy": [
+          {
+            "question": "According to the excerpt, what does each different kind of plant, animal, or organism that we see represent?",
+            "options": {
+              "A": "A genus",
+              "B": "A community",
+              "C": "A species",
+              "D": "A population"
+            },
+            "answer": "C",
+            "explanation": "The text directly defines this: 'Each different kind of plant, animal or organism that you see, represents a species.' Options A, B, and D are taxonomic or ecological groupings not defined this way in this context."
+          },
+          {
+            "question": "What is the range of the number of species that are known and described, as stated in the chapter?",
+            "options": {
+              "A": "1.0 - 1.2 million",
+              "B": "1.3 - 1.5 million",
+              "C": "1.7 - 1.8 million",
+              "D": "2.0 - 2.5 million"
+            },
+            "answer": "C",
+            "explanation": "The text specifies: 'The number of species that are known and described range between 1.7-1.8 million.' Therefore, C is correct."
+          },
+          {
+            "question": "Which of the following terms refers to the number and types of organisms present on Earth?",
+            "options": {
+              "A": "Biodiversity",
+              "B": "Biomagnification",
+              "C": "Biogeography",
+              "D": "Biosphere"
+            },
+            "answer": "A",
+            "explanation": "The text defines biodiversity right after mentioning known species: 'This refers to biodiversity or the number and [types of organisms]...'. Thus, A is correct."
+          },
+          {
+            "question": "What happens to the range and variety of organisms seen when a person increases the area of observation?",
+            "options": {
+              "A": "It decreases",
+              "B": "It remains constant",
+              "C": "It increases",
+              "D": "It drops to zero"
+            },
+            "answer": "C",
+            "explanation": "The text states: 'If you were to increase the area that you make observations in, the range and variety of organisms that you see would increase.' Hence, C is correct."
+          },
+          {
+            "question": "Which microscopic entities are noted as existing all around us even if they cannot be seen with the naked eye?",
+            "options": {
+              "A": "Only viruses",
+              "B": "Several organisms that you cannot see with your naked eye",
+              "C": "Only bacteria",
+              "D": "Mitochondria and chloroplasts living freely"
+            },
+            "answer": "B",
+            "explanation": "The text broadly states: 'There are also several organisms that you cannot see with your naked eye but they are all around you.' Option B matches this verbatim/paraphrased concept, while A, C, and D are overly specific and not stated."
+          },
+          {
+            "question": "According to the text, if you visit a dense forest, what would you likely observe regarding living organisms?",
+            "options": {
+              "A": "A much greater number and kinds of living organisms",
+              "B": "A lower diversity than in a desert",
+              "C": "Only plant species and no animals",
+              "D": "Fewer kinds of organisms due to dense canopy cover"
+            },
+            "answer": "A",
+            "explanation": "The text states: 'Obviously, if you were to visit a dense forest, you would probably see a much greater number and kinds of living organisms in it.' Therefore, A is correct."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Consider the relationship between observation scale and biodiversity description. Why does expanding the observation area lead to seeing a wider range of organisms?",
+            "options": {
+              "A": "Because larger areas encompass greater ecological niches and micro-habitats, increasing species encounters.",
+              "B": "Because microscopes become more powerful when outdoors.",
+              "C": "Because species spontaneously generate when the area of observation expands.",
+              "D": "Because single species expand their body size over larger areas."
+            },
+            "answer": "A",
+            "explanation": "As supported by the text's note on visiting a dense forest vs. local surroundings, increasing the observation area exposes more diverse habitats and therefore a greater number and kinds of organisms (species). Option A accurately captures this biological principle implied by the text."
+          },
+          {
+            "question": "If a researcher discovers a new forested region and reports finding 50,000 distinct kinds of organisms, each uniquely distinct, how does this contribute to the metric mentioned in the chapter (1.7-1.8 million)?",
+            "options": {
+              "A": "It alters the total known and described biodiversity count once cataloged and described.",
+              "B": "It proves that biodiversity is fixed and can never exceed 1.8 million.",
+              "C": "It changes the definition of a species from a morphological entity to a molecular one.",
+              "D": "It answers the philosophical purpose of life."
+            },
+            "answer": "A",
+            "explanation": "The 1.7-1.8 million figure represents known and described species contributing to global biodiversity. Discovering and describing new kinds (species) contributes directly to this cataloged count. Thus, A is correct."
+          },
+          {
+            "question": "How does the variety of habitats mentioned in the text (from cold mountains to hot springs) relate to the concept of biodiversity?",
+            "options": {
+              "A": "Extreme habitats restrict life entirely, showing biodiversity is only found in laboratories.",
+              "B": "Extraordinary and diverse habitats harbor a wide range of living types, contributing to global biodiversity.",
+              "C": "Habitats have no bearing on the number of known species.",
+              "D": "Only hot springs contain living organisms."
+            },
+            "answer": "B",
+            "explanation": "The text notes the extraordinary habitats (cold mountains, deciduous forests, oceans, fresh water lakes, deserts, hot springs) and the wide range of living types, which embody biodiversity. Option B captures this logical synthesis."
+          },
+          {
+            "question": "What is the structural implication of defining 'each different kind of plant, animal or organism that you see' as a 'species'?",
+            "options": {
+              "A": "It establishes species as the fundamental units representing distinct kinds of biodiversity in our observation.",
+              "B": "It equates species with entire ecosystems.",
+              "C": "It classifies all microscopic organisms under a single species category.",
+              "D": "It implies that species numbers never change over time."
+            },
+            "answer": "A",
+            "explanation": "By stating that each different kind of organism represents a species, the text links distinct observable organisms directly to the unit of 'species', forming the baseline of biodiversity. Option A is correct."
+          },
+          {
+            "question": "Why might an amateur observer see fewer species in a local garden compared to a scientist visiting a dense forest, even if both look carefully?",
+            "options": {
+              "A": "The scientist has a larger scope of observation and forests harbor a much greater number and kinds of organisms.",
+              "B": "Gardens contain no living organisms.",
+              "C": "Species only exist in dense forests.",
+              "D": "Microscopic organisms cannot exist in local gardens."
+            },
+            "answer": "A",
+            "explanation": "The text notes that increasing the observation area increases variety, and visiting a dense forest reveals a much greater number and kinds of living organisms. Option A correctly applies these text principles."
+          },
+          {
+            "question": "What role do unseen organisms play in the global perspective of biodiversity according to the text?",
+            "options": {
+              "A": "They are irrelevant because biodiversity only counts organisms visible to the naked eye.",
+              "B": "They are part of the large variety of living organisms all around us that contribute to the living world.",
+              "C": "They are classified under non-living entities.",
+              "D": "They represent the philosophical purpose of life."
+            },
+            "answer": "B",
+            "explanation": "The text notes: 'There are also several organisms that you cannot see with your naked eye but they are all around you', contributing to the large variety of living organisms. Thus, B is correct."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Analyze the scalar relationship between observation area, ecological niche breadth, and species enumeration as inferred from the text. If biodiversity enumeration ($S$) scales with observation area ($A$), what core implication does the text convey when comparing a garden to a dense forest?",
+            "options": {
+              "A": "Spatial heterogeneity and habitat complexity in dense forests exponentially elevate the distinct kinds of species ($S$) encountered compared to simpler environments.",
+              "B": "Species count is independent of area and depends entirely on the philosophical purpose of life.",
+              "C": "Microscopic organisms decrease in number as the observation area increases.",
+              "D": "Biodiversity is a constant value of exactly 1.7 million regardless of where observations are made."
+            },
+            "answer": "A",
+            "explanation": "The text notes that increasing observation area increases the range/variety, and visiting a dense forest yields a much greater number and kinds of organisms. Option A correctly articulates the ecological principle underlying this excerpt."
+          },
+          {
+            "question": "Evaluate the statement: 'The 1.7-1.8 million species described represent the total absolute diversity of life on Earth.' In light of the chapter's context, why is this statement epistemologically incomplete?",
+            "options": {
+              "A": "It only represents 'known and described' species, implying that many more remain undiscovered or undescribed, especially in unexplored habitats.",
+              "B": "It includes both living and fossilized extinct species in a single count.",
+              "C": "It conflates molecular traffic within cells with macroscopic species counts.",
+              "D": "It incorporates the philosophical purpose of life into taxonomic classification."
+            },
+            "answer": "A",
+            "explanation": "The text specifies 'The number of species that are *known and described* range between 1.7-1.8 million.' This phrasing explicitly leaves room for unknown/undescribed species, making A the precise conceptual evaluation."
+          },
+          {
+            "question": "If an advanced metagenomic study samples a hot spring and discovers thousands of unculturable prokaryotic genotypes, how does this finding interact with the text's definition of biodiversity and species?",
+            "options": {
+              "A": "It expands our understanding of extreme habitats and highlights the vast hidden biodiversity that contributes to the 'wide range of living types'.",
+              "B": "It invalidates the 1.7-1.8 million species count by proving that hot springs have no living organisms.",
+              "C": "It answers the philosophical question regarding the purpose of life.",
+              "D": "It proves that organisms in hot springs do not engage in molecular traffic."
+            },
+            "answer": "A",
+            "explanation": "Hot springs are specifically noted as extraordinary habitats harbouring living organisms. Discovering prokaryotes there reinforces the text's emphasis on amazing living types in extreme habitats and expanding biodiversity knowledge. Thus, A is correct."
+          },
+          {
+            "question": "Why is the phrase 'Each different kind of plant, animal or organism that you see, represents a species' a foundational axiom for biodiversity studies rather than a casual observation?",
+            "options": {
+              "A": "It establishes the observable organismal variant as the primary taxonomic unit of currency in quantifying global biodiversity.",
+              "B": "It proves that plants and animals belong to the same species if they live in the same habitat.",
+              "C": "It dictates that all species must be visible to the naked eye.",
+              "D": "It defines the ecosystem level of biological organization."
+            },
+            "answer": "A",
+            "explanation": "Connecting 'each different kind of organism' to 'a species' provides the qualitative basis for counting biodiversity (1.7-1.8 million kinds). Option A reflects this foundational role."
+          },
+          {
+            "question": "Synthesize the progression of ideas from the opening sentence ('How wonderful is the living world!') to the specification of species numbers (1.7-1.8 million). What conceptual narrative does the text construct?",
+            "options": {
+              "A": "It moves from an aesthetic and emotional appreciation of global biodiversity in diverse habitats to a rigorous, quantified realization of species variety.",
+              "B": "It shifts from a philosophical debate on life's purpose to a strict biochemical analysis of DNA replication.",
+              "C": "It transitions from marine biology to laboratory taxonomy without acknowledging terrestrial life.",
+              "D": "It proves that beauty is the sole criterion for classifying living organisms into species."
+            },
+            "answer": "A",
+            "explanation": "The excerpt starts with wonder at habitats and organisms (aesthetic/phenomenological), narrows into the technical vs. philosophical questions, and then scales up to observed diversity and the quantitative range of known species (1.7-1.8 million). Option A encapsulates this structural narrative perfectly."
+          }
+        ]
+      },
+      "Ernst Mayr Biography": {
+        "Easy": [
+          {
+            "question": "Who has been called 'The Darwin of the 20th century'?",
+            "options": {
+              "A": "Gregor Mendel",
+              "B": "Ernst Mayr",
+              "C": "Carolus Linnaeus",
+              "D": "Alexander Agassiz"
+            },
+            "answer": "B",
+            "explanation": "The biographical snippet states that Ernst Mayr, the Harvard University evolutionary biologist, has been called 'The Darwin of the 20th century'."
+          },
+          {
+            "question": "In what year was Ernst Mayr born?",
+            "options": {
+              "A": "1853",
+              "B": "1904",
+              "C": "1953",
+              "D": "1999"
+            },
+            "answer": "B",
+            "explanation": "The text states that Ernst Mayr was born on 5 July 1904."
+          },
+          {
+            "question": "What prestigious academic position did Ernst Mayr assume at Harvard University upon his retirement in 1975?",
+            "options": {
+              "A": "Alexander Agassiz Professor of Zoology Emeritus",
+              "B": "Director of the Darwinian Research Institute",
+              "C": "President of the International Prize Committee",
+              "D": "Head of the Department of Plant Kingdom"
+            },
+            "answer": "A",
+            "explanation": "The text specifies that upon retiring in 1975, Mayr assumed the title Alexander Agassiz Professor of Zoology Emeritus."
+          },
+          {
+            "question": "Which of the following prizes is NOT among the 'triple crown of biology' won by Ernst Mayr?",
+            "options": {
+              "A": "Balzan Prize",
+              "B": "International Prize for Biology",
+              "C": "Crafoord Prize",
+              "D": "Nobel Prize in Physiology or Medicine"
+            },
+            "answer": "D",
+            "explanation": "The text lists the triple crown of biology won by Mayr as the Balzan Prize (1983), the International Prize for Biology (1994), and the Crafoord Prize (1999). The Nobel Prize is not mentioned in this context."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Which academic fields did Ernst Mayr’s research span across his career?",
+            "options": {
+              "A": "Ornithology, taxonomy, zoogeography, evolution, systematics, and the history and philosophy of biology",
+              "B": "Biochemistry, quantum physics, molecular genetics, and cytology",
+              "C": "Inorganic chemistry, geology, meteorology, and anthropology",
+              "D": "Botany, horticulture, agronomy, and silviculture"
+            },
+            "answer": "A",
+            "explanation": "The text lists Mayr's research areas explicitly: ornithology, taxonomy, zoogeography, evolution, systematics, and the history and philosophy of biology."
+          },
+          {
+            "question": "What major contribution to evolutionary biology is attributed almost single-handedly to Ernst Mayr?",
+            "options": {
+              "A": "The discovery of the double helix structure of DNA",
+              "B": "Making the origin of species diversity the central question of evolutionary biology",
+              "C": "Developing the first system of binomial nomenclature for plants",
+              "D": "Proving that inanimate matter can be deified"
+            },
+            "answer": "B",
+            "explanation": "The text states that Mayr almost single-handedly made the origin of species diversity the central question of evolutionary biology that it is today."
+          },
+          {
+            "question": "What is another major conceptual milestone pioneered by Ernst Mayr as mentioned in the biography?",
+            "options": {
+              "A": "The currently accepted definition of a biological species",
+              "B": "The absolute proof of anthropocentric biology",
+              "C": "The classification of inanimate objects like wind and fire",
+              "D": "The invention of the Balzan Prize"
+            },
+            "answer": "A",
+            "explanation": "The text explicitly states that Mayr also pioneered the currently accepted definition of a biological species."
+          },
+          {
+            "question": "How long was Ernst Mayr's professional career in science?",
+            "options": {
+              "A": "Exactly 50 years",
+              "B": "Nearly 80 years",
+              "C": "22 years",
+              "D": "104 years"
+            },
+            "answer": "B",
+            "explanation": "The text mentions that throughout his nearly 80-year career, his research spanned multiple fields. (Born 1904, retired 1975/active long after, lived until 2004)."
+          },
+          {
+            "question": "At what age did Ernst Mayr pass away, and in which year?",
+            "options": {
+              "A": "At age 75 in the year 1975",
+              "B": "At age 80 in the year 1984",
+              "C": "At age 100 in the year 2004",
+              "D": "At age 90 in the year 1994"
+            },
+            "answer": "C",
+            "explanation": "The text states that Mayr died at the age of 100 in the year 2004 (having been born on 5 July 1904)."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Evaluate the statement: 'Ernst Mayr single-handedly resolved all questions of evolutionary biology.' Why is this statement partially inaccurate based on the text?",
+            "options": {
+              "A": "The text notes he made the origin of species diversity *the central question* of evolutionary biology, rather than resolving all questions single-handedly.",
+              "B": "The text states he worked exclusively in ornithology and never touched evolutionary biology.",
+              "C": "The text claims he was only a historian and philosopher of biology, not a scientist.",
+              "D": "The text attributes the central question of evolution to early man instead."
+            },
+            "answer": "A",
+            "explanation": "The text says Mayr 'almost single-handedly made the origin of species diversity the central question of evolutionary biology that it is today', which is distinct from resolving every single question in the field."
+          },
+          {
+            "question": "In what specific institutional and historical context did Ernst Mayr operate during his primary academic tenure in the United States?",
+            "options": {
+              "A": "He was a professor at Harvard University's Faculty of Arts and Sciences from 1953 until his retirement in 1975.",
+              "B": "He founded the Balzan Prize committee in Germany in 1904.",
+              "C": "He served as the Alexander Agassiz Professor of Zoology from 1904 to 1953.",
+              "D": "He led the early human societies that held an anthropocentric view of biology."
+            },
+            "answer": "A",
+            "explanation": "The text specifies that Mayr joined Harvard’s Faculty of Arts and Sciences in 1953, retired in 1975 as Alexander Agassiz Professor of Zoology Emeritus."
+          },
+          {
+            "question": "Why is the grouping of prizes won by Ernst Mayr referred to as the 'triple crown of biology'?",
+            "options": {
+              "A": "Because they are the three highest and most widely regarded international prizes in biological science (Balzan, International Prize for Biology, Crafoord).",
+              "B": "Because they were awarded to him simultaneously in the year 2004 when he turned 100.",
+              "C": "Because they represent his three primary research fields: ornithology, taxonomy, and zoogeography.",
+              "D": "Because they were established by early man to honor inanimate matter."
+            },
+            "answer": "A",
+            "explanation": "The text states he was awarded the three prizes widely regarded as the triple crown of biology: Balzan Prize (1983), International Prize for Biology (1994), and Crafoord Prize (1999)."
+          },
+          {
+            "question": "Which breadth of disciplines characterizes Ernst Mayr's monumental 80-year career as outlined in his biographical profile?",
+            "options": {
+              "A": "Ornithology, taxonomy, zoogeography, evolution, systematics, and the history and philosophy of biology",
+              "B": "Only the taxonomy of plants and the animal kingdom chapters covered in Unit 1",
+              "C": "Exclusively the formulation of binomial nomenclature and early human history",
+              "D": "Purely the conservation policies of the Balzan and Crafoord foundations"
+            },
+            "answer": "A",
+            "explanation": "The passage explicitly lists his research spanning ornithology, taxonomy, zoogeography, evolution, systematics, and the history and philosophy of biology throughout his nearly 80-year career."
+          }
+        ]
+      },
+      "Family": {
+        "Easy": [
+          {
+            "question": "Plant families are characterized and classified on the basis of which of the following features?",
+            "options": {
+              "A": "Vegetative and reproductive features",
+              "B": "Floral characters exclusively",
+              "C": "Geographical distribution only",
+              "D": "Habitat and behavioral traits"
+            },
+            "answer": "A",
+            "explanation": "The text explicitly notes that families are characterized on the basis of both vegetative and reproductive features of plant species. While floral characters are used for orders like Polymoniales, families use both vegetative and reproductive features."
+          },
+          {
+            "question": "Solanum, Petunia, and Datura are three different genera placed under which family?",
+            "options": {
+              "A": "Felidae",
+              "B": "Canidae",
+              "C": "Solanaceae",
+              "D": "Polymoniales"
+            },
+            "answer": "C",
+            "explanation": "The text states that three different genera Solanum, Petunia, and Datura are placed in the family Solanaceae. Felidae and Canidae are animal families, and Polymoniales is an order."
+          },
+          {
+            "question": "Cats and dogs are separated into two different families, which are respectively:",
+            "options": {
+              "A": "Solanaceae and Convolvulaceae",
+              "B": "Felidae and Canidae",
+              "C": "Panthera and Felis",
+              "D": "Primata and Carnivora"
+            },
+            "answer": "B",
+            "explanation": "The text states that cats and dogs are separated into two different families – Felidae and Canidae, respectively. Solanaceae/Convolvulaceae are plant families, Panthera/Felis are genera, and Primata/Carnivora are orders."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Why are Solanum, Petunia, and Datura placed under the same family (Solanaceae) despite being different genera?",
+            "options": {
+              "A": "Because they share an identical set of species-level specific epithets.",
+              "B": "Because families are grouped based on a group of related genera sharing vegetative and reproductive features.",
+              "C": "Because they belong to the same animal order Carnivora.",
+              "D": "Because they all produce identical floral structures that place them in Polymoniales directly as a family."
+            },
+            "answer": "B",
+            "explanation": "Families comprise a group of related genera characterized on the basis of both vegetative and reproductive features of plant species. Solanum, Petunia, and Datura share these family-level resemblances despite being distinct genera."
+          },
+          {
+            "question": "When comparing family to genus and species, which of the following is true regarding their similarities?",
+            "options": {
+              "A": "Family has a higher number of similarities than genus and species.",
+              "B": "Family has a still lesser number of similarities as compared to genus and species.",
+              "C": "Family has the same number of similarities as species.",
+              "D": "Family categories are independent of the number of similarities."
+            },
+            "answer": "B",
+            "explanation": "The text states that the category Family has a group of related genera with still less number of similarities as compared to genus and species, since it is a broader taxonomic level."
+          },
+          {
+            "question": "Why are the genera Panthera and Felis placed together in the family Felidae?",
+            "options": {
+              "A": "Because they share common features characteristic of the cat family, despite being distinct genera.",
+              "B": "Because they are plant genera exhibiting floral adaptations.",
+              "C": "Because they both belong to the plant order Polymoniales.",
+              "D": "Because they share the exact same specific epithets."
+            },
+            "answer": "A",
+            "explanation": "The text notes that genus Panthera (lion, tiger, leopard) is put along with genus Felis (cats) in the family Felidae based on relatedness and shared features at the family level, differentiating them from Canidae (dogs)."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "A student groups potato, brinjal, Solanum, Petunia, Datura, and Solanaceae. Which of the following relational statements is completely accurate based on the text?",
+            "options": {
+              "A": "Potato and brinjal are genera belonging to the species Solanum, which is a family.",
+              "B": "Solanum, Petunia, and Datura are different genera grouped into the family Solanaceae, and potato and brinjal are specific species within the genus Solanum.",
+              "C": "Solanaceae is a genus containing species like potato and brinjal, while Petunia and Datura are separate orders.",
+              "D": "Potato and brinjal belong to different families but share the same order Polymoniales."
+            },
+            "answer": "B",
+            "explanation": "The text states that potato and brinjal are two different species belonging to genus Solanum. Solanum, Petunia, and Datura are three different genera placed in the family Solanaceae. Option B aligns perfectly with these facts."
+          }
+        ]
+      },
+      "Future of Taxonomy": {
+        "Easy": [],
+        "Medium": [],
+        "Tough": [
+          {
+            "question": "How does the existence of a 'large number of unknown organisms' impact the scope and future trajectory of taxonomic studies?",
+            "options": {
+              "A": "It necessitates continuous refinement of classification systems, discovery of defining characteristics, and expansion of bio-resource catalogs.",
+              "B": "It renders international codes and binomial nomenclature obsolete.",
+              "C": "It proves that all living organisms have already been fully classified.",
+              "D": "It limits taxonomy exclusively to industrial manufacturing."
+            },
+            "answer": "A",
+            "explanation": "With millions identified but a large number still unknown, taxonomy must continually adapt, refine classification systems (as noted in Exercise 2), and apply rules to new discoveries."
+          }
+        ]
+      },
+      "Genus": {
+        "Easy": [
+          {
+            "question": "Which of the following represents the correct genus name for the human species (Homo sapiens)?",
+            "options": {
+              "A": "sapiens",
+              "B": "Homo",
+              "C": "Hominidae",
+              "D": "Primata"
+            },
+            "answer": "B",
+            "explanation": "In the scientific name 'Homo sapiens', the first word represents the genus ('Homo') and the second word represents the specific epithet ('sapiens'). Therefore, the correct genus name is Homo. Option A is the species, C is a family, and D is an order."
+          },
+          {
+            "question": "Potato and brinjal are classified under which of the following common categories?",
+            "options": {
+              "A": "Genus Panthera",
+              "B": "Family Felidae",
+              "C": "Genus Solanum",
+              "D": "Order Carnivora"
+            },
+            "answer": "C",
+            "explanation": "According to the text, potato and brinjal are two different species that both belong to the same genus, Solanum. Options A and B pertain to animals, and D is an animal order."
+          },
+          {
+            "question": "Which of the following animals belongs to the genus Panthera along with the lion and leopard?",
+            "options": {
+              "A": "Domestic cat",
+              "B": "Tiger",
+              "C": "Dog",
+              "D": "Wolf"
+            },
+            "answer": "B",
+            "explanation": "The text explicitly states that lion (Panthera leo), leopard (P. pardus), and tiger (P. tigris) are species belonging to the genus Panthera. Cats belong to the genus Felis, while dogs and wolves belong to Canidae."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "How does the number of common characters change as we move from species to higher taxonomic categories like kingdom or phylum?",
+            "options": {
+              "A": "Number of common characters increases progressively.",
+              "B": "Number of common characters decreases progressively.",
+              "C": "Number of common characters remains constant across all categories.",
+              "D": "Number of common characters first increases and then becomes zero."
+            },
+            "answer": "B",
+            "explanation": "As taxonomic categories ascend from species to genus, family, order, class, and phylum, the criteria rely on fewer shared features, meaning the number of common characters decreases progressively as organisms become more diverse."
+          },
+          {
+            "question": "Which of the following best defines a 'genus' in biological classification based on the text?",
+            "options": {
+              "A": "An assemblage of families exhibiting a few similar characters.",
+              "B": "An aggregate of closely related species having more characters in common.",
+              "C": "A group of individuals capable of interbreeding freely in nature.",
+              "D": "A collection of classes based on vegetative and reproductive features."
+            },
+            "answer": "B",
+            "explanation": "The text defines genus as comprising a group of related species which has more characters in common in comparison to species of other genera, or aggregates of closely related species. Option A describes an order, and C describes a biological species concept element not in text."
+          },
+          {
+            "question": "Consider the following statements regarding the genus Panthera:\n1. It includes Panthera leo, Panthera pardus, and Panthera tigris.\n2. It differs from the genus Felis, which includes cats.\nWhich of the above statement(s) is/are correct?",
+            "options": {
+              "A": "1 only",
+              "B": "2 only",
+              "C": "Both 1 and 2",
+              "D": "Neither 1 nor 2"
+            },
+            "answer": "C",
+            "explanation": "Both statements are directly supported by the text: lion (Panthera leo), leopard (P. pardus) and tiger (P. tigris) are species of Panthera, and this genus differs from genus Felis which includes cats."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "In the context of hierarchical taxonomy, analyze the statement: 'As we ascend from species to phylum, the number of shared common characters decreases.' Which of the following explains this phenomenon?",
+            "options": {
+              "A": "Higher categories include broader groups of organisms with more diverse evolutionary origins, resulting in fewer shared traits among all members.",
+              "B": "Lower categories like species contain fewer organisms, hence they share fewer traits than phyla.",
+              "C": "Taxonomists intentionally ignore common traits when moving to higher categories.",
+              "D": "Genera and families have no common features with phyla."
+            },
+            "answer": "A",
+            "explanation": "As you move up the hierarchy (species to phylum), the categories become broader, encompassing more diverse groups. Consequently, the specific common characters decrease because fewer traits are universal to all members of a broad group like a phylum compared to a tight group like a species or genus."
+          }
+        ]
+      },
+      "History and Philosophy of Biology": {
+        "Easy": [],
+        "Medium": [],
+        "Tough": [
+          {
+            "question": "How does the historical shift from early man's perception of living and non-living objects to modern taxonomy reflect humanity's intellectual evolution regarding biodiversity?",
+            "options": {
+              "A": "It shows a shift from emotional/fear-based deification and anthropocentric bias to a realization of universal kinship and systematic organization.",
+              "B": "It demonstrates that early man understood phylogenetic trees better than modern taxonomists.",
+              "C": "It proves that classification systems were entirely unnecessary until Ernst Mayr invented them.",
+              "D": "It highlights that biological knowledge has remained completely static since the dawn of human history."
+            },
+            "answer": "A",
+            "explanation": "Early man deified objects based on awe or fear and showed anthropocentric limitations; later, systematic description revealed shared similarities, common relatedness, and biodiversity conservation."
+          },
+          {
+            "question": "Synthesize the text's description of early human perception and scientific progress: How did the evolution from deifying inanimate matter to systematic taxonomy impact human perspective?",
+            "options": {
+              "A": "It represents a progression from emotional awe/fear and anthropocentric restriction to objective, systematic cataloging and an evolutionary realization of shared heritage.",
+              "B": "It demonstrates that early deification was actually the earliest form of molecular systematics.",
+              "C": "It proves that early man had a better understanding of biodiversity conservation than modern taxonomists.",
+              "D": "It shows that societies with anthropocentric views achieved the fastest monumental descriptions of life forms."
+            },
+            "answer": "A",
+            "explanation": "Early societies deified nature with fear and had limited progress due to anthropocentrism; monumental description shifted this toward recognizing common descent and conservation."
+          }
+        ]
+      },
+      "History of Biological Knowledge": {
+        "Easy": [
+          {
+            "question": "Which of the following hindered the progress of biological knowledge in early societies?",
+            "options": {
+              "A": "An anthropocentric view of biology",
+              "B": "The rapid advancement of systematic nomenclature",
+              "C": "An excessive focus on molecular genetics",
+              "D": "The universal acceptance of evolutionary common descent"
+            },
+            "answer": "A",
+            "explanation": "The text states that societies which indulged in an anthropocentric view of biology could register limited progress in biological knowledge. Options B, C, and D are either anachronistic or contradicted by the text."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Why did societies with an anthropocentric view of biology achieve limited progress in biological knowledge?",
+            "options": {
+              "A": "Because anthropocentrism restricted their ability to objectively study and systematically describe the broader diversity of life forms outside a human-centered bias.",
+              "B": "Because they spent all their resources on winning the Balzan Prize.",
+              "C": "Because they rejected the concept of horizontal and vertical similarities entirely in favor of physics.",
+              "D": "Because they focused exclusively on microbial identification."
+            },
+            "answer": "A",
+            "explanation": "An anthropocentric view places humans at the center, which inherently limits objective biological understanding and monumental description of the broader diversity of living organisms."
+          }
+        ],
+        "Tough": []
+      },
+      "History of Taxonomy and Systematics": {
+        "Easy": [
+          {
+            "question": "On what basis were the earliest classifications of organisms by human beings made?",
+            "options": {
+              "A": "Evolutionary relationships",
+              "B": "Cellular structure",
+              "C": "The 'uses' of various organisms for food, clothing, and shelter",
+              "D": "Ecological information"
+            },
+            "answer": "C",
+            "explanation": "The text explicitly mentions that in early days, human beings needed sources for their basic needs of food, clothing, and shelter, hence the earliest classifications were based on the 'uses' of various organisms."
+          }
+        ],
+        "Medium": [],
+        "Tough": []
+      },
+      "Identification": {
+        "Easy": [
+          {
+            "question": "What is the prerequisite for the nomenclature or naming of an organism?",
+            "options": {
+              "A": "Translating the local name into Latin",
+              "B": "Correct description of the organism and knowing what organism the name is attached to",
+              "C": "Approval from both ICBN and ICZN simultaneously",
+              "D": "Assigning a two-word specific epithet first"
+            },
+            "answer": "B",
+            "explanation": "The text explicitly states: 'nomenclature or naming is only possible when the organism is described correctly and we know to what organism the name is attached to. This is identification.' Options A, C, and D are not prerequisites mentioned in the text."
+          }
+        ],
+        "Medium": [],
+        "Tough": []
+      },
+      "Identification and Naming": {
+        "Easy": [
+          {
+            "question": "Based on what factors is each organism identified and assigned a correct scientific name?",
+            "options": {
+              "A": "Color and size only",
+              "B": "Resemblances and distinct differences",
+              "C": "Geographical location only",
+              "D": "Economic value in industry"
+            },
+            "answer": "B",
+            "explanation": "The text states: 'Based on the resemblances and distinct differences, each organism is identified and assigned a correct scientific/biological name...'. Thus, B is correct."
+          }
+        ],
+        "Medium": [],
+        "Tough": []
+      },
+      "Identification and Nomenclature": {
+        "Easy": [],
+        "Medium": [
+          {
+            "question": "Consider the sequence: identifying an organism, knowing what organism the name is attached to, and then assigning a scientific name. Which process directly precedes nomenclature according to the text?",
+            "options": {
+              "A": "Classification",
+              "B": "Identification",
+              "C": "Latinisation",
+              "D": "Cataloging"
+            },
+            "answer": "B",
+            "explanation": "The text states: 'nomenclature or naming is only possible when the organism is described correctly and we know to what organism the name is attached to. This is identification.' Thus, identification is the prerequisite step."
+          },
+          {
+            "question": "Consider the statement: 'Description of any organism should enable the people (in any part of the world) to arrive at the same name.' What does this imply about scientific descriptions?",
+            "options": {
+              "A": "They must be subjective and vary by region.",
+              "B": "They must be universally standardized and precise enough for global identification.",
+              "C": "They must be written exclusively in local dialects.",
+              "D": "They must omit the specific epithet."
+            },
+            "answer": "B",
+            "explanation": "For people anywhere to arrive at the same name, the description and identification process must be universally clear, standardized, and precise. Options A, C, and D contradict this goal."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Analyze the logical sequence required from discovering an unknown organism in a newly explored area to finalizing its global scientific identity. Which sequence is accurate according to the text?",
+            "options": {
+              "A": "Nomenclature -> Identification -> Description -> Local naming",
+              "B": "Exploration -> Identification (correct description & matching) -> Nomenclature (applying scientific name via ICBN/ICZN principles)",
+              "C": "Binomial naming -> Latinisation -> Local naming -> ICZN approval",
+              "D": "Standardisation -> Assigning specific epithet -> Exploration -> Description"
+            },
+            "answer": "B",
+            "explanation": "The text establishes that exploration leads to finding organisms, identification involves correct description and knowing what organism the name is attached to, and nomenclature follows to assign a scientific name based on ICBN/ICZN principles."
+          },
+          {
+            "question": "Why is the phrase 'identification is a prerequisite for nomenclature' a logically sound deduction from the text?",
+            "options": {
+              "A": "Because you cannot assign a correct scientific name or ensure it hasn't been used without first correctly describing the organism and knowing what organism the name is attached to.",
+              "B": "Because identification requires ICZN approval before any plant can be named.",
+              "C": "Because identification replaces the need for binomial nomenclature.",
+              "D": "Because local names must be identified before Latinisation."
+            },
+            "answer": "A",
+            "explanation": "The text explicitly links identification to describing the organism correctly and knowing what organism the name is attached to, which precedes assigning a scientific name."
+          }
+        ]
+      },
+      "Introduction to Biodiversity": {
+        "Easy": [
+          {
+            "question": "What happens as scientists explore new and old areas in terms of biodiversity?",
+            "options": {
+              "A": "All organisms are completely discovered and cataloged.",
+              "B": "New organisms are continuously being identified.",
+              "C": "Local names become universal automatically.",
+              "D": "The number of plant species decreases."
+            },
+            "answer": "B",
+            "explanation": "The opening lines of the text state: 'as we explore new areas, and even old ones, new organisms are continuously being identified.' Options A, C, and D contradict the text."
+          }
+        ],
+        "Medium": [],
+        "Tough": []
+      },
+      "Introduction to Biology": {
+        "Easy": [
+          {
+            "question": "What is biology primarily defined as in the given text?",
+            "options": {
+              "A": "The study of rocks and inanimate matter",
+              "B": "The science of life forms and living processes",
+              "C": "The history of human civilizations",
+              "D": "The philosophy of classification systems"
+            },
+            "answer": "B",
+            "explanation": "The text explicitly states that biology is the science of life forms and living processes. Options A, C, and D do not match this direct definition."
+          }
+        ],
+        "Medium": [],
+        "Tough": []
+      },
+      "Introduction to Taxonomy": {
+        "Easy": [],
+        "Medium": [
+          {
+            "question": "From whose perspective will animals and plants be described in the chapters following Chapter 1?",
+            "options": {
+              "A": "An early man's perspective",
+              "B": "A taxonomist's perspective",
+              "C": "An anthropocentric philosopher's perspective",
+              "D": "A purely physical chemist's perspective"
+            },
+            "answer": "B",
+            "explanation": "The text concludes the introductory section by stating that in the following chapters, you will get a description, including classification, of animals and plants from a taxonomist’s perspective."
+          }
+        ],
+        "Tough": []
+      },
+      "Introduction to the Living World": {
+        "Easy": [
+          {
+            "question": "Which of the following habitats is NOT explicitly mentioned in the opening paragraph of the chapter?",
+            "options": {
+              "A": "Cold mountains",
+              "B": "Tundra grasslands",
+              "C": "Hot springs",
+              "D": "Deciduous forests"
+            },
+            "answer": "B",
+            "explanation": "The text lists: 'cold mountains, deciduous forests, oceans, fresh water lakes, deserts or hot springs'. 'Tundra grasslands' is not mentioned in the text, making B correct."
+          },
+          {
+            "question": "What internal cellular phenomenon is mentioned alongside ecological conflicts as making us reflect on life?",
+            "options": {
+              "A": "Molecular traffic inside a cell",
+              "B": "Osmotic pressure regulation",
+              "C": "Action potential propagation",
+              "D": "Translocation of mRNA"
+            },
+            "answer": "A",
+            "explanation": "The text mentions 'the molecular traffic inside a cell' as one of the deep reflections on what life is. Thus, A is correct."
+          },
+          {
+            "question": "Which of the following represents an example of animal behavior or action that evokes a sense of wonder in the text?",
+            "options": {
+              "A": "A galloping horse",
+              "B": "A hibernating bear",
+              "C": "A crawling caterpillar",
+              "D": "A resting lion"
+            },
+            "answer": "A",
+            "explanation": "The text explicitly lists 'The beauty of a galloping horse, of the migrating birds, the valley of flowers or the attacking shark'. A galloping horse is among them."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "The text mentions 'ecological conflict and cooperation among members of a population and among populations of a community'. Which level of ecological organization exhibits these interactions?",
+            "options": {
+              "A": "Only at the individual molecular level",
+              "B": "Among population members and population communities",
+              "C": "Exclusively between abiotic factors and non-living matter",
+              "D": "Strictly inside a single cell's molecular traffic"
+            },
+            "answer": "B",
+            "explanation": "The excerpt directly highlights 'ecological conflict and cooperation among members of a population and among populations of a community'. Option B matches this statement directly."
+          },
+          {
+            "question": "Which combination of factors from the text bridges macro-level ecological phenomena with micro-level cellular processes to prompt the question 'what indeed is life?'",
+            "options": {
+              "A": "Ecological conflict/cooperation and molecular traffic inside a cell",
+              "B": "Galloping horses and taxonomic keys",
+              "C": "Migrating birds and binomial nomenclature",
+              "D": "Hot springs and chemical fossilization"
+            },
+            "answer": "A",
+            "explanation": "The text lists 'The ecological conflict and cooperation among members... or even the molecular traffic inside a cell make us deeply reflect on – what indeed is life?'. Option A combines these two exact elements."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "How do the micro-level dynamics ('molecular traffic inside a cell') and macro-level dynamics ('ecological conflict and cooperation') collectively frame the biological paradox of life in the introduction?",
+            "options": {
+              "A": "They demonstrate that life is a multi-scalar phenomenon requiring investigation from subcellular metabolic processes to population-community interactions.",
+              "B": "They show that molecular traffic causes ecological conflicts between populations.",
+              "C": "They prove that non-living matter also exhibits molecular traffic and ecological cooperation.",
+              "D": "They establish that cellular processes are entirely independent of community ecology."
+            },
+            "answer": "A",
+            "explanation": "The text places molecular traffic inside a cell and ecological conflict/cooperation side by side as phenomena that make us reflect on 'what indeed is life?', bridging micro and macro scales of biological organization. Option A captures this synthesis."
+          },
+          {
+            "question": "Consider the descriptive imagery used in the text (galloping horse, migrating birds, valley of flowers, attacking shark). From a scientific perspective, why does the author invoke these specific dynamic phenotypes and ecosystems rather than static biochemical equations?",
+            "options": {
+              "A": "To evoke the profound awe, wonder, and extraordinary diversity of living organisms that stimulate inquiry into the nature of life.",
+              "B": "To prove that animals are more important than plants in evolutionary biology.",
+              "C": "To establish mathematical formulas for predator-prey dynamics.",
+              "D": "To answer the philosophical purpose of life."
+            },
+            "answer": "A",
+            "explanation": "The text states these phenomena 'evoke awe and a deep sense of wonder' and precede the question 'what indeed is life?'. Option A correctly interprets the pedagogical and psychological setup of the chapter introduction."
+          },
+          {
+            "question": "Examine the ecological interactions described as 'ecological conflict and cooperation among members of a population and among populations of a community'. How do these relational dynamics underscore the complexity of 'what is living'?",
+            "options": {
+              "A": "They demonstrate that living organisms do not exist in isolation but maintain intricate interdependent and competitive networks that sustain life systems.",
+              "B": "They show that conflict destroys all molecular traffic inside cells.",
+              "C": "They prove that populations act as single homogeneous organisms with no internal friction.",
+              "D": "They provide the philosophical answer to the purpose of life."
+            },
+            "answer": "A",
+            "explanation": "Conflict and cooperation within and between populations reflect complex biological interactions that characterize living systems, contributing to the wonder and inquiry of life. Option A accurately captures this ecological depth."
+          }
+        ]
+      },
+      "Kingdom": {
+        "Easy": [
+          {
+            "question": "What is the highest category in the classification system of animals?",
+            "options": {
+              "A": "Phylum",
+              "B": "Kingdom Animalia",
+              "C": "Chordata",
+              "D": "Species"
+            },
+            "answer": "B",
+            "explanation": "The text states that all animals belonging to various phyla are assigned to the highest category called Kingdom Animalia."
+          },
+          {
+            "question": "Kingdom Plantae comprises all plants from various:",
+            "options": {
+              "A": "Phyla",
+              "B": "Species",
+              "C": "Divisions",
+              "D": "Orders"
+            },
+            "answer": "C",
+            "explanation": "The text mentions that Kingdom Plantae comprises all plants from various divisions (since plant classification uses divisions rather than phyla)."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Which of the following statements about Kingdom Animalia and Kingdom Plantae is correct according to the text?",
+            "options": {
+              "A": "They are sub-categories used within phyla and divisions.",
+              "B": "They represent the highest categories in animal and plant classification systems respectively.",
+              "C": "Kingdom Animalia comprises plants from various divisions.",
+              "D": "They are lower taxa where members share the maximum number of characteristics."
+            },
+            "answer": "B",
+            "explanation": "The text states that animals are assigned to the highest category called Kingdom Animalia, while Kingdom Plantae comprises all plants from various divisions, making them the highest broad groups for animals and plants."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Which of the following inferences is valid regarding Kingdom Plantae and Kingdom Animalia as the highest categories?",
+            "options": {
+              "A": "They are composed of identical phyla and divisions.",
+              "B": "They represent distinct, highest-level groupings that segregate all plant divisions from all animal phyla.",
+              "C": "They share the maximum number of common characteristics among all organisms.",
+              "D": "They rely on sub-categories rather than species for their base units."
+            },
+            "answer": "B",
+            "explanation": "The text states that Kingdom Animalia is the highest category in animal classification (comprising various phyla), while Kingdom Plantae is distinct and comprises all plants from various divisions."
+          }
+        ]
+      },
+      "Nomenclature and Need for Standardisation": {
+        "Easy": [
+          {
+            "question": "What necessitates the standardisation of naming living organisms globally?",
+            "options": {
+              "A": "Local names vary from place to place, creating confusion in communication.",
+              "B": "Scientists prefer writing names in Latin exclusively.",
+              "C": "Different organisms cannot share the same generic name.",
+              "D": "Governments mandate a single language for scientific study."
+            },
+            "answer": "A",
+            "explanation": "The text states that local names vary from place to place, even within a country, which would create confusion without a standardised system of nomenclature. Option B is a rule of writing, not the reason for standardisation. Option C and D are incorrect based on the text."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Why would relying solely on local names for organisms cause a breakdown in global scientific communication?",
+            "options": {
+              "A": "Local names are scientifically too complex for common people to remember.",
+              "B": "Local names vary from place to place, even within a country, leading to ambiguity.",
+              "C": "Local names can only be written in Latin script.",
+              "D": "Local names violate the guidelines set by ICZN and ICBN."
+            },
+            "answer": "B",
+            "explanation": "The text highlights that local names vary from place to place within a country, causing confusion ('recognise the confusion that would be created if we did not find ways and means to talk to each other'). Options A, C, and D are not mentioned as reasons."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Evaluate the following statement based on the text: 'Because millions of plants and animals are known by local names, standardisation is merely a formality rather than a functional necessity.' Is this statement valid?",
+            "options": {
+              "A": "Yes, because local names are universally understood within a country.",
+              "B": "No, because local names vary from place to place, creating confusion in communication, making standardisation a functional necessity.",
+              "C": "Yes, because nomenclature depends entirely on local identification.",
+              "D": "No, because ICBN and ICZN only apply to extinct organisms."
+            },
+            "answer": "B",
+            "explanation": "The text explicitly refutes the idea that standardisation is a mere formality by pointing out that local names vary from place to place and create confusion, necessitating a standardised nomenclature system."
+          }
+        ]
+      },
+      "Order": {
+        "Easy": [
+          {
+            "question": "Plant families like Convolvulaceae and Solanaceae are included in which order mainly based on floral characters?",
+            "options": {
+              "A": "Carnivora",
+              "B": "Primata",
+              "C": "Polymoniales",
+              "D": "Mammalia"
+            },
+            "answer": "C",
+            "explanation": "According to the text, plant families like Convolvulaceae and Solanaceae are included in the order Polymoniales mainly based on floral characters. Carnivora and Primata are animal orders, and Mammalia is a class."
+          },
+          {
+            "question": "The animal order Carnivora includes which of the following families?",
+            "options": {
+              "A": "Solanaceae and Convolvulaceae",
+              "B": "Felidae and Canidae",
+              "C": "Primata and Mammalia",
+              "D": "Solanum and Petunia"
+            },
+            "answer": "B",
+            "explanation": "The text states that the animal order Carnivora includes families like Felidae and Canidae. Solanaceae and Convolvulaceae are plant families, and Solanum and Petunia are genera."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "What is the primary basis for identifying higher taxonomic categories like 'order' compared to lower categories like species or genus?",
+            "options": {
+              "A": "Orders are identified based on single unique vegetative traits of individual species.",
+              "B": "Orders and other higher categories are generally identified based on the aggregates of characters.",
+              "C": "Orders are formed by grouping unrelated species based on geographical habitat.",
+              "D": "Orders rely exclusively on the specific epithet of organisms."
+            },
+            "answer": "B",
+            "explanation": "The text explicitly states: 'Generally, order and other higher taxonomic categories are identified based on the aggregates of characters.'"
+          },
+          {
+            "question": "Which of the following statements correctly differentiates an order from a family?",
+            "options": {
+              "A": "An order is an assemblage of families exhibiting a few similar characters, which are fewer in number compared to the genera included in a family.",
+              "B": "An order is a lower category than family with more common features.",
+              "C": "An order includes only plant species, whereas families include only animals.",
+              "D": "An order is based solely on vegetative features, while families are based only on floral characters."
+            },
+            "answer": "A",
+            "explanation": "The text clarifies that order is an assemblage of families which exhibit a few similar characters, and these similar characters are less in number as compared to different genera included in a family."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Why are cats (Felis) and dogs (Canidae) separated into different families even though both belong to the order Carnivora?",
+            "options": {
+              "A": "Because families are based on more specific common features among constituent genera, and cats and dogs possess distinct structural differences that separate them into Felidae and Canidae before grouping into Carnivora.",
+              "B": "Because Carnivora is a plant order that does not allow animal inclusion.",
+              "C": "Because families are higher taxonomic categories than orders.",
+              "D": "Because cats and dogs share zero common characters."
+            },
+            "answer": "A",
+            "explanation": "Family is a category below order. While order Carnivora aggregates families like Felidae and Canidae based on a few similar characters (like meat-eating adaptation), the individual families Felidae and Canidae are separated due to more distinct differences and fewer overall similarities between cats and dogs at the family rank."
+          },
+          {
+            "question": "Consider plant taxonomy: Families Convolvulaceae and Solanaceae are placed in the order Polymoniales. Based on the text, what is the primary diagnostic criterion used for this grouping?",
+            "options": {
+              "A": "Vegetative stem structure",
+              "B": "Floral characters",
+              "C": "Root system morphology",
+              "D": "Seed coat thickness"
+            },
+            "answer": "B",
+            "explanation": "The text explicitly mentions that plant families like Convolvulaceae and Solanaceae are included in the order Polymoniales mainly based on the floral characters."
+          },
+          {
+            "question": "In the hierarchical classification of organisms described in the excerpt, which of the following pairs shows an incorrect rank-to-example matching?",
+            "options": {
+              "A": "Species - sapiens",
+              "B": "Genus - Panthera",
+              "C": "Family - Polymoniales",
+              "D": "Class - Mammalia"
+            },
+            "answer": "C",
+            "explanation": "Polymoniales is an 'order', not a family. Families mentioned in the text are Solanaceae, Convolvulaceae, Felidae, and Canidae. Thus, option C is an incorrect match."
+          },
+          {
+            "question": "Based on the principles of taxonomic hierarchy outlined in the text, what can be inferred about the relationship between the number of shared characters in a 'genus' versus an 'order'?",
+            "options": {
+              "A": "A genus exhibits fewer shared characters than an order.",
+              "B": "A genus exhibits more shared characters because it is a lower taxonomic category representing closely related species, whereas an order is an assemblage of families with fewer similar characters.",
+              "C": "Both genus and order share the exact same number of common characters.",
+              "D": "An order has more shared characters because it contains multiple families."
+            },
+            "answer": "B",
+            "explanation": "A genus is lower in the hierarchy than an order and groups closely related species with more characters in common. An order is a higher category formed by an assemblage of families that exhibit fewer similar characters."
+          },
+          {
+            "question": "Which of the following statements provides the most comprehensive contrast between plant family characterization and plant order characterization according to the text?",
+            "options": {
+              "A": "Plant families are characterized on vegetative and reproductive features of plant species, whereas plant orders are identified based on aggregates of characters including floral characters.",
+              "B": "Plant families rely exclusively on floral characters, whereas plant orders rely on vegetative features.",
+              "C": "Plant families and orders use the exact same diagnostic criteria without any distinction.",
+              "D": "Plant families are based on specific epithets, whereas orders are based on genus names."
+            },
+            "answer": "A",
+            "explanation": "The text states that families are characterized on the basis of both vegetative and reproductive features of plant species, while orders are identified based on aggregates of characters, with specific mention of plant families like Convolvulaceae and Solanaceae included in Polymoniales mainly based on floral characters."
+          }
+        ]
+      },
+      "Perception of Living and Inanimate": {
+        "Easy": [
+          {
+            "question": "What common feature did early man perceive between inanimate matter and living objects?",
+            "options": {
+              "A": "The ability to reproduce and metabolize",
+              "B": "A sense of awe or fear that they evoked",
+              "C": "An identical chemical composition",
+              "D": "Their capacity for conscious thought"
+            },
+            "answer": "B",
+            "explanation": "The text notes that a common feature of both inanimate and animate objects to early man was the sense of awe or fear they evoked. Reproductive and metabolic capabilities were not conceptualized by early man in that manner."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "How did early human societies initially treat elements of inanimate matter like wind, sea, and fire?",
+            "options": {
+              "A": "They subjected them to rigorous scientific classification.",
+              "B": "They deified them due to a shared sense of awe or fear.",
+              "C": "They utilized them exclusively for anthropocentric economic progress.",
+              "D": "They recognized them as modern biological species."
+            },
+            "answer": "B",
+            "explanation": "The text notes that early man deified inanimate matter like wind, sea, and fire because they evoked a common sense of awe or fear."
+          }
+        ],
+        "Tough": []
+      },
+      "Phylum": {
+        "Easy": [
+          {
+            "question": "In animals, classes comprising fishes, amphibians, reptiles, and birds along with mammals constitute which higher category?",
+            "options": {
+              "A": "Order",
+              "B": "Family",
+              "C": "Phylum",
+              "D": "Kingdom"
+            },
+            "answer": "C",
+            "explanation": "The text explicitly states that classes comprising fishes, amphibians, reptiles, birds along with mammals constitute the next higher category called Phylum."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Which taxonomic hierarchy sequence from lower to higher category is entirely consistent with the provided text?",
+            "options": {
+              "A": "Species -> Genus -> Family -> Order -> Class -> Phylum",
+              "B": "Phylum -> Class -> Order -> Family -> Genus -> Species",
+              "C": "Genus -> Species -> Family -> Order -> Phylum -> Class",
+              "D": "Species -> Family -> Genus -> Order -> Phylum -> Class"
+            },
+            "answer": "A",
+            "explanation": "The sequence described in the text flows from species (1.2.1/sapiens), genus (1.2.2), family (1.2.3), order (1.2.4), class (1.2.5), to phylum (1.2.6), representing ascending levels of hierarchy."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "If a taxonomist discovers a new animal species, which of the following tiered decisions aligns with the passage's description of classification?",
+            "options": {
+              "A": "It is first directly assigned a phylum, then class, and finally species.",
+              "B": "It is grouped into a species, placed into a genus with related species sharing many common characters, combined with other genera into a family, and so forth up to phylum.",
+              "C": "It is assigned an order first based on floral characters.",
+              "D": "It is classified purely on the basis of its family name matching its specific epithet."
+            },
+            "answer": "B",
+            "explanation": "Taxonomy builds from the foundational units: species form genera, genera form families, families form orders, orders form classes, and classes form phyla (in animals). Option B accurately reflects this bottom-up hierarchy and grouping principle."
+          },
+          {
+            "question": "Analyze the scope of the category 'Phylum' for animals based on the text. Which of the following collections correctly comprises a phylum-level assemblage under animal classification?",
+            "options": {
+              "A": "Solanum, Petunia, Datura, and Solanaceae",
+              "B": "Fishes, amphibians, reptiles, birds, and mammals",
+              "C": "Monkeys, gorillas, gibbons, tigers, and cats",
+              "D": "Convolvulaceae and Polymoniales"
+            },
+            "answer": "B",
+            "explanation": "The text explicitly states: 'Classes comprising animals like fishes, amphibians, reptiles, birds along with mammals constitute the next higher category called Phylum.' Option B lists these exact constituent classes."
+          }
+        ]
+      },
+      "Phylum and Division": {
+        "Easy": [
+          {
+            "question": "Which of the following phyla includes animals characterized by the presence of a notochord and a dorsal hollow neural system?",
+            "options": {
+              "A": "Arthropoda",
+              "B": "Chordata",
+              "C": "Insecta",
+              "D": "Anacardiaceae"
+            },
+            "answer": "B",
+            "explanation": "According to the text, animals based on common features like the presence of notochord and dorsal hollow neural system are included in phylum Chordata. Arthropoda and Insecta are incorrect in this context, and Anacardiaceae is a plant family."
+          },
+          {
+            "question": "In the classification of plants, what term is used equivalently to 'phylum' in animals?",
+            "options": {
+              "A": "Kingdom",
+              "B": "Order",
+              "C": "Division",
+              "D": "Family"
+            },
+            "answer": "C",
+            "explanation": "The text explicitly states that in the case of plants, classes with a few similar characters are assigned to a higher category called Division (whereas for animals, the equivalent category is phylum)."
+          }
+        ],
+        "Medium": [],
+        "Tough": [
+          {
+            "question": "Why is a category like 'Division' used for plants instead of 'Phylum', even though both serve the same hierarchical rank relative to Kingdom and Class?",
+            "options": {
+              "A": "Because plants do not have classes.",
+              "B": "Due to traditional taxonomic nomenclature conventions distinguishing plant and animal groupings below the kingdom level.",
+              "C": "Because divisions contain fewer organisms than phyla.",
+              "D": "Because divisions are higher than kingdoms in plants."
+            },
+            "answer": "B",
+            "explanation": "The text notes: 'In case of plants, classes with a few similar characters are assigned to a higher category called Division.' This reflects the distinct taxonomic convention used for plant groups versus animal phyla."
+          },
+          {
+            "question": "If a taxonomist encounters a group of diverse plant genera that share a few similar characters, and groups them into a higher category, which term from the excerpt must be used for this category?",
+            "options": {
+              "A": "Phylum",
+              "B": "Division",
+              "C": "Species",
+              "D": "Sub-category"
+            },
+            "answer": "B",
+            "explanation": "The text states explicitly: 'In case of plants, classes with a few similar characters are assigned to a higher category called Division.'"
+          }
+        ]
+      },
+      "Rules of Nomenclature": {
+        "Easy": [
+          {
+            "question": "How are biological names generally written regarding their language and script?",
+            "options": {
+              "A": "In Greek and written in bold",
+              "B": "In Latin and written in italics",
+              "C": "In English and underlined",
+              "D": "In local languages and capitalized"
+            },
+            "answer": "B",
+            "explanation": "Rule 1 of the text states: 'Biological names are generally in Latin and written in italics.' Options A, C, and D contradict the explicit text rules."
+          },
+          {
+            "question": "What does the first word in a biological binomial name represent?",
+            "options": {
+              "A": "Specific epithet",
+              "B": "Order",
+              "C": "Genus",
+              "D": "Variety"
+            },
+            "answer": "C",
+            "explanation": "Rule 2 states: 'The first word in a biological name represents the genus while the second component denotes the specific epithet.' Options A, B, and D are incorrect."
+          },
+          {
+            "question": "How should both words of a biological name be indicated when they are handwritten?",
+            "options": {
+              "A": "Printed in bold letters",
+              "B": "Separately underlined",
+              "C": "Enclosed in quotation marks",
+              "D": "Written in uppercase letters"
+            },
+            "answer": "B",
+            "explanation": "Rule 3 states: 'Both the words in a biological name, when handwritten, are separately underlined, or printed in italics to indicate their Latin origin.' Options A, C, and D do not match this rule."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Why are biological names derived from Latin or Latinised irrespective of their original source?",
+            "options": {
+              "A": "Because Latin is the most widely spoken modern language.",
+              "B": "To honor Carolus Linnaeus who spoke only Latin.",
+              "C": "To indicate their Latin origin as part of the universal rules of nomenclature.",
+              "D": "Because non-Latin words cannot be italicized."
+            },
+            "answer": "C",
+            "explanation": "Rule 1 & 3 state that biological names are Latinised or derived from Latin, and italics or underlining are used to indicate their Latin origin. Options A, B, and D are factually incorrect or unsupported."
+          },
+          {
+            "question": "If a student writes the scientific name of mango in a notebook, which of the following handwritten formats complies fully with the rules given in the text?",
+            "options": {
+              "A": "Mangifera Indica",
+              "B": "Mangifera indica",
+              "C": "Mangifera indica (underlined separately)",
+              "D": "MANGIFERA INDICA"
+            },
+            "answer": "C",
+            "explanation": "According to the text, the first word denotes the genus starting with a capital letter, the second component denotes the specific epithet starting with a small letter, and when handwritten, both words are separately underlined. Option C meets all these criteria."
+          },
+          {
+            "question": "According to the rules provided, how is the first letter of the specific epithet typically styled in print?",
+            "options": {
+              "A": "Always capital",
+              "B": "Always small",
+              "C": "Italicized regardless of case",
+              "D": "Underlined if printed"
+            },
+            "answer": "B",
+            "explanation": "In the example 'Mangifera indica', 'indica' (the specific epithet) starts with a small letter, reflecting the rule that the second component denotes the specific epithet (and contrasted with the capitalized genus name)."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "A researcher discovers a plant in an unexplored region. She assigns it a name where both the generic and specific names are derived from local dialects, but prints the name in italics and ensures no other plant has used it. Based strictly on the text rules, which rule violation occurred?",
+            "options": {
+              "A": "Biological names must be in Latin or Latinised irrespective of their origin.",
+              "B": "The specific epithet must always be capitalized.",
+              "C": "Plants cannot be named using binomial nomenclature.",
+              "D": "The genus name must come after the specific epithet."
+            },
+            "answer": "A",
+            "explanation": "Rule 1 states: 'Biological names are generally in Latin and written in italics. They are Latinised or derived from Latin irrespective of their origin.' Using purely local dialect words without Latinisation violates this rule. Options B, C, and D are incorrect rules."
+          },
+          {
+            "question": "A student types a research paper and includes the plant name 'Mangifera indica'. According to the formatting rules in the text, how should this typed name appear to correctly indicate its Latin origin?",
+            "options": {
+              "A": "Underlined separately",
+              "B": "Printed in italics",
+              "C": "Enclosed in parentheses",
+              "D": "Written in bold uppercase"
+            },
+            "answer": "B",
+            "explanation": "Rule 3 states: 'Both the words in a biological name, when handwritten, are separately underlined, or printed in italics to indicate their Latin origin.' For typed text (like a research paper), printing in italics is the correct indicator."
+          },
+          {
+            "question": "Based on the text's rule that biological names are Latinised irrespective of their origin, what does this imply about an organism discovered in a region with a non-Latin linguistic heritage (e.g., India or Japan)?",
+            "options": {
+              "A": "Its scientific name must still adopt a Latin or Latinised form to comply with universal nomenclature rules.",
+              "B": "Its local name must be used globally without modification.",
+              "C": "It cannot be given a binomial name.",
+              "D": "It must be registered under ICZN only after being translated into Greek."
+            },
+            "answer": "A",
+            "explanation": "Rule 1 explicitly states that biological names are 'Latinised or derived from Latin irrespective of their origin', meaning regardless of where an organism is found or what its local roots are, its scientific name follows Latin conventions."
+          }
+        ]
+      },
+      "Similarities Among Organisms": {
+        "Easy": [
+          {
+            "question": "What was recognized as the biggest spin-off of studies involving the description of life forms?",
+            "options": {
+              "A": "The commercial exploitation of natural resources",
+              "B": "The recognition of the sharing of similarities among living organisms horizontally and vertically",
+              "C": "The absolute domination of humans over nature",
+              "D": "The elimination of all biological diversity"
+            },
+            "answer": "B",
+            "explanation": "The text explicitly points out that the biggest spin-off of such studies was the recognition of the sharing of similarities among living organisms both horizontally and vertically."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "What is the significance of 'horizontal and vertical' sharing of similarities among living organisms as described in the text?",
+            "options": {
+              "A": "It refers exclusively to anatomical structures used in agricultural crop rotation.",
+              "B": "It highlights evolutionary relationships and common descent across space (horizontal) and time/lineage (vertical) among all organisms.",
+              "C": "It proves that inanimate matter possesses biological systems of nomenclature.",
+              "D": "It outlines the hierarchical chapters of Unit 1 in the textbook."
+            },
+            "answer": "B",
+            "explanation": "The sharing of similarities horizontally and vertically underpins the relationship among present-day organisms and all organisms that ever lived, pointing to evolutionary relationships across lineages and groups."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Consider the phrase 'sharing of similarities among living organisms both horizontally and vertically'. In an evolutionary and taxonomic framework, what does this duality comprehensively imply?",
+            "options": {
+              "A": "Horizontal similarities represent geographic distribution, while vertical similarities represent hierarchical rank in a textbook table.",
+              "B": "Horizontal similarities refer to traits shared among contemporary taxa (interspecific/intergroup affinities), while vertical similarities refer to ancestral-descendant lineages through evolutionary time.",
+              "C": "Horizontal similarities denote physical plant structures, and vertical similarities denote animal behaviors.",
+              "D": "Horizontal similarities refer to inanimate matter, and vertical similarities refer to animate organisms."
+            },
+            "answer": "B",
+            "explanation": "In evolutionary biology, horizontal connections link contemporary species or groups sharing traits across space, while vertical connections trace lineages down through ancestral descent over time."
+          }
+        ]
+      },
+      "Species": {
+        "Easy": [
+          {
+            "question": "In the binomial name Solanum tuberosum, what does 'tuberosum' represent?",
+            "options": {
+              "A": "Genus",
+              "B": "Specific epithet",
+              "C": "Family",
+              "D": "Taxon of highest rank"
+            },
+            "answer": "B",
+            "explanation": "The text notes that in Mangifera indica, Solanum tuberosum, and Panthera leo, the words indica, tuberosum, and leo represent the specific epithets."
+          },
+          {
+            "question": "Which of the following is cited in the text as an example of a genus containing multiple specific epithets?",
+            "options": {
+              "A": "Mangifera",
+              "B": "Panthera",
+              "C": "Homo",
+              "D": "Triticum"
+            },
+            "answer": "B",
+            "explanation": "The text states that Panthera has another specific epithet called tigris (alongside leo), illustrating a genus with more than one specific epithet."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "How are individual organisms grouped into a species according to taxonomic studies?",
+            "options": {
+              "A": "Based on random environmental adaptations",
+              "B": "Based on fundamental similarities allowing them to be distinguished from closely related species by distinct morphological differences",
+              "C": "Based on sharing the same specific epithet across different kingdoms",
+              "D": "Based on occupying the exact same geographical niche"
+            },
+            "answer": "B",
+            "explanation": "The text defines species as a group of individual organisms with fundamental similarities, where one should be able to distinguish one species from the other closely related species based on distinct morphological differences."
+          },
+          {
+            "question": "In the names Mangifera indica, Solanum tuberosum, and Panthera leo, what do the first words represent in the taxonomic hierarchy?",
+            "options": {
+              "A": "Lower-level specific epithets",
+              "B": "Higher-level taxa or categories known as genera",
+              "C": "Families encompassing multiple orders",
+              "D": "Common names used across different languages"
+            },
+            "answer": "B",
+            "explanation": "The text clarifies that the first words (Mangifera, Solanum, Panthera) represent genera, which are higher level taxa or categories compared to specific epithets."
+          },
+          {
+            "question": "Which of the following pairings of genus and its associated specific epithets is directly supported by the provided text?",
+            "options": {
+              "A": "Solanum includes tuberosum and nigrum",
+              "B": "Mangifera includes indica and tigris",
+              "C": "Panthera includes leo and tuberosum",
+              "D": "Solanum includes indica and leo"
+            },
+            "answer": "A",
+            "explanation": "The text states that Solanum includes species like tuberosum and nigrum. Panthera includes leo and tigris. Mangifera includes indica."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Evaluate the statement: 'Every genus must contain only one specific epithet.' Based on the text, why is this statement incorrect?",
+            "options": {
+              "A": "Genera do not contain specific epithets; species do.",
+              "B": "Each genus may have one or more than one specific epithet representing different organisms with morphological similarities (e.g., Panthera includes leo and tigris).",
+              "C": "Specific epithets are always higher in rank than genera.",
+              "D": "The text states that a genus is equivalent to a species."
+            },
+            "answer": "B",
+            "explanation": "The text explicitly states: 'Each genus may have one or more than one specific epithet representing different organisms, but having morphological similarities. For example, Panthera has another specific epithet called tigris...'"
+          },
+          {
+            "question": "In the context of the taxonomic hierarchy, how do 'Mangifera', 'Solanum', and 'Panthera' function relative to 'indica', 'tuberosum', 'leo', 'nigrum', and 'tigris'?",
+            "options": {
+              "A": "The former are specific epithets, while the latter are higher-level genera.",
+              "B": "The former represent higher-level taxa (genera) that encompass one or more specific epithets (the latter) representing distinct organisms.",
+              "C": "Both sets of words represent categories at the exact same taxonomic rank.",
+              "D": "The former are kingdoms, while the latter are phyla."
+            },
+            "answer": "B",
+            "explanation": "Mangifera, Solanum, and Panthera are genera (higher level taxa), while indica, tuberosum, leo, nigrum, and tigris are specific epithets designating different species within those genera."
+          },
+          {
+            "question": "If a novel organism is found that possesses morphological similarities to Solanum tuberosum and Solanum nigrum, but exhibits fundamental differences separating it at a broader level, what can be deduced about its placement based on the principles in the text?",
+            "options": {
+              "A": "It must automatically share the specific epithet 'tuberosum'.",
+              "B": "It would share the genus 'Solanum' if it shares the core generic similarities, but would carry a distinct specific epithet.",
+              "C": "It cannot be classified because classification is a single-step process.",
+              "D": "It must be placed in the animal kingdom."
+            },
+            "answer": "B",
+            "explanation": "The text indicates that a genus can include multiple specific epithets (like tuberosum and nigrum in Solanum) based on morphological similarities while representing different organisms."
+          },
+          {
+            "question": "Consider the example of Panthera leo and Panthera tigris. Both share the generic name 'Panthera' but possess distinct specific epithets ('leo' and 'tigris'). According to the text, what does this relational structure demonstrate about taxonomic organization?",
+            "options": {
+              "A": "Genera represent concrete morphological boundaries that contain multiple lower-level entities (species) defined by specific epithets and morphological similarities.",
+              "B": "Specific epithets are higher in rank than genera.",
+              "C": "Organisms with different specific epithets cannot belong to the same taxonomic category above species.",
+              "D": "Classification is a single-step process driven entirely by common names."
+            },
+            "answer": "A",
+            "explanation": "The text shows that a higher-level taxon (genus like Panthera) can encompass multiple specific epithets (leo, tigris) representing different organisms that share morphological similarities, illustrating hierarchical nesting."
+          }
+        ]
+      },
+      "Species Concept": {
+        "Easy": [],
+        "Medium": [
+          {
+            "question": "In the context of the exercises, why might the accepted meaning or definition of 'species' differ when comparing higher plants/animals and bacteria?",
+            "options": {
+              "A": "Because higher plants and animals reproduce sexually with clear interbreeding populations, whereas bacteria exhibit different mechanisms of gene transfer and reproduction.",
+              "B": "Because bacteria are classified under international codes while plants are not.",
+              "C": "Because bacteria do not possess any morphological features.",
+              "D": "Because higher plants and animals do not have taxa."
+            },
+            "answer": "A",
+            "explanation": "Exercise 8 asks to discuss the meaning of species in higher plants/animals versus bacteria, touching upon the conceptual complexity of defining species across different domains of life."
+          }
+        ],
+        "Tough": []
+      },
+      "Systematics": {
+        "Easy": [
+          {
+            "question": "From which language is the word 'systematics' derived, and what does its root word mean?",
+            "options": {
+              "A": "Greek, meaning natural diversity",
+              "B": "Latin, meaning systematic arrangement of organisms",
+              "C": "French, meaning evolutionary history",
+              "D": "Latin, meaning structural morphology"
+            },
+            "answer": "B",
+            "explanation": "The word systematics is derived from the Latin word 'systema' which means systematic arrangement of organisms."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Which statement best distinguishes the historical objective of studying organism diversity from early classification methods?",
+            "options": {
+              "A": "Early classifications focused strictly on cellular structures, while modern studies focus on utility.",
+              "B": "Early human classifications were driven by basic needs like food, clothing, and shelter (uses), whereas systematics also sought to understand relationships among diversities.",
+              "C": "Early classifications used binomial nomenclature, while modern studies use common names.",
+              "D": "Early humans were uninterested in organism diversity, focusing solely on ecological information."
+            },
+            "answer": "B",
+            "explanation": "The text states that early classifications were based on the 'uses' of organisms for basic needs (food, clothing, shelter), but human beings were also interested in the 'relationships among them', which led to systematics."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Analyze the statement: 'Systematics is restricted solely to the cataloging of plant and animal uses for human shelter and clothing.' Based on the text, why is this statement false?",
+            "options": {
+              "A": "Because systematics deals with the systematic arrangement of organisms and their relationships, whereas utility-based classification was a feature of early days.",
+              "B": "Because systematics only deals with cellular and ecological information, ignoring clothing and shelter.",
+              "C": "Because systematics was invented by Linnaeus exclusively for binomial nomenclature rules.",
+              "D": "Because systematics relies on the specific epithet starting with a small letter."
+            },
+            "answer": "A",
+            "explanation": "Early classifications were based on 'uses' for food, clothing, and shelter, whereas systematics arose because humans were interested in understanding 'relationships among them' based on the systematic arrangement ('systema')."
+          },
+          {
+            "question": "In the context of the historical evolution of human interest in organisms, what shift occurred from early human societies to the development of systematics?",
+            "options": {
+              "A": "Shift from studying ecological cell structures to studying plant clothing utility.",
+              "B": "Shift from classification driven purely by basic survival needs (uses) to exploring diversities and evolutionary/systematic relationships among organisms.",
+              "C": "Shift from binomial nomenclature to vernacular naming conventions.",
+              "D": "Shift from taxonomy being a basic process to taxonomy being completely abandoned."
+            },
+            "answer": "B",
+            "explanation": "Early human classifications were based on 'uses' for basic needs (food, clothing, shelter), but humans also became interested in diversities and 'relationships among them', which is the domain of systematics."
+          }
+        ]
+      },
+      "Systematics and Classification": {
+        "Easy": [
+          {
+            "question": "What necessitated the development of detailed systems of identification, nomenclature, and classification?",
+            "options": {
+              "A": "The sudden extinction of all plant species",
+              "B": "Systematic and monumental description of life forms",
+              "C": "The invention of the modern compound microscope",
+              "D": "The discovery of DNA replication"
+            },
+            "answer": "B",
+            "explanation": "The text highlights that systematic and monumental description of life forms brought in, out of necessity, detailed systems of identification, nomenclature, and classification."
+          }
+        ],
+        "Medium": [],
+        "Tough": [
+          {
+            "question": "Analyze the progression of biological study described in the text: which factor directly catalyzed the requirement for identification, nomenclature, and classification systems?",
+            "options": {
+              "A": "The transition from an anthropocentric worldview to the monumental and systematic description of life forms",
+              "B": "The immediate creation of biodiversity conservation laws by early man",
+              "C": "The realization that inanimate matter and animate objects evoke the same amount of fear",
+              "D": "The establishment of Harvard University's Faculty of Arts and Sciences in 1953"
+            },
+            "answer": "A",
+            "explanation": "The text connects early anthropocentric limits with later systematic and monumental description of life forms, which out of necessity brought in detailed identification, nomenclature, and classification."
+          }
+        ]
+      },
+      "Systematics and Scope": {
+        "Easy": [
+          {
+            "question": "What title was used by Carolus Linnaeus for his publication, which laid foundational work for taxonomy and systematics?",
+            "options": {
+              "A": "Genera Plantarum",
+              "B": "Systema Naturae",
+              "C": "Species Plantarum",
+              "D": "Philosophia Botanica"
+            },
+            "answer": "B",
+            "explanation": "The text explicitly states that Linnaeus used 'Systema Naturae' as the title of his publication. Distractors A, C, and D are other works by Linnaeus or contemporaries not mentioned in this specific excerpt."
+          },
+          {
+            "question": "Which of the following components were later added to enlarge the scope of systematics beyond its original boundaries?",
+            "options": {
+              "A": "Embryology, physiology, and cytology",
+              "B": "Identification, nomenclature, and classification",
+              "C": "Evolutionary history, ecology, and biogeography",
+              "D": "Morphology, anatomy, and genetics"
+            },
+            "answer": "B",
+            "explanation": "According to the text, the scope of systematics was enlarged to include identification, nomenclature, and classification. The other options contain biological disciplines not mentioned in this context."
+          },
+          {
+            "question": "Systematics takes into account which of the following crucial relationships between organisms?",
+            "options": {
+              "A": "Trophic relationships",
+              "B": "Competitive relationships",
+              "C": "Evolutionary relationships",
+              "D": "Symbiotic relationships"
+            },
+            "answer": "C",
+            "explanation": "The text explicitly mentions that systematics takes into account evolutionary relationships between organisms. Trophic, competitive, and symbiotic relationships are not cited as the defining criterion for systematics in the text."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "How does the incorporation of systematics differ from classical taxonomy based purely on the provided text?",
+            "options": {
+              "A": "Systematics ignores morphological features entirely.",
+              "B": "Systematics incorporates evolutionary relationships between organisms.",
+              "C": "Systematics restricts itself solely to plant identification.",
+              "D": "Systematics treats taxonomic categories as purely morphological aggregates."
+            },
+            "answer": "B",
+            "explanation": "The text specifies that systematics takes into account evolutionary relationships between organisms, expanding beyond basic identification, nomenclature, and classification."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Analyze the statement: 'Systematics takes into account evolutionary relationships between organisms, and its scope includes identification, nomenclature, and classification.' If an organism's evolutionary lineage is re-evaluated, how might this directly impact its taxonomic categorization under modern systematics?",
+            "options": {
+              "A": "It would invalidate the use of binomial nomenclature entirely.",
+              "B": "It could alter the placement of the organism within the taxonomic hierarchy to reflect its true evolutionary affinities.",
+              "C": "It would convert the species category into a higher-level kingdom category.",
+              "D": "It would remove the need to identify morphological similarities and dissimilarities."
+            },
+            "answer": "B",
+            "explanation": "Since systematics incorporates evolutionary relationships alongside identification, nomenclature, and classification, discovering new evolutionary links can modify how organisms are placed within taxonomic categories."
+          },
+          {
+            "question": "Synthesize the concepts of 'systematics' and 'taxonomic hierarchy' from the text: How does the foundational scope of systematics interact with the hierarchical arrangement of taxonomic categories?",
+            "options": {
+              "A": "Systematics provides the evolutionary context and framework (including identification, nomenclature, and classification) that informs how organisms are structured within the taxonomic hierarchy.",
+              "B": "Systematics replaces the taxonomic hierarchy with a single lowest category called species.",
+              "C": "The taxonomic hierarchy dictates the evolutionary relationships, whereas systematics only deals with common names.",
+              "D": "There is no theoretical connection between systematics and taxonomic categories in the text."
+            },
+            "answer": "A",
+            "explanation": "Systematics broadens the scope to include identification, nomenclature, classification, and evolutionary relationships, which underpins the hierarchical arrangement of taxonomic categories (rank-based units)."
+          }
+        ]
+      },
+      "Systematics and Taxonomy": {
+        "Easy": [],
+        "Medium": [],
+        "Tough": [
+          {
+            "question": "How do the concepts of 'Taxonomy' and 'Systematics' interconnect based on the provided text?",
+            "options": {
+              "A": "Taxonomy is restricted to naming plants, while systematics is restricted to naming animals.",
+              "B": "Taxonomy involves characterisation, identification, classification, and nomenclature based on structures and ecology, while systematics incorporates the study of relationships among organisms derived from 'systema'.",
+              "C": "Systematics deals solely with the historical use of organisms for food and shelter, while taxonomy deals with modern DNA sequencing.",
+              "D": "They are exact synonyms with no distinction in historical or operational scope."
+            },
+            "answer": "B",
+            "explanation": "Taxonomy comprises characterisation, identification, classification, and nomenclature based on structural and ecological bases, whereas systematics specifically stems from investigating diversities and relationships among organisms ('systema')."
+          }
+        ]
+      },
+      "Taxonomic Categories": {
+        "Easy": [
+          {
+            "question": "What is classification described as in the context of taxonomic studies?",
+            "options": {
+              "A": "A single step instantaneous process",
+              "B": "A hierarchy of steps where each step represents a rank or category",
+              "C": "A purely random sorting of morphological traits",
+              "D": "An unstructured grouping of unrelated organisms"
+            },
+            "answer": "B",
+            "explanation": "The text states that classification is not a single step process but involves a hierarchy of steps in which each step represents a rank or category."
+          },
+          {
+            "question": "What term is commonly used for each rank or unit of classification in a taxonomic arrangement?",
+            "options": {
+              "A": "Taxon",
+              "B": "Clade",
+              "C": "Morphospecies",
+              "D": "Phylogroup"
+            },
+            "answer": "A",
+            "explanation": "The text notes that each category, referred to as a unit of classification, in fact represents a rank and is commonly termed as taxon (plural: taxa)."
+          },
+          {
+            "question": "Insects share common features such as three pairs of jointed legs. Based on the text, what do these groups represent?",
+            "options": {
+              "A": "Only morphological aggregates",
+              "B": "A category or rank",
+              "C": "An arbitrary classification without biological meaning",
+              "D": "A non-concrete conceptual entity"
+            },
+            "answer": "B",
+            "explanation": "The text states that groups represent categories, and category further denotes rank. Furthermore, it explicitly clarifies that these are distinct biological entities and not merely morphological aggregates."
+          },
+          {
+            "question": "What is the lowest category in the taxonomic hierarchy for all organisms, including plants and animals?",
+            "options": {
+              "A": "Genus",
+              "B": "Family",
+              "C": "Species",
+              "D": "Order"
+            },
+            "answer": "C",
+            "explanation": "The text explicitly states that all organisms, including those in the plant and animal kingdoms, have species as the lowest category."
+          },
+          {
+            "question": "What is the basic requirement for placing an organism into various taxonomic categories?",
+            "options": {
+              "A": "Knowledge of the evolutionary tree",
+              "B": "Knowledge of characters of an individual or group of organisms",
+              "C": "Knowledge of geographical distribution",
+              "D": "Knowledge of reproductive isolation mechanisms"
+            },
+            "answer": "B",
+            "explanation": "The text directly states: 'The basic requirement is the knowledge of characters of an individual or group of organisms.'"
+          },
+          {
+            "question": "What does an organism represent or occupy in the system of classification?",
+            "options": {
+              "A": "A random habitat",
+              "B": "A place or position",
+              "C": "An international code",
+              "D": "A physiological anomaly"
+            },
+            "answer": "B",
+            "explanation": "The summary states that an organism represents/occupies a place or position in the system of classification. Thus, B is the correct option."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Consider the statement: 'All taxonomic categories together constitute the taxonomic hierarchy.' If an organism is moved up the hierarchy from species to kingdom, what happens to the generality of characters?",
+            "options": {
+              "A": "Characters become more specific to individual traits.",
+              "B": "Characters become more general as fewer common traits are shared among diverse organisms.",
+              "C": "The number of shared common features among organisms increases.",
+              "D": "The rank ceases to be a valid biological taxon."
+            },
+            "answer": "B",
+            "explanation": "As you move up the taxonomic hierarchy (from species towards kingdom), organisms share fewer specific similarities and retain only broader, more general characteristics."
+          },
+          {
+            "question": "Why are taxonomic groups/categories described as distinct biological entities rather than merely morphological aggregates?",
+            "options": {
+              "A": "Because they are based exclusively on genetic sequencing data.",
+              "B": "Because they represent recognisable concrete objects with underlying biological realities and shared common features, not just superficial physical groupings.",
+              "C": "Because they are entirely fixed and never subject to evolutionary revision.",
+              "D": "Because morphology plays no part in their determination."
+            },
+            "answer": "B",
+            "explanation": "The text notes that groups like insects share common features (like three pairs of jointed legs), making them recognisable concrete objects that form distinct biological entities rather than arbitrary morphological piles."
+          },
+          {
+            "question": "If a researcher discovers a plant specimen, which term from the plant classification categories mentioned in the text corresponds to the category equivalent to 'phylum' in animals?",
+            "options": {
+              "A": "Class",
+              "B": "Order",
+              "C": "Division",
+              "D": "Genus"
+            },
+            "answer": "C",
+            "explanation": "The text explicitly lists 'phylum or division (for plants)' as corresponding common categories developed through taxonomical studies."
+          },
+          {
+            "question": "What is the primary function of knowing the characters of an individual or group of organisms in taxonomy?",
+            "options": {
+              "A": "To determine its economic value in agriculture",
+              "B": "To help in identifying similarities and dissimilarities among individuals of the same kind and other kinds",
+              "C": "To establish its exact geographical coordinate of origin",
+              "D": "To directly calculate its mutation rate over time"
+            },
+            "answer": "B",
+            "explanation": "The text explicitly mentions that knowledge of characters helps in identifying similarities and dissimilarities among individuals of the same kind of organisms as well as of other kinds of organisms."
+          },
+          {
+            "question": "If a taxonomic category is referred to as a 'unit of classification', what term is synonymous with this rank according to the text?",
+            "options": {
+              "A": "Taxon",
+              "B": "Epithet",
+              "C": "Aggregate",
+              "D": "Hierarchy"
+            },
+            "answer": "A",
+            "explanation": "The text states: 'Each category, referred to as a unit of classification, in fact, represents a rank and is commonly termed as taxon'."
+          },
+          {
+            "question": "Based on the text, which of the following represents the correct ascending or descending sequence of broad common categories derived from taxonomical studies?",
+            "options": {
+              "A": "Kingdom -> Phylum/Division -> Class -> Order -> Family -> Genus -> Species",
+              "B": "Species -> Genus -> Order -> Family -> Class -> Phylum -> Kingdom",
+              "C": "Kingdom -> Class -> Phylum -> Order -> Family -> Genus -> Species",
+              "D": "Species -> Family -> Genus -> Order -> Class -> Phylum -> Kingdom"
+            },
+            "answer": "A",
+            "explanation": "The text lists the common categories in order as: 'kingdom, phylum or division (for plants), class, order, family, genus and species.' Option A correctly sequences them from highest to lowest rank."
+          },
+          {
+            "question": "Which of the following correctly orders a sequence of taxonomic categories from lower to higher or as presented in the exercises?",
+            "options": {
+              "A": "Species -> Order -> Phylum -> Kingdom",
+              "B": "Genus -> Species -> Order -> Kingdom",
+              "C": "Species -> Genus -> Phylum -> Order",
+              "D": "Kingdom -> Phylum -> Order -> Species (in ascending order)"
+            },
+            "answer": "A",
+            "explanation": "Exercise 7 lists options for sequences of taxonomical categories. Option (a) from the text lists 'Species Order Phylum Kingdom' (or rather, the hierarchical progression from species upwards). Let's check Exercise 7(a): Species Order Phylum Kingdom correctly ascends in rank order."
+          },
+          {
+            "question": "What is implied by the concept of 'taxa' in biological classification based on the text?",
+            "options": {
+              "A": "Only the highest rank in a hierarchy",
+              "B": "Categories or ranks at different hierarchical levels representing units of classification",
+              "C": "Only species of higher plants and animals",
+              "D": "The international codes for nomenclature"
+            },
+            "answer": "B",
+            "explanation": "The text states that there are many categories/ranks generally referred to as taxonomic categories or taxa, which form the taxonomic hierarchy."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "A student claims that because categories are part of an overall taxonomic arrangement called taxonomic hierarchy, individual taxa are merely subjective human inventions with no basis in biological reality. How does the text refute or support this?",
+            "options": {
+              "A": "The text supports it by stating categories are only morphological aggregates.",
+              "B": "The text refutes it by asserting that groups like insects represent distinct biological entities and recognisable concrete objects, not merely morphological aggregates.",
+              "C": "The text refutes it by stating that species is always the highest category.",
+              "D": "The text does not address the reality of taxa at all."
+            },
+            "answer": "B",
+            "explanation": "The text explicitly counters the idea of arbitrary grouping by stating that taxonomic groups/categories are distinct biological entities and not merely morphological aggregates, exemplified by concrete objects like insects sharing features like three pairs of jointed legs."
+          },
+          {
+            "question": "Consider the hierarchical structure of classification described in the excerpt. If 'Insects' are grouped based on shared common features like three pairs of jointed legs, what logical deduction can be made regarding the relationship between a 'group', a 'category', and a 'taxon'?",
+            "options": {
+              "A": "A group represents a category, a category denotes a rank, and each rank/taxon represents a unit of classification.",
+              "B": "A taxon represents a morphological aggregate, while a category represents an evolutionary lineage.",
+              "C": "A group is equivalent to a specific epithet, while a category is equivalent to a genus.",
+              "D": "A category is the lowest rank, whereas a group is always the highest rank in the hierarchy."
+            },
+            "answer": "A",
+            "explanation": "The text connects these concepts directly: groups represent categories, category further denotes rank, and each rank or taxon represents a unit of classification."
+          },
+          {
+            "question": "Why is the knowledge of characters of an individual or group of organisms considered the 'basic requirement' for placing an organism in various categories?",
+            "options": {
+              "A": "Because characters determine nomenclature rules exclusively.",
+              "B": "Because identifying similarities and dissimilarities relies entirely on analyzing the characters of individuals and groups to see how they align with established taxonomic ranks.",
+              "C": "Because characters allow scientists to bypass the species category entirely.",
+              "D": "Because morphological characters are completely uniform across all living organisms."
+            },
+            "answer": "B",
+            "explanation": "The text links the knowledge of characters directly to the ability to identify similarities and dissimilarities among individuals of the same and other kinds of organisms, which is foundational for categorization."
+          },
+          {
+            "question": "A student analyzes the phrase: 'All organisms, including those in the plant and animal kingdoms have species as the lowest category.' What structural implication does this statement hold for the taxonomic hierarchy across all domains of life mentioned?",
+            "options": {
+              "A": "Species serves as the foundational, base unit upon which all higher taxonomic ranks (genus, family, order, class, phylum/division, kingdom) are built universally.",
+              "B": "Species is interchangeable with kingdom in terms of rank.",
+              "C": "Plants have species as the lowest category, whereas animals have genera as the lowest category.",
+              "D": "The lowest category varies depending on whether the organism is an insect or a mammal."
+            },
+            "answer": "A",
+            "explanation": "By stating that species is the lowest category for all organisms (plant and animal kingdoms), the text establishes species as the fundamental base unit of the entire taxonomic hierarchy."
+          }
+        ]
+      },
+      "Taxonomic Categories of Common Organisms": {
+        "Easy": [
+          {
+            "question": "According to Table 1.1, what is the family of the housefly (Musca domestica)?",
+            "options": {
+              "A": "Hominidae",
+              "B": "Muscidae",
+              "C": "Anacardiaceae",
+              "D": "Poaceae"
+            },
+            "answer": "B",
+            "explanation": "Table 1.1 lists the family of Musca domestica (housefly) as Muscidae. Hominidae is for man, Anacardiaceae for mango, and Poaceae for wheat."
+          },
+          {
+            "question": "According to Table 1.1, what is the order of man (Homo sapiens)?",
+            "options": {
+              "A": "Primata",
+              "B": "Diptera",
+              "C": "Sapindales",
+              "D": "Poales"
+            },
+            "answer": "A",
+            "explanation": "Table 1.1 specifies that the order for man (Homo sapiens) is Primata. Diptera is for housefly, Sapindales for mango, and Poales for wheat."
+          },
+          {
+            "question": "According to Table 1.1, what is the division/phylum of mango (Mangifera indica)?",
+            "options": {
+              "A": "Arthropoda",
+              "B": "Chordata",
+              "C": "Angiospermae",
+              "D": "Insecta"
+            },
+            "answer": "C",
+            "explanation": "Table 1.1 shows that the division for mango (Mangifera indica) is Angiospermae. Arthropoda and Chordata are animal phyla, and Insecta is an animal class."
+          },
+          {
+            "question": "According to Table 1.1, what is the genus name of wheat (Triticum aestivum)?",
+            "options": {
+              "A": "Homo",
+              "B": "Musca",
+              "C": "Mangifera",
+              "D": "Triticum"
+            },
+            "answer": "D",
+            "explanation": "Table 1.1 lists the genus name of wheat as Triticum. Homo is for man, Musca for housefly, and Mangifera for mango."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Based on Table 1.1, which pair of organisms shares the same Phylum/Division category?",
+            "options": {
+              "A": "Man and Housefly",
+              "B": "Mango and Wheat",
+              "C": "Housefly and Mango",
+              "D": "Man and Wheat"
+            },
+            "answer": "B",
+            "explanation": "According to Table 1.1, both Mango and Wheat belong to the division Angiospermae. Man belongs to Chordata and Housefly to Arthropoda."
+          },
+          {
+            "question": "Based on Table 1.1, identify the correct matching of organism to its Class category:",
+            "options": {
+              "A": "Housefly - Insecta",
+              "B": "Man - Diptera",
+              "C": "Wheat - Sapindales",
+              "D": "Mango - Monocotyledonae"
+            },
+            "answer": "A",
+            "explanation": "Table 1.1 lists Housefly under the class Insecta. Man is Mammalia, Wheat is Monocotyledonae, and Mango is Dicotyledonae."
+          },
+          {
+            "question": "If you compare the order of a housefly and the order of mango as given in Table 1.1, what are they respectively?",
+            "options": {
+              "A": "Diptera and Sapindales",
+              "B": "Muscidae and Anacardiaceae",
+              "C": "Insecta and Dicotyledonae",
+              "D": "Arthropoda and Angiospermae"
+            },
+            "answer": "A",
+            "explanation": "Table 1.1 shows that the order for housefly is Diptera and for mango is Sapindales. (Muscidae/Anacardiaceae are families, Insecta/Dicotyledonae are classes, Arthropoda/Angiospermae are phylum/division)."
+          },
+          {
+            "question": "Which taxonomic category directly encompasses families that exhibit a few similar characters in plants?",
+            "options": {
+              "A": "Species",
+              "B": "Genus",
+              "C": "Division",
+              "D": "Order"
+            },
+            "answer": "D",
+            "explanation": "While the excerpt mentions classes with a few similar characters are assigned to a division, hierarchy principles dictate that orders aggregate families, and classes aggregate orders. In Table 1.1, mango (family Anacardiaceae) belongs to order Sapindales and class Dicotyledonae."
+          },
+          {
+            "question": "Examine Table 1.1. Which organism has 'Musca' listed as both its Genus name and its specific name base?",
+            "options": {
+              "A": "Homo sapiens",
+              "B": "Musca domestica",
+              "C": "Mangifera indica",
+              "D": "Triticum aestivum"
+            },
+            "answer": "B",
+            "explanation": "Table 1.1 shows that for the housefly (Musca domestica), both the biological name's first component and the 'Genus Name' column are 'Musca'."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Consider the classification of Man and Housefly from Table 1.1. At which broad category level do their taxonomic paths first diverge from each other?",
+            "options": {
+              "A": "Species",
+              "B": "Kingdom",
+              "C": "Phylum",
+              "D": "Class"
+            },
+            "answer": "C",
+            "explanation": "Man belongs to Phylum Chordata and Housefly belongs to Phylum Arthropoda. They both belong to Kingdom Animalia, but diverge immediately at the Phylum level."
+          },
+          {
+            "question": "Based on Table 1.1, what is the precise hierarchical sequence of taxonomic categories for Triticum aestivum starting from Family up to Division?",
+            "options": {
+              "A": "Poaceae -> Poales -> Monocotyledonae -> Angiospermae",
+              "B": "Triticum -> Poaceae -> Poales -> Monocotyledonae",
+              "C": "Poales -> Poaceae -> Monocotyledonae -> Angiospermae",
+              "D": "Angiospermae -> Monocotyledonae -> Poales -> Poaceae"
+            },
+            "answer": "A",
+            "explanation": "According to Table 1.1 for Wheat: Family is Poaceae, Order is Poales, Class is Monocotyledonae, and Division is Angiospermae. Ascending order from family gives Poaceae -> Poales -> Monocotyledonae -> Angiospermae."
+          }
+        ]
+      },
+      "Taxonomic Hierarchy": {
+        "Easy": [
+          {
+            "question": "How are taxonomic categories arranged from species to kingdom in Figure 1.1?",
+            "options": {
+              "A": "Descending order",
+              "B": "Ascending order",
+              "C": "Random order",
+              "D": "Alphabetical order"
+            },
+            "answer": "B",
+            "explanation": "The text states that taxonomic categories from species to kingdom have been shown in ascending order starting with species."
+          },
+          {
+            "question": "What happens to the number of common characteristics as one moves higher in the taxonomic hierarchy from species to kingdom?",
+            "options": {
+              "A": "It goes on increasing",
+              "B": "It remains constant",
+              "C": "It goes on decreasing",
+              "D": "It first increases then decreases"
+            },
+            "answer": "C",
+            "explanation": "The text clearly states that as we go higher from species to kingdom, the number of common characteristics goes on decreasing."
+          },
+          {
+            "question": "What are the various categories or ranks in classification generally referred to as?",
+            "options": {
+              "A": "Taxonomic categories or taxa",
+              "B": "Biological codes",
+              "C": "Morphological traits",
+              "D": "Physiological groups"
+            },
+            "answer": "A",
+            "explanation": "The text states that there are many categories/ranks which are generally referred to as taxonomic categories or taxa. Therefore, A is correct."
+          },
+          {
+            "question": "What do all taxonomic categories together constitute?",
+            "options": {
+              "A": "A binomial system",
+              "B": "A taxonomic hierarchy",
+              "C": "An international code",
+              "D": "A physiological spectrum"
+            },
+            "answer": "B",
+            "explanation": "The summary concludes by stating that all the categories constitute a taxonomic hierarchy. Hence, B is correct."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Why do taxonomists develop sub-categories in the taxonomic hierarchy?",
+            "options": {
+              "A": "To eliminate the need for kingdoms and species",
+              "B": "To facilitate more sound and scientific placement of various taxa",
+              "C": "To make the classification system strictly alphabetical",
+              "D": "To reduce the number of known organisms"
+            },
+            "answer": "B",
+            "explanation": "The text notes that taxonomists have developed sub-categories in this hierarchy to facilitate more sound and scientific placement of various taxa."
+          },
+          {
+            "question": "Consider two taxonomic levels: Species and Kingdom. Which level shares more characteristics among its members?",
+            "options": {
+              "A": "Kingdom, because it is the highest category",
+              "B": "Species, because lower taxa share more characteristics",
+              "C": "Both share an equal number of characteristics",
+              "D": "Characteristics cannot be compared between taxa"
+            },
+            "answer": "B",
+            "explanation": "The text states: 'Lower the taxa, more are the characteristics that the members within the taxon share.' Therefore, species shares more characteristics than kingdom."
+          },
+          {
+            "question": "As one moves from lower taxa to higher categories in biological classification, what happens to the complexity of classification?",
+            "options": {
+              "A": "It decreases because categories become broader",
+              "B": "It remains unchanged",
+              "C": "It increases because determining relationships to other taxa at the same level becomes more difficult",
+              "D": "It becomes irrelevant as all organisms share a kingdom"
+            },
+            "answer": "C",
+            "explanation": "The text explains that higher the category, greater is the difficulty of determining the relationship to other taxa at the same level, and hence, the problem of classification becomes more complex."
+          },
+          {
+            "question": "Why does the taxonomic hierarchy present increasing complexity as one ascends from species to kingdom?",
+            "options": {
+              "A": "Because lower categories have fewer organisms than higher categories.",
+              "B": "Because evaluating relationships among diverse taxa becomes progressively harder at higher levels due to fewer shared characteristics.",
+              "C": "Because sub-categories are prohibited at higher levels.",
+              "D": "Because species names change when moving up the hierarchy."
+            },
+            "answer": "B",
+            "explanation": "The text highlights that as we go higher, common characteristics decrease and determining relationships to other taxa at the same level becomes harder, increasing classification complexity."
+          },
+          {
+            "question": "Consider the structural arrangement of taxonomic classification: individual organisms are grouped into categories or ranks, which together form what structural entity?",
+            "options": {
+              "A": "A binomial doublet",
+              "B": "A taxonomic hierarchy",
+              "C": "An international taxonomic code",
+              "D": "A physiological classification matrix"
+            },
+            "answer": "B",
+            "explanation": "The text states that categories/ranks are referred to as taxonomic categories or taxa, and all the categories constitute a taxonomic hierarchy."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Based on the hierarchical arrangement described, if two organisms belong to the same family, what can be logically inferred about their lower taxonomic categories?",
+            "options": {
+              "A": "They must belong to the same species.",
+              "B": "They may or may not belong to the same species or genus, but lower taxa share more characteristics.",
+              "C": "They cannot belong to the same order.",
+              "D": "They share fewer characteristics than if they belonged to the same kingdom."
+            },
+            "answer": "B",
+            "explanation": "Lower taxa (like species or genus) are encompassed by family. Since lower taxa share more characteristics, organisms in the same family share fewer characteristics than those in the same genus/species, but share more than those in the same order/class."
+          },
+          {
+            "question": "Analyze the relationship between the number of common characteristics and taxonomic hierarchy. If Taxon A is lower than Taxon B, what deduction can be made regarding their taxonomic breadth and character sharing?",
+            "options": {
+              "A": "Taxon A is broader and shares fewer characteristics than Taxon B.",
+              "B": "Taxon A is narrower and shares more characteristics among its members than Taxon B.",
+              "C": "Taxon A and Taxon B share the exact same number of characteristics.",
+              "D": "Taxon B has more complex classification problems than Taxon A."
+            },
+            "answer": "B",
+            "explanation": "The text states: 'Lower the taxa, more are the characteristics that the members within the taxon share.' Lower taxa are more specific/narrower, hence higher character sharing."
+          },
+          {
+            "question": "According to the principles outlined in the excerpt, why does determining evolutionary or structural relationships become increasingly difficult at higher taxonomic categories?",
+            "options": {
+              "A": "Because higher categories contain fewer total individuals.",
+              "B": "Because higher categories group taxa based on fewer shared common characteristics, amplifying divergence.",
+              "C": "Because sub-categories obscure the main taxa.",
+              "D": "Because kingdoms do not have any sub-categories."
+            },
+            "answer": "B",
+            "explanation": "As stated in the text, higher categories have fewer common characteristics, leading to greater difficulty in determining relationships to other taxa at the same level."
+          },
+          {
+            "question": "How do sub-categories developed by taxonomists impact the hierarchical classification model shown in Figure 1.1?",
+            "options": {
+              "A": "They replace the primary categories from species to kingdom entirely.",
+              "B": "They provide finer, more sound and scientific placement within the existing broad categories of the hierarchy.",
+              "C": "They reduce the complexity of classification to zero.",
+              "D": "They eliminate the difference between plant divisions and animal phyla."
+            },
+            "answer": "B",
+            "explanation": "The text states that these are broad categories, but taxonomists have developed sub-categories in this hierarchy to facilitate more sound and scientific placement of various taxa."
+          },
+          {
+            "question": "If an organism is shifted from a lower taxon (e.g., Genus) to a higher taxon (e.g., Family) within the classification hierarchy, how does the scope of organisms and trait sharing shift?",
+            "options": {
+              "A": "The scope of organisms narrows, and trait sharing increases.",
+              "B": "The scope of organisms broadens, and trait sharing decreases.",
+              "C": "Both the scope of organisms and trait sharing increase.",
+              "D": "Both the scope of organisms and trait sharing decrease."
+            },
+            "answer": "B",
+            "explanation": "Moving from a lower to a higher taxon means moving up the hierarchy, which broadens the scope of included organisms while decreasing the number of common characteristics shared among them."
+          },
+          {
+            "question": "Analyze the relationship between taxonomic categories and taxonomic hierarchy: How do individual taxa combine to form the hierarchy?",
+            "options": {
+              "A": "Taxa exist as isolated ranks, whereas hierarchy is an unorganized list of unknown organisms.",
+              "B": "Taxa represent the individual categories or ranks at various levels, and their comprehensive arrangement constitutes the taxonomic hierarchy.",
+              "C": "Hierarchy is a single rank, while taxa represent millions of unknown species.",
+              "D": "Taxa are restricted to plant science, whereas taxonomic hierarchy applies only to industrial bio-resources."
+            },
+            "answer": "B",
+            "explanation": "The text states that categories/ranks are referred to as taxonomic categories or taxa, and all the categories constitute a taxonomic hierarchy. Option B precisely synthesizes this relationship."
+          },
+          {
+            "question": "Analyze the structural progression from a single organism to the overarching taxonomic hierarchy as described in the text.",
+            "options": {
+              "A": "An organism occupies a position in classification -> categorized into ranks/taxa -> all categories combine to form the taxonomic hierarchy.",
+              "B": "Taxonomic hierarchy creates individual organisms, which are then named using international codes.",
+              "C": "International codes form taxa, which then eliminate the need for binomial names.",
+              "D": "Morphological features alone constitute the taxonomic hierarchy without any intermediate categories."
+            },
+            "answer": "A",
+            "explanation": "The summary traces this exact logical path: an organism occupies a place/position in classification -> categories/ranks are referred to as taxa -> all categories constitute a taxonomic hierarchy."
+          },
+          {
+            "question": "Why might a student examining Exercise 9 and Exercise 10 ('Define and understand Phylum, Class, Family, Order, Genus', 'Illustrate taxonomical hierarchy with suitable examples') conclude that hierarchical classification is essential for biological science?",
+            "options": {
+              "A": "Because it structures biological diversity into nested, comprehensible categories that reflect evolutionary relationships and facilitate communication.",
+              "B": "Because it ensures that all organisms have identical morphological features.",
+              "C": "Because it restricts the study of biology to a single arbitrary rank.",
+              "D": "Because it prevents any further scientific discoveries in agriculture and forestry."
+            },
+            "answer": "A",
+            "explanation": "Hierarchical classification provides an organized, nested framework (from species up to kingdom/phylum) that simplifies the vast diversity of life for study and application."
+          }
+        ]
+      },
+      "Taxonomic Perspective": {
+        "Easy": [],
+        "Medium": [],
+        "Tough": [
+          {
+            "question": "Based on the concluding sentences of the excerpt, what is the methodological connection between the introductory philosophical reflections on life diversity and the subsequent chapters (Chapters 1 through 4)?",
+            "options": {
+              "A": "Chapters 1 through 4 provide the concrete taxonomic description and classification of animals and plants necessary to understand the diversity and relationships introduced philosophically.",
+              "B": "Chapters 1 through 4 focus exclusively on the deification of wind, sea, and fire by early man.",
+              "C": "Chapters 1 through 4 outline the biography and triple crown prizes of Ernst Mayr.",
+              "D": "Chapters 1 through 4 prove that anthropocentric views yield the highest biological progress."
+            },
+            "answer": "A",
+            "explanation": "The text transitions from the broad philosophical realization of diversity and relatedness to stating that the following chapters provide a description, including classification, of animals and plants from a taxonomist’s perspective."
+          }
+        ]
+      },
+      "Taxonomic Principles": {
+        "Easy": [],
+        "Medium": [],
+        "Tough": [
+          {
+            "question": "If a biologist discovers an organism that exhibits intermediate morphological features between two established groups, how do the principles of taxonomy guide its placement?",
+            "options": {
+              "A": "By evaluating resemblances and distinct differences under universally evolved international codes to assign a proper place in the taxonomic hierarchy.",
+              "B": "By creating a single-word common name and ignoring hierarchical ranks.",
+              "C": "By changing the entire classification system of all living organisms immediately.",
+              "D": "By assigning it exclusively to industrial and forestry divisions."
+            },
+            "answer": "A",
+            "explanation": "The excerpt establishes that organisms are identified based on resemblances and distinct differences, named via binomial nomenclature under international codes, and positioned within a taxonomic hierarchy."
+          }
+        ]
+      },
+      "Taxonomy Definition": {
+        "Easy": [
+          {
+            "question": "What term is used to describe the branch of knowledge dealing with identification, nomenclature, and classification of organisms?",
+            "options": {
+              "A": "Morphology",
+              "B": "Physiology",
+              "C": "Taxonomy",
+              "D": "Ecology"
+            },
+            "answer": "C",
+            "explanation": "According to the summary, the branch of knowledge dealing with identification, nomenclature, and classification of organisms is referred to as taxonomy. Thus, C is correct."
+          }
+        ],
+        "Medium": [],
+        "Tough": []
+      },
+      "Taxonomy and Classification": {
+        "Easy": [],
+        "Medium": [
+          {
+            "question": "Why is the study of classification systems prompted to change 'every now and then', as noted in the chapter exercises?",
+            "options": {
+              "A": "Because biological criteria, new discoveries, and our understanding of resemblances and differences evolve over time.",
+              "B": "Because international codes forbid keeping a classification system for more than a year.",
+              "C": "Because species never change their morphological features.",
+              "D": "Because taxonomy has no scientific basis."
+            },
+            "answer": "A",
+            "explanation": "While the explicit text summary outlines current principles, Exercise 2 asks why classification systems change every now and then, reflecting the dynamic nature of taxonomy as new organisms and criteria are discovered."
+          }
+        ],
+        "Tough": []
+      },
+      "What is Life?": {
+        "Easy": [
+          {
+            "question": "Which of the following aspects of the living world is primarily focused on by scientists as per the given text?",
+            "options": {
+              "A": "Determining the ultimate philosophical purpose of life",
+              "B": "Reflecting on the technical question of what living is as opposed to non-living",
+              "C": "Cataloging only the aquatic and marine ecosystems",
+              "D": "Studying molecular traffic to decode the origin of the universe"
+            },
+            "answer": "B",
+            "explanation": "The text explicitly states that the question 'what is life?' contains two implicit questions: a technical one (living vs. non-living) and a philosophical one (purpose of life). As scientists, the text notes, 'we shall not attempt answering the second question. We will try to reflect on – what is living?'. Thus, option B is correct and others misrepresent the scientific scope mentioned in the text."
+          }
+        ],
+        "Medium": [
+          {
+            "question": "Analyze the two implicit questions contained within the fundamental question 'what indeed is life?'. Which statement best reflects the scientific approach described in the text?",
+            "options": {
+              "A": "Scientists answer both the technical and philosophical questions simultaneously.",
+              "B": "Scientists focus exclusively on the philosophical purpose of life.",
+              "C": "Scientists address the technical distinction between living and non-living while bypassing the philosophical purpose.",
+              "D": "Scientists reject the technical question and embrace only metaphysical definitions of life."
+            },
+            "answer": "C",
+            "explanation": "The text separates the question into a technical one (living vs. non-living) and a philosophical one (purpose of life), stating 'As scientists, we shall not attempt answering the second question. We will try to reflect on – what is living?'. This makes C correct."
+          },
+          {
+            "question": "Which of the following best distinguishes between the two questions implicit in 'what indeed is life?'?",
+            "options": {
+              "A": "One is empirical/technical (what living is vs non-living), and the other is teleological/philosophical (purpose of life).",
+              "B": "One deals with botany and the other with zoology.",
+              "C": "One deals with unicellular organisms and the other with multicellular organisms.",
+              "D": "One is solved by mathematics and the other by physics."
+            },
+            "answer": "A",
+            "explanation": "The text distinguishes between a 'technical one and seeks answer to what living is as opposed to the non-living' and 'a philosophical one, and seeks answer to what the purpose of life is.' Option A correctly frames this distinction using standard scientific/philosophical terminology (empirical/teleological)."
+          }
+        ],
+        "Tough": [
+          {
+            "question": "Deconstruct the methodology of biological inquiry based on the excerpt. Why do life scientists deliberately exclude the philosophical inquiry of life's purpose from their empirical framework?",
+            "options": {
+              "A": "Because philosophical questions about purpose transcend empirical measurement and falsifiability, restricting scientific consensus.",
+              "B": "Because the purpose of life has already been fully answered by molecular traffic studies.",
+              "C": "Because living organisms do not possess any purpose whatsoever.",
+              "D": "Because the text states that non-living things also have a philosophical purpose."
+            },
+            "answer": "A",
+            "explanation": "The text explicitly draws a boundary: 'The second is a philosophical one... As scientists, we shall not attempt answering the second question. We will try to reflect on – what is living?'. Scientifically, empirical inquiry focuses on observable, testable technical definitions rather than teleological/philosophical purpose. Option A captures this expert-level justification."
+          },
+          {
+            "question": "Analyze the logical dichotomy presented between the technical and philosophical inquiries into life. Which of the following best exemplifies a purely 'technical' inquiry derived from the text's guidelines?",
+            "options": {
+              "A": "Determining the metabolic and cellular criteria that differentiate a metabolizing bacterium from a crystalline mineral.",
+              "B": "Investigating whether migrating birds fly south to fulfill a cosmic destiny.",
+              "C": "Evaluating the moral value of ecological cooperation over conflict.",
+              "D": "Ascertaining the emotional feelings of an attacking shark."
+            },
+            "answer": "A",
+            "explanation": "The text defines the technical question as seeking an answer to 'what living is as opposed to the non-living'. Differentiating a living bacterium from a non-living mineral based on criteria fits this technical boundary, whereas B, C, and D trespass into philosophical or untestable realms."
+          }
+        ]
+      }
+    }
+  }
+}
