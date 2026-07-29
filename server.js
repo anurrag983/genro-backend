@@ -424,8 +424,17 @@ function collectQuestionCandidates(value, currentTopic = '', currentDifficulty =
         if (typeof value[key] === 'string') { nextTopic = value[key]; break; }
     }
     Object.entries(value).forEach(([key, item]) => {
-        const nextDifficulty = DIFFICULTY_KEY_TOKENS.has(normalizeTopicLabel(key)) ? key : currentDifficulty;
-        collectQuestionCandidates(item, nextTopic, nextDifficulty, candidates, depth + 1, seen);
+        const normKey = normalizeTopicLabel(key);
+        const isDifficulty = DIFFICULTY_KEY_TOKENS.has(normKey);
+        const nextDifficulty = isDifficulty ? key : currentDifficulty;
+        
+        let passTopic = nextTopic;
+        const isStructural = ['questions', 'data', 'biology', 'physics', 'chemistry', 'maths', 'botany', 'zoology'].includes(normKey);
+        if (!isDifficulty && !isStructural && typeof item === 'object' && isNaN(Number(key))) {
+            passTopic = key;
+        }
+        
+        collectQuestionCandidates(item, passTopic, nextDifficulty, candidates, depth + 1, seen);
     });
     return candidates;
 }
@@ -548,17 +557,25 @@ app.get('/api/test/:topic_id', ah(async (req, res) => {
 
 app.get('/api/test-content/topic/:topic_id', ah(async (req, res) => {
     const { topic_id } = req.params;
-    const difficulty = String(req.query.difficulty || 'all').toLowerCase();
+    const difficulty = String(req.query.difficulty || 'medium').toLowerCase();
     const [[topicRow]] = await db.query(
-        `SELECT t.topic_id, t.topic_name, c.chapter_name, c.test_json_url AS chapter_test_json_url
+        `SELECT t.topic_id, t.topic_name, t.test_json_url, t.test_json_url_easy, t.test_json_url_medium, t.test_json_url_hard, c.chapter_name, c.test_json_url AS chapter_test_json_url
          FROM topics t JOIN chapters c ON t.chapter_id = c.chapter_id
          WHERE t.topic_id = ?`,
         [topic_id]
     );
-    if (!topicRow || !topicRow.chapter_test_json_url) {
-        return res.status(404).json({ success: false, message: 'Is topic ke liye koi master chapter file nahi mili.' });
+
+    const urlToTry =
+        (difficulty === 'easy' ? topicRow?.test_json_url_easy :
+         difficulty === 'hard' ? topicRow?.test_json_url_hard :
+         topicRow?.test_json_url_medium)
+        || topicRow?.test_json_url
+        || topicRow?.chapter_test_json_url;
+
+    if (!topicRow || !urlToTry) {
+        return res.status(404).json({ success: false, message: 'Is topic ke liye koi test file nahi mili.' });
     }
-    const masterPayload = await loadMasterChapterJson(topicRow.chapter_test_json_url);
+    const masterPayload = await loadMasterChapterJson(urlToTry);
     const { questions } = filterQuestionsForTopic(masterPayload, topicRow.topic_name, difficulty);
     if (!questions.length) {
         return res.status(404).json({ success: false, message: `"${topicRow.topic_name}" ke liye is chapter file mein koi question tagged nahi mila.` });
@@ -951,18 +968,36 @@ function fallbackAiReply(userText, hasAttachment = false) {
         `related topic dhoondh kar concept video dekhein!`;
 }
 
-async function generateAiReply(userText, attachment = null) {
+async function generateAiReply(userText, attachment = null, userName = "Student", history = [], userStats = null, recentTests = []) {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) return fallbackAiReply(userText, Boolean(attachment));
 
     try {
-        const parts = [{ text: userText }];
+        const contents = history.map(msg => ({
+            role: msg.sender_type === 'User' ? 'user' : 'model',
+            parts: [{ text: msg.message_text }]
+        }));
+
+        const currentParts = [{ text: userText }];
         if (attachment) {
-            parts.unshift({
+            currentParts.unshift({
                 inline_data: {
                     mime_type: attachment.mime,
                     data: attachment.data
                 }
+            });
+        }
+        contents.push({ role: 'user', parts: currentParts });
+
+        let statsContext = "";
+        if (userStats) {
+            statsContext = `\n\nStudent Profile:\nClass: ${userStats.class_level || 'N/A'}\nBoard: ${userStats.board || 'N/A'}\nStudy Streak: ${userStats.day_streak || 0} days\nXP: ${userStats.total_xp || 0} XP`;
+        }
+        
+        if (recentTests && recentTests.length > 0) {
+            statsContext += `\nRecent Tests Performance:`;
+            recentTests.forEach(test => {
+                statsContext += `\n- Topic: ${test.label}, Accuracy: ${test.accuracy_percentage}%, Status: ${test.status}`;
             });
         }
 
@@ -970,10 +1005,16 @@ async function generateAiReply(userText, attachment = null) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                contents: [{ parts }],
+                contents,
                 system_instruction: {
                     parts: [{
-                        text: 'You are Genro AI, a friendly, encouraging study buddy for Indian Class 11-12 students preparing for NEET and board exams (Physics, Chemistry, Maths, Biology). Explain concepts simply and concisely, in the same mix of Hindi and English (Hinglish) the student writes in. Keep answers focused and exam-relevant.'
+                        text: `You are Genro AI, a friendly, funny, and encouraging study buddy for Indian Class 11-12 students preparing for NEET and board exams (Physics, Chemistry, Maths, Biology). The student you are talking to is named ${userName}. Use their name occasionally to be friendly.
+
+CRITICAL RULES:
+1. ONLY answer questions related to study topics (Physics, Chemistry, Maths, Biology). If the user asks about anything else, politely decline and say: "Sorry, I can't answer problems related to this. Let's get back to your syllabus!"
+2. Explain every topic in a highly entertaining, funny, and extremely easy-to-understand way. Use real-life relatable examples, jokes, or any creative method necessary to ensure the user grasps the concept easily.
+3. ALWAYS match the user's language. If the user asks the question purely in English, reply completely in English. If the user uses Hindi or Hinglish, reply in a mix of Hindi and English (Hinglish). Keep answers focused and exam-relevant.
+4. At the end of EVERY explanation, ALWAYS ask the user if they understood, and offer to explain it in a different way if they didn't. (For example: "Batao, samajh aaya ya upar se gaya? Agar samajh nahi aaya toh mujhe batao, main kisi doosre tareeke se samjhata hu!").${statsContext}`
                     }]
                 },
                 generationConfig: { maxOutputTokens: 1500 }
@@ -1018,7 +1059,20 @@ app.post('/api/chat/:user_id', ah(async (req, res) => {
         attachment_mime: attachment?.mime || null,
     };
 
-    const aiText = await generateAiReply(messageText, attachment);
+    const [[user]] = await db.query("SELECT full_name, class_level, board, day_streak, total_xp FROM users WHERE user_id = ?", [user_id]);
+    const userName = user?.full_name?.split(' ')[0] || "Student";
+
+    const [history] = await db.query(
+        "SELECT sender_type, message_text FROM (SELECT sender_type, message_text, created_at FROM ai_chat_history WHERE user_id = ? ORDER BY message_id DESC LIMIT 30) sub ORDER BY created_at ASC",
+        [user_id]
+    );
+
+    const [recentTests] = await db.query(
+        "SELECT label, accuracy_percentage, status FROM test_attempts WHERE user_id = ? ORDER BY attempted_at DESC LIMIT 3",
+        [user_id]
+    );
+
+    const aiText = await generateAiReply(messageText, attachment, userName, history, user, recentTests);
     const [aiInsert] = await db.query(
         "INSERT INTO ai_chat_history (user_id, sender_type, message_text, parent_message_id) VALUES (?, 'Genro_AI', ?, ?)",
         [user_id, aiText, userInsert.insertId]
@@ -1073,7 +1127,21 @@ app.put('/api/chat/:user_id/:message_id', ah(async (req, res) => {
     const attachment = userMessage.attachment_data
         ? { data: userMessage.attachment_data, mime: userMessage.attachment_mime || 'image/jpeg' }
         : null;
-    const aiText = await generateAiReply(text, attachment);
+
+    const [[user]] = await db.query("SELECT full_name, class_level, board, day_streak, total_xp FROM users WHERE user_id = ?", [user_id]);
+    const userName = user?.full_name?.split(' ')[0] || "Student";
+
+    const [history] = await db.query(
+        "SELECT sender_type, message_text FROM (SELECT sender_type, message_text, created_at FROM ai_chat_history WHERE user_id = ? AND message_id < ? ORDER BY message_id DESC LIMIT 30) sub ORDER BY created_at ASC",
+        [user_id, message_id]
+    );
+
+    const [recentTests] = await db.query(
+        "SELECT label, accuracy_percentage, status FROM test_attempts WHERE user_id = ? ORDER BY attempted_at DESC LIMIT 3",
+        [user_id]
+    );
+
+    const aiText = await generateAiReply(text, attachment, userName, history, user, recentTests);
     const [insert] = await db.query(
         "INSERT INTO ai_chat_history (user_id, sender_type, message_text, parent_message_id) VALUES (?, 'Genro_AI', ?, ?)",
         [user_id, aiText, message_id]
@@ -1091,9 +1159,16 @@ app.put('/api/chat/:user_id/:message_id', ah(async (req, res) => {
 
 app.get('/api/test-content/chapter/:chapter_id', ah(async (req, res) => {
     const difficulty = normalizeDifficulty(req.query.difficulty);
-    const [[chapter]] = await db.query('SELECT chapter_name, test_json_url FROM chapters WHERE chapter_id = ?', [req.params.chapter_id]);
-    if (!chapter?.test_json_url) return res.status(404).json({ success: false, message: 'Chapter test source not found.' });
-    const payload = await loadMasterChapterJson(chapter.test_json_url);
+    const [[chapter]] = await db.query('SELECT chapter_name, test_json_url, test_json_url_easy, test_json_url_medium, test_json_url_hard FROM chapters WHERE chapter_id = ?', [req.params.chapter_id]);
+    
+    const urlToTry =
+        (difficulty === 'easy' ? chapter?.test_json_url_easy :
+         difficulty === 'hard' ? chapter?.test_json_url_hard :
+         chapter?.test_json_url_medium)
+        || chapter?.test_json_url;
+
+    if (!urlToTry) return res.status(404).json({ success: false, message: 'Chapter test source not found.' });
+    const payload = await loadMasterChapterJson(urlToTry);
     let questions = collectQuestionCandidates(payload?.questions || payload?.data || payload);
     if (difficulty !== 'all') {
         const tagged = questions.filter(question => canonicalDifficulty(question.difficulty || question.level) === canonicalDifficulty(difficulty));
