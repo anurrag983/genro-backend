@@ -966,7 +966,7 @@ async function generateAiReply(userText, attachment = null) {
             });
         }
 
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`, {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${apiKey}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -976,7 +976,7 @@ async function generateAiReply(userText, attachment = null) {
                         text: 'You are Genro AI, a friendly, encouraging study buddy for Indian Class 11-12 students preparing for NEET and board exams (Physics, Chemistry, Maths, Biology). Explain concepts simply and concisely, in the same mix of Hindi and English (Hinglish) the student writes in. Keep answers focused and exam-relevant.'
                     }]
                 },
-                generationConfig: { maxOutputTokens: 500 }
+                generationConfig: { maxOutputTokens: 1500 }
             })
         });
 
