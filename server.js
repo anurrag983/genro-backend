@@ -943,51 +943,50 @@ function sanitizeChatAttachment(rawAttachment) {
     }
     return { mime: match[1].toLowerCase(), data };
 }
-
 function fallbackAiReply(userText, hasAttachment = false) {
     const imageNote = hasAttachment ? ' Aapka attachment conversation mein securely save ho gaya hai. ' : ' ';
-    return `Aapne poocha: "${userText}".${imageNote}Abhi is server par koi live AI model connect nahi hai — ` +
-        `ANTHROPIC_API_KEY environment variable set karke real AI jawaab enable karein ` +
+    return `Aapne poocha: "${userText}".${imageNote}Abhi is server par koi live AI model connect nahi hai - ` +
+        `GEMINI_API_KEY environment variable set karke real AI jawaab enable karein ` +
         `(dekhein server.js mein generateAiReply function). Tab tak, Study section mein jaakar ` +
         `related topic dhoondh kar concept video dekhein!`;
 }
 
 async function generateAiReply(userText, attachment = null) {
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) return fallbackAiReply(userText, Boolean(attachment));
 
     try {
-        const response = await fetch('https://api.anthropic.com/v1/messages', {
+        const parts = [{ text: userText }];
+        if (attachment) {
+            parts.unshift({
+                inline_data: {
+                    mime_type: attachment.mime,
+                    data: attachment.data
+                }
+            });
+        }
+
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
             method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-                'x-api-key': apiKey,
-                'anthropic-version': '2023-06-01'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                model: process.env.ANTHROPIC_MODEL || 'claude-haiku-4-5-20251001',
-                max_tokens: 500,
-                system: 'You are Genro AI, a friendly, encouraging study buddy for Indian Class 11-12 ' +
-                    'students preparing for NEET and board exams (Physics, Chemistry, Maths, Biology). ' +
-                    'Explain concepts simply and concisely, in the same mix of Hindi and English (Hinglish) ' +
-                    'the student writes in. Keep answers focused and exam-relevant.',
-                messages: [{
-                    role: 'user',
-                    content: attachment
-                        ? [
-                            attachment.mime === 'application/pdf'
-                                ? { type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: attachment.data } }
-                                : { type: 'image', source: { type: 'base64', media_type: attachment.mime, data: attachment.data } },
-                            { type: 'text', text: userText }
-                        ]
-                        : userText
-                }]
+                contents: [{ parts }],
+                system_instruction: {
+                    parts: [{
+                        text: 'You are Genro AI, a friendly, encouraging study buddy for Indian Class 11-12 students preparing for NEET and board exams (Physics, Chemistry, Maths, Biology). Explain concepts simply and concisely, in the same mix of Hindi and English (Hinglish) the student writes in. Keep answers focused and exam-relevant.'
+                    }]
+                },
+                generationConfig: { maxOutputTokens: 500 }
             })
         });
 
-        if (!response.ok) throw new Error(`Anthropic API returned ${response.status}`);
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Gemini API returned ${response.status}: ${errorText}`);
+        }
+        
         const data = await response.json();
-        const text = data?.content?.find(block => block.type === 'text')?.text;
+        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
         return text || fallbackAiReply(userText, Boolean(attachment));
     } catch (err) {
         console.error('AI reply failed, using fallback:', err.message);
